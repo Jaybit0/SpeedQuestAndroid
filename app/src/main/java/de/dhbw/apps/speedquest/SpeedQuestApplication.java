@@ -6,6 +6,6 @@ import de.dhbw.apps.speedquest.client.SpeedQuestClient;
 
 public class SpeedQuestApplication extends Application {
 
-    public final SpeedQuestClient client = new SpeedQuestClient(this);
+    public final SpeedQuestClient client = new SpeedQuestClient();
 
 }

@@ -11,9 +11,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.koushikdutta.async.http.AsyncHttpClient;
-import com.koushikdutta.async.http.WebSocket;
 
-import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -26,7 +24,7 @@ public class SpeedQuestClient {
     private Map<String, Class<? extends Packet>> packetMapping = new HashMap<>();
     private Map<Class<? extends Packet>, PacketHandlerContext<? extends Packet>> packetHandlers = new HashMap<>();
 
-    public SpeedQuestClient(Application app) {
+    public SpeedQuestClient() {
     }
 
     public void connect(String ip, int port, String username, String key) {
@@ -37,67 +35,59 @@ public class SpeedQuestClient {
                 .appendQueryParameter("gamekey", key);
         Log.d("SpeedQuest", builder.build().toString());
 
-        AsyncHttpClient.getDefaultInstance().websocket(builder.build().toString(), "ws", new AsyncHttpClient.WebSocketConnectCallback() {
-            @Override
-            public void onCompleted(Exception ex, WebSocket webSocket) {
-                if (ex != null) {
-                    ex.printStackTrace();
-                    Log.d("SpeedQuest", ex.getMessage());
-                    return;
-                }
-                webSocket.setStringCallback(new WebSocket.StringCallback() {
-                    @Override
-                    public void onStringAvailable(String s) {
-                        Log.d("SpeedQuest", "Callback: " + s);
-                        JsonElement element = JsonParser.parseString(s);
 
-                        if (!element.isJsonObject())
-                            // TODO: Wrong packet format
-                            return;
-
-                        JsonObject jObj = element.getAsJsonObject();
-
-                        JsonElement packet = jObj.get("packet");
-
-                        if (packet == null || !packet.isJsonPrimitive())
-                            // TODO: Wrong packet format
-                            return;
-
-                        String packetID = packet.getAsString();
-
-                        Class<? extends Packet> mapping = packetMapping.get(packetID);
-
-                        Log.d("SpeedQuest", "Has packet mapping?");
-
-                        if (mapping == null)
-                            // TODO: No mapping
-                            return;
-
-                        Log.d("SpeedQuest", "Packet has mapping!");
-
-                        final Packet mappedPacket = new Gson().fromJson(jObj, mapping);
-                        final PacketHandlerContext<? extends Packet> handlerCtx = packetHandlers.get(mapping);
-
-                        if (handlerCtx != null) {
-                            try {
-                                final Method m = handlerCtx.handler.getClass().getMethod("handlePacket", mapping);
-                                handlerCtx.activity.runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        try {
-                                            m.invoke(handlerCtx.handler, mappedPacket);
-                                        } catch (IllegalAccessException | InvocationTargetException e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
-                                });
-                            } catch (NoSuchMethodException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-                });
+        AsyncHttpClient.getDefaultInstance().websocket(builder.build().toString(), "ws", (ex, webSocket) -> {
+            if (ex != null) {
+                ex.printStackTrace();
+                Log.d("SpeedQuest", ex.getMessage());
+                return;
             }
+            webSocket.setStringCallback(s -> {
+                Log.d("SpeedQuest", "Callback: " + s);
+                JsonElement element = JsonParser.parseString(s);
+
+                if (!element.isJsonObject())
+                    // TODO: Wrong packet format
+                    return;
+
+                JsonObject jObj = element.getAsJsonObject();
+
+                JsonElement packet = jObj.get("packet");
+
+                if (packet == null || !packet.isJsonPrimitive())
+                    // TODO: Wrong packet format
+                    return;
+
+                String packetID = packet.getAsString();
+
+                Class<? extends Packet> mapping = packetMapping.get(packetID);
+
+                Log.d("SpeedQuest", "Has packet mapping?");
+
+                if (mapping == null)
+                    // TODO: No mapping
+                    return;
+
+                Log.d("SpeedQuest", "Packet has mapping!");
+
+                final Packet mappedPacket = new Gson().fromJson(jObj, mapping);
+                final PacketHandlerContext<? extends Packet> handlerCtx = packetHandlers.get(mapping);
+
+                if (handlerCtx != null) {
+                    try {
+                        final Method m = handlerCtx.handler.getClass().getMethod("handlePacket", mapping);
+                        handlerCtx.activity.runOnUiThread(() -> {
+                                try {
+                                    m.invoke(handlerCtx.handler, mappedPacket);
+                                } catch (IllegalAccessException | InvocationTargetException e) {
+                                    e.printStackTrace();
+                                }
+                        });
+                    } catch (NoSuchMethodException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
         });
     }
 

@@ -20,6 +20,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void tryConnect() {
         SpeedQuestApplication app = (SpeedQuestApplication)getApplication();
-        app.client.connect("194.62.29.124", 4430, "Hans", "VNPM");
+        app.client.connect("194.62.29.124", 4430, "Hans", "WNGJ");
     }
 }
