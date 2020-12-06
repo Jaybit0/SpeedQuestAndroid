@@ -2,18 +2,25 @@ package de.dhbw.apps.speedquest.client;
 
 import android.util.Log;
 
+import java.util.Collection;
 import java.util.HashMap;
 
+import de.dhbw.apps.speedquest.SpeedQuestApplication;
 import de.dhbw.apps.speedquest.client.infos.TaskInfo;
 import de.dhbw.apps.speedquest.client.infos.UserInfo;
 import de.dhbw.apps.speedquest.client.packets.PacketGameStateChange;
 import de.dhbw.apps.speedquest.client.packets.PacketInitialize;
 import de.dhbw.apps.speedquest.client.packets.PacketPlayerUpdate;
 import de.dhbw.apps.speedquest.client.packets.PacketTaskAssign;
+import de.dhbw.apps.speedquest.client.packets.internal.PacketGameInitialized;
+import de.dhbw.apps.speedquest.client.packets.internal.PacketGameStateChanged;
+import de.dhbw.apps.speedquest.client.packets.internal.PacketQuit;
 
 public class GameCache {
 
     private final Object lock = new Object();
+
+    private SpeedQuestApplication app;
     private boolean initialized = false;
     private GameState state = GameState.DISCONNECTED;
     private int round = 0;
@@ -21,11 +28,43 @@ public class GameCache {
     private HashMap<String, UserInfo> users = new HashMap<>();
     private TaskInfo currentTask = null;
 
+    public GameCache(SpeedQuestApplication app) {
+        this.app = app;
+    }
+
+    public void register() {
+        app.client.registerPacketHandler(this::init, PacketInitialize.class);
+        app.client.registerPacketHandler(this::updatePlayers, PacketPlayerUpdate.class);
+        app.client.registerPacketHandler(this::updateGameState, PacketGameStateChange.class);
+        app.client.registerPacketHandler(this::assignTask, PacketTaskAssign.class);
+        app.client.registerPacketHandler(this::onQuit, PacketQuit.class);
+    }
+
     public boolean isInitialized() {
         return initialized;
     }
 
-    void init(PacketInitialize initPacket, SpeedQuestClient client) {
+    public GameState getGameState() {
+        return state;
+    }
+
+    public UserInfo getSelf() {
+        return users.get(self);
+    }
+
+    public Collection<UserInfo> getUsers() {
+        return users.values();
+    }
+
+    public int getRound() {
+        return round;
+    }
+
+    public TaskInfo getCurrentTask() {
+        return currentTask;
+    }
+
+    private void init(PacketInitialize initPacket, SpeedQuestClient client) {
         synchronized (lock) {
             users.clear();
 
@@ -35,33 +74,53 @@ public class GameCache {
 
             self = initPacket.getSelf().name;
             initialized = true;
+            client.callPacketInUITask(new PacketGameInitialized());
+            changeGameState(GameState.WAITING);
         }
 
         Log.d("SpeedQuest", "GameCache: Initialized.");
     }
 
-    void updatePlayers(PacketPlayerUpdate playerUpdatePacket, SpeedQuestClient client) {
+    private void updatePlayers(PacketPlayerUpdate playerUpdatePacket, SpeedQuestClient client) {
         synchronized (lock) {
             for (UserInfo user : playerUpdatePacket.getUpdatedPlayers()) {
                 users.put(user.name, user);
             }
         }
 
-        Log.d("SpeedQuest", "Gamecache: Players updated.");
+        Log.d("SpeedQuest", "GameCache: Players updated.");
     }
 
-    void updateGameState(PacketGameStateChange gameStateChangePacket, SpeedQuestClient client) {
+    private void updateGameState(PacketGameStateChange gameStateChangePacket, SpeedQuestClient client) {
         synchronized (lock) {
             for (UserInfo info : gameStateChangePacket.getUpdatedPlayers()) {
                 users.put(info.name, info);
             }
 
-            state = gameStateChangePacket.getNewState();
             round = gameStateChangePacket.getRound();
+            changeGameState(gameStateChangePacket.getNewState());
         }
     }
 
-    void assignTask(PacketTaskAssign taskAssignPacket, SpeedQuestClient client) {
+    private void assignTask(PacketTaskAssign taskAssignPacket, SpeedQuestClient client) {
         currentTask = taskAssignPacket.getTask();
+    }
+
+    private void onQuit(PacketQuit packet, SpeedQuestClient client) {
+        changeGameState(GameState.DISCONNECTED);
+        initialized = false;
+        self = null;
+        users.clear();
+        currentTask = null;
+        round = 0;
+    }
+
+    private void changeGameState(GameState newState) {
+        if (state == newState)
+            return;
+
+        GameState oldState = state;
+        state = newState;
+        app.client.callPacketInUITask(new PacketGameStateChanged(oldState, newState));
     }
 }

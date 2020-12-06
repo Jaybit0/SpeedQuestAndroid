@@ -2,6 +2,7 @@ package de.dhbw.apps.speedquest;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -11,6 +12,7 @@ import java.io.IOException;
 
 import de.dhbw.apps.speedquest.client.SpeedQuestClient;
 import de.dhbw.apps.speedquest.client.packets.PacketInitialize;
+import de.dhbw.apps.speedquest.client.packets.internal.PacketGameInitialized;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,13 +30,14 @@ public class MainActivity extends AppCompatActivity {
 
     private void tryConnect(String username, String key) {
         SpeedQuestApplication app = (SpeedQuestApplication)getApplication();
-        app.client.registerPacketHandler(this::handleInitPacket, PacketInitialize.class, this);
+        app.client.registerPacketHandler(this::handleInitPacket, PacketGameInitialized.class, this);
         app.client.tryConnect("project-talk.me", 4430, username, key);
     }
 
-    private void handleInitPacket(PacketInitialize initPacket, SpeedQuestClient client) {
+    private void handleInitPacket(PacketGameInitialized initPacket, SpeedQuestClient client) {
         Log.d("SpeedQuest", "Initialize-packet arrived.");
-        Log.d("SpeedQuest", "Gamekey: " + initPacket.getGamekey());
-        Log.d("SpeedQuest", "Self: " + initPacket.getSelf().name);
+
+        Intent intent = new Intent(this, LobbyActivity.class);
+        startActivity(intent);
     }
 }

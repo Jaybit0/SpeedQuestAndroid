@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 public abstract class Packet {
 
     @SerializedName("packet")
-    private String packetID;
+    protected String packetID;
 
     public String getPacketID() {
         return packetID;

@@ -1,5 +1,6 @@
 package de.dhbw.apps.speedquest.client;
 
+import android.app.Application;
 import android.net.Uri;
 import android.util.Log;
 
@@ -21,25 +22,29 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
+import de.dhbw.apps.speedquest.SpeedQuestApplication;
 import de.dhbw.apps.speedquest.client.packets.Packet;
-import de.dhbw.apps.speedquest.client.packets.PacketGameStateChange;
-import de.dhbw.apps.speedquest.client.packets.PacketInitialize;
-import de.dhbw.apps.speedquest.client.packets.PacketPlayerUpdate;
-import de.dhbw.apps.speedquest.client.packets.PacketTaskAssign;
+import de.dhbw.apps.speedquest.client.packets.internal.PacketQuit;
 
 public class SpeedQuestClient {
 
     private final Object lock = new Object();
+
+    private SpeedQuestApplication app;
     private boolean connecting = false;
     private boolean connected = false;
     private Map<String, Class<? extends Packet>> packetMapping = new HashMap<>();
     private Map<Class<? extends Packet>, List<PacketHandlerContext<? extends Packet>>> packetHandlers = new HashMap<>();
-    private GameCache gameCache = new GameCache();
+    private GameCache gameCache;
     private WebSocket currentSocket = null;
 
-    public SpeedQuestClient() {
+    public SpeedQuestClient(SpeedQuestApplication app) {
+        this.app = app;
+
         init();
+        gameCache = new GameCache(app);
     }
 
     public boolean canConnect() {
@@ -101,6 +106,7 @@ public class SpeedQuestClient {
                     connecting = false;
                     connected = false;
                     currentSocket = null;
+                    callPacketInUITask(new PacketQuit());
                 }
             });
             webSocket.setStringCallback(s -> {
@@ -137,12 +143,24 @@ public class SpeedQuestClient {
         });
     }
 
+    public void disconnect() {
+        synchronized (lock) {
+            if (!canConnect()) {
+                currentSocket.close();
+            }
+        }
+    }
+
     public <T extends Packet> boolean sendAsync(@NonNull T packet) {
         synchronized (lock) {
+            Log.d("SpeedQuest", "Trying to send: " + new Gson().toJson(packet));
             if (isConnected() && currentSocket != null) {
                 currentSocket.send(new Gson().toJson(packet));
+                Log.d("SpeedQuest", "Could send!");
                 return true;
             }
+
+            Log.d("SpeedQuest", "Failed to send!");
 
             return false;
         }
@@ -155,7 +173,21 @@ public class SpeedQuestClient {
         }
     }
 
-    public <T extends Packet> void registerPacketHandler(@NonNull PacketHandler<T> packetHandler, @NonNull Class<T> packetType, @Nullable AppCompatActivity activity) throws IllegalArgumentException {
+    public void unregisterMappingsOfActivity(@NonNull AppCompatActivity activity) {
+        synchronized (lock) {
+            for (Map.Entry<Class<? extends Packet>, List<PacketHandlerContext<? extends Packet>>> entry : packetHandlers.entrySet())
+                entry.getValue().removeIf(handler -> handler.activity == activity);
+        }
+    }
+
+    public void unregisterMappingsOfID(@NonNull UUID id) {
+        synchronized (lock) {
+            for (Map.Entry<Class<? extends Packet>, List<PacketHandlerContext<? extends Packet>>> entry : packetHandlers.entrySet())
+                entry.getValue().removeIf(handler -> handler.id.equals(id));
+        }
+    }
+
+    public <T extends Packet> void registerPacketHandler(@NonNull PacketHandler<T> packetHandler, @NonNull Class<T> packetType, @Nullable AppCompatActivity activity, @Nullable UUID id) throws IllegalArgumentException {
         registerPacket(packetType);
 
         synchronized (lock) {
@@ -166,8 +198,16 @@ public class SpeedQuestClient {
                 packetHandlers.put(packetType, handlerContexts);
             }
 
-            handlerContexts.add(new PacketHandlerContext<T>(packetHandler, activity));
+            handlerContexts.add(new PacketHandlerContext<T>(id == null ? UUID.randomUUID() : id, packetHandler, activity));
         }
+    }
+
+    public <T extends Packet> void registerPacketHandler(@NonNull PacketHandler<T> packetHandler, @NonNull Class<T> packetType, @Nullable AppCompatActivity activity) throws IllegalArgumentException {
+        registerPacketHandler(packetHandler, packetType, activity, null);
+    }
+
+    public <T extends Packet> void registerPacketHandler(@NonNull PacketHandler<T> packetHandler, @NonNull Class<T> packetType) throws IllegalArgumentException {
+        registerPacketHandler(packetHandler, packetType, null, null);
     }
 
     public <T extends Packet> void registerPacket(@NonNull Class<T> packetType) throws IllegalArgumentException {
@@ -191,6 +231,7 @@ public class SpeedQuestClient {
 
     public void callPacketInUITask(@NonNull Packet packet) {
         synchronized (lock) {
+            Log.d("SpeedQuest", "Calling packet: " + packet.getClass().getName());
             final List<PacketHandlerContext<? extends Packet>> handlerCtxs = packetHandlers.get(packet.getClass());
 
             if (handlerCtxs == null)
@@ -198,35 +239,41 @@ public class SpeedQuestClient {
 
             for (PacketHandlerContext<? extends Packet> handlerCtx : handlerCtxs) {
                 try {
-                    final Method m = handlerCtx.handler.getClass().getMethod("handlePacket", Packet.class);
+                    Log.d("SpeedQuest", "Calling packet-handler...");
+                    final Method m = handlerCtx.handler.getClass().getMethod("handlePacket", Packet.class, SpeedQuestClient.class);
 
                     if (handlerCtx.activity == null) {
                         try {
-                            m.invoke(handlerCtx.handler, packet);
+                            m.invoke(handlerCtx.handler, packet, this);
                         } catch (IllegalAccessException | InvocationTargetException e) {
-                            e.printStackTrace();
+                            Log.e("SpeedQuest", e.getMessage() != null ? e.getMessage() : "", e);
                         }
                         continue;
                     }
 
                     handlerCtx.activity.runOnUiThread(() -> {
                         try {
-                            m.invoke(handlerCtx.handler, packet);
+                            m.invoke(handlerCtx.handler, packet, this);
                         } catch (IllegalAccessException | InvocationTargetException e) {
-                            e.printStackTrace();
+                            Log.e("SpeedQuest", e.getMessage() != null ? e.getMessage() : "", e);
                         }
                     });
                 } catch (NoSuchMethodException e) {
-                    e.printStackTrace();
+                    Log.e("SpeedQuest", e.getMessage() != null ? e.getMessage() : "", e);
                 }
             }
         }
     }
 
+    public void onQuit(PacketQuit packet, SpeedQuestClient client) {
+        synchronized (lock) {
+            connecting = false;
+            connected = false;
+            currentSocket = null;
+        }
+    }
+
     private void init() {
-        registerPacketHandler(gameCache::init, PacketInitialize.class, null);
-        registerPacketHandler(gameCache::updatePlayers, PacketPlayerUpdate.class, null);
-        registerPacketHandler(gameCache::updateGameState, PacketGameStateChange.class, null);
-        registerPacketHandler(gameCache::assignTask, PacketTaskAssign.class, null);
+        registerPacketHandler(this::onQuit, PacketQuit.class);
     }
 }
