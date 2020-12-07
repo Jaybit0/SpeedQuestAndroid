@@ -4,33 +4,21 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 
 import de.dhbw.apps.speedquest.client.GameState;
 import de.dhbw.apps.speedquest.client.SpeedQuestClient;
-import de.dhbw.apps.speedquest.client.infos.StartInfo;
-import de.dhbw.apps.speedquest.client.packets.PacketStartGame;
 import de.dhbw.apps.speedquest.client.packets.internal.PacketGameStateChanged;
 import de.dhbw.apps.speedquest.client.packets.internal.PacketQuit;
+import de.dhbw.apps.speedquest.client.packets.internal.PacketTaskAssigned;
 
-public class LobbyActivity extends AppCompatActivity {
+public class FinishedActivity extends AppCompatActivity {
 
     private boolean disconnectOnStop = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lobby);
-
-        SpeedQuestApplication app = (SpeedQuestApplication)getApplication();
-
-        Button buttonStart = findViewById(R.id.buttonStart);
-        buttonStart.setVisibility(app.client.getGameCache().getSelf().isHost ? View.VISIBLE : View.INVISIBLE);
-        buttonStart.setOnClickListener(v -> startGame());
-
-        Button buttonQuit = findViewById(R.id.buttonQuit);
-        buttonQuit.setOnClickListener(v -> quitGame());
+        setContentView(R.layout.activity_finished);
     }
 
     @Override
@@ -38,7 +26,6 @@ public class LobbyActivity extends AppCompatActivity {
         super.onStart();
         disconnectOnStop = true;
         SpeedQuestApplication app = (SpeedQuestApplication)getApplication();
-        app.client.registerPacketHandler(this::onQuit, PacketQuit.class, this);
         app.client.registerPacketHandler(this::onGameStateChanged, PacketGameStateChanged.class, this);
     }
 
@@ -50,28 +37,6 @@ public class LobbyActivity extends AppCompatActivity {
 
         if (disconnectOnStop)
             app.client.disconnect();
-    }
-
-    public void startGame() {
-        SpeedQuestApplication app = (SpeedQuestApplication)getApplication();
-
-        if (!app.client.getGameCache().getSelf().isHost)
-            return;
-
-        PacketStartGame startPacket = new PacketStartGame(new StartInfo(3));
-
-        app.client.sendAsync(startPacket);
-    }
-
-    public void quitGame() {
-        disconnectOnStop = true;
-        finish();
-    }
-
-    public void onQuit(PacketQuit packet, SpeedQuestClient client) {
-        Intent i = new Intent(this, MainActivity.class);
-        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(i);
     }
 
     public void onGameStateChanged(PacketGameStateChanged packet, SpeedQuestClient client) {
