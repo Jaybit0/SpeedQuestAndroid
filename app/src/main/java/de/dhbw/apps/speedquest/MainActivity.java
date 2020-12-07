@@ -28,16 +28,30 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void tryConnect(String username, String key) {
+    @Override
+    protected void onStart() {
+        super.onStart();
         SpeedQuestApplication app = (SpeedQuestApplication)getApplication();
         app.client.registerPacketHandler(this::handleInitPacket, PacketGameInitialized.class, this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        SpeedQuestApplication app = (SpeedQuestApplication)getApplication();
+        app.client.unregisterMappingsOfActivity(this);
+        Log.d("SpeedQuest", "Stopped main activity.");
+    }
+
+    private void tryConnect(String username, String key) {
+        SpeedQuestApplication app = (SpeedQuestApplication)getApplication();
         app.client.tryConnect("project-talk.me", 4430, username, key);
     }
 
     private void handleInitPacket(PacketGameInitialized initPacket, SpeedQuestClient client) {
         Log.d("SpeedQuest", "Initialize-packet arrived.");
 
-        Intent intent = new Intent(this, LobbyActivity.class);
-        startActivity(intent);
+        Intent i = new Intent(this, LobbyActivity.class);
+        startActivity(i);
     }
 }

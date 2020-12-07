@@ -15,6 +15,7 @@ import de.dhbw.apps.speedquest.client.packets.PacketTaskAssign;
 import de.dhbw.apps.speedquest.client.packets.internal.PacketGameInitialized;
 import de.dhbw.apps.speedquest.client.packets.internal.PacketGameStateChanged;
 import de.dhbw.apps.speedquest.client.packets.internal.PacketQuit;
+import de.dhbw.apps.speedquest.client.packets.internal.PacketTaskAssigned;
 
 public class GameCache {
 
@@ -104,6 +105,7 @@ public class GameCache {
 
     private void assignTask(PacketTaskAssign taskAssignPacket, SpeedQuestClient client) {
         currentTask = taskAssignPacket.getTask();
+        app.client.callPacketInUITask(new PacketTaskAssigned(currentTask));
     }
 
     private void onQuit(PacketQuit packet, SpeedQuestClient client) {

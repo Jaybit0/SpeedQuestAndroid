@@ -1,6 +1,5 @@
 package de.dhbw.apps.speedquest.client;
 
-import android.app.Application;
 import android.net.Uri;
 import android.util.Log;
 
@@ -81,14 +80,14 @@ public class SpeedQuestClient {
         }
 
         Uri.Builder builder = new Uri.Builder();
-        builder.scheme("ws")
+        builder.scheme("wss")
                 .encodedAuthority(ip + ":" + port)
                 .appendQueryParameter("name", username)
                 .appendQueryParameter("gamekey", key);
         Log.d("SpeedQuest", "Connecting to: " + builder.build().toString() + "...");
 
 
-        AsyncHttpClient.getDefaultInstance().websocket(builder.build().toString(), "ws", (ex, webSocket) -> {
+        AsyncHttpClient.getDefaultInstance().websocket(builder.build().toString(), "wss", (ex, webSocket) -> {
             synchronized (lock) {
                 connecting = false;
                 connected = ex == null;
@@ -146,21 +145,18 @@ public class SpeedQuestClient {
     public void disconnect() {
         synchronized (lock) {
             if (!canConnect()) {
-                currentSocket.close();
+                currentSocket.end();
             }
         }
     }
 
     public <T extends Packet> boolean sendAsync(@NonNull T packet) {
         synchronized (lock) {
-            Log.d("SpeedQuest", "Trying to send: " + new Gson().toJson(packet));
+            Log.d("SpeedQuest", "Sending: " + new Gson().toJson(packet));
             if (isConnected() && currentSocket != null) {
                 currentSocket.send(new Gson().toJson(packet));
-                Log.d("SpeedQuest", "Could send!");
                 return true;
             }
-
-            Log.d("SpeedQuest", "Failed to send!");
 
             return false;
         }
@@ -239,7 +235,6 @@ public class SpeedQuestClient {
 
             for (PacketHandlerContext<? extends Packet> handlerCtx : handlerCtxs) {
                 try {
-                    Log.d("SpeedQuest", "Calling packet-handler...");
                     final Method m = handlerCtx.handler.getClass().getMethod("handlePacket", Packet.class, SpeedQuestClient.class);
 
                     if (handlerCtx.activity == null) {
