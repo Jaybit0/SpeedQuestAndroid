@@ -6,6 +6,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 
 import java.util.HashMap;
@@ -17,6 +18,7 @@ import de.dhbw.apps.speedquest.client.SpeedQuestClient;
 import de.dhbw.apps.speedquest.client.packets.internal.PacketGameStateChanged;
 import de.dhbw.apps.speedquest.client.packets.internal.PacketTaskAssigned;
 import de.dhbw.apps.speedquest.game.GameHandler;
+import de.dhbw.apps.speedquest.game.handlers.ColorTapGameHandler;
 import de.dhbw.apps.speedquest.game.handlers.UnavailbleGameHandler;
 
 public class IngameActivity extends AppCompatActivity {
@@ -70,12 +72,13 @@ public class IngameActivity extends AppCompatActivity {
 
         activeHandler = packet.getAssignedTask() == null ? defaultHandler : availableHandlers.getOrDefault(packet.getAssignedTask().getName(), defaultHandler);
         activeHandler.setHandlerID(UUID.randomUUID());
-        getLayoutInflater().inflate(activeHandler.getGameResource(), miniGameContainer);
-        activeHandler.initialize(packet.getAssignedTask());
+        View v = getLayoutInflater().inflate(activeHandler.getGameResource(), miniGameContainer);
+        activeHandler.initialize(v, packet.getAssignedTask());
         activeHandler.registerPacketHandlers();
     }
 
     private void addAvailableHandlers() {
+        availableHandlers.put("colortap", new ColorTapGameHandler(this));
     }
 
     private void onGameStateChanged(PacketGameStateChanged packet, SpeedQuestClient client) {

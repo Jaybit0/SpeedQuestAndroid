@@ -7,27 +7,28 @@ import de.dhbw.apps.speedquest.R;
 import de.dhbw.apps.speedquest.client.infos.TaskInfo;
 import de.dhbw.apps.speedquest.game.GameHandler;
 
-public class UnavailbleGameHandler extends GameHandler {
+public class ColorTapGameHandler extends GameHandler {
 
-
-    public UnavailbleGameHandler(IngameActivity activity) {
+    public ColorTapGameHandler(IngameActivity activity) {
         super(activity);
     }
 
     @Override
     public int getGameResource() {
-        return R.layout.game_unknown;
+        return R.layout.game_colortap;
     }
 
     @Override
-    public void initialize(View inflatedView, TaskInfo info) {
+    public void initialize(View inflatedView, TaskInfo task) {
     }
 
     @Override
     public void registerPacketHandlers() {
+
     }
 
     @Override
     public void onEnd() {
+
     }
 }

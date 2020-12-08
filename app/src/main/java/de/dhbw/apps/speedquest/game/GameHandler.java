@@ -1,5 +1,7 @@
 package de.dhbw.apps.speedquest.game;
 
+import android.view.View;
+
 import java.util.UUID;
 
 import de.dhbw.apps.speedquest.IngameActivity;
@@ -19,7 +21,7 @@ public abstract class GameHandler {
 
     public abstract int getGameResource();
 
-    public abstract void initialize(TaskInfo task);
+    public abstract void initialize(View inflatedView, TaskInfo task);
 
     public abstract void registerPacketHandlers();
 
