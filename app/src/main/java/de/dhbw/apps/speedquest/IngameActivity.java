@@ -66,15 +66,34 @@ public class IngameActivity extends AppCompatActivity {
     private void onTaskAssigned(PacketTaskAssigned packet, SpeedQuestClient client) {
         if (activeHandler != null) {
                 client.unregisterMappingsOfID(activeHandler.getHandlerID());
-                activeHandler.onEnd();
+                try {
+                    activeHandler.onEnd();
+                } catch (Exception e) {
+                    Log.e("SpeedQuest", "", e);
+                }
                 miniGameContainer.removeAllViews();
         }
 
-        activeHandler = packet.getAssignedTask() == null ? defaultHandler : availableHandlers.getOrDefault(packet.getAssignedTask().getName(), defaultHandler);
+        if (packet == null || packet.getAssignedTask() == null) {
+            handleNullAssigned();
+        } else {
+            activeHandler = availableHandlers.getOrDefault(packet.getAssignedTask().getName(), defaultHandler);
+            activeHandler.setHandlerID(UUID.randomUUID());
+            View v = getLayoutInflater().inflate(activeHandler.getGameResource(), miniGameContainer);
+            try {
+                activeHandler.initialize(v, packet.getAssignedTask());
+                activeHandler.registerPacketHandlers();
+            } catch (Exception e) {
+                Log.e("SpeedQuest", "", e);
+            }
+        }
+    }
+
+    private void handleNullAssigned() {
+        activeHandler = defaultHandler;
         activeHandler.setHandlerID(UUID.randomUUID());
         View v = getLayoutInflater().inflate(activeHandler.getGameResource(), miniGameContainer);
-        activeHandler.initialize(v, packet.getAssignedTask());
-        activeHandler.registerPacketHandlers();
+        activeHandler.initialize(v, null);
     }
 
     private void addAvailableHandlers() {

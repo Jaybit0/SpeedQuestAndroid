@@ -17,6 +17,15 @@ public class TaskInfo {
     @SerializedName("parameters")
     private HashMap<String, Object> params;
 
+    public TaskInfo() {
+    }
+
+    public TaskInfo(String name, String rating, HashMap<String, Object> params) {
+        this.name = name;
+        this.rating = rating;
+        this.params = params;
+    }
+
     public String getName() {
         return name;
     }
@@ -27,6 +36,14 @@ public class TaskInfo {
 
     public Object getParam(String param) {
         return params.get(param);
+    }
+
+    public <T> T getParam(String param, T defaultValue) {
+        try {
+            return (T)params.getOrDefault(param, defaultValue);
+        } catch (ClassCastException e) {
+            return defaultValue;
+        }
     }
 
     public Set<Map.Entry<String, Object>> getParams() {

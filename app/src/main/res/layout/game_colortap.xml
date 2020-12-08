@@ -9,15 +9,56 @@
         android:id="@+id/textTaskColorTap"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tap the screen when it is [color]"
+        android:text="Tap the screen when it is:"
         android:textSize="20sp"
         android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
          />
 
+    <TextView
+        android:id="@+id/textTaskColorTapColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="RED"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:textColor="@android:color/holo_red_light"
+        app:layout_constraintStart_toEndOf="@id/textTaskColorTap"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/textTaskColorTapFailed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Missed: "
+        android:textSize="20sp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textTaskColorTap"
+        />
+
+    <TextView
+        android:id="@+id/textTaskColorTapFailedCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:textColor="@android:color/holo_red_light"
+        app:layout_constraintStart_toEndOf="@id/textTaskColorTapFailed"
+        app:layout_constraintTop_toBottomOf="@id/textTaskColorTap"
+        />
+
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewColorTap"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
@@ -26,7 +67,7 @@
         android:layout_marginBottom="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textTaskColorTap"
+        app:layout_constraintTop_toBottomOf="@id/textTaskColorTapFailed"
         app:layout_constraintBottom_toBottomOf="parent"
         app:cardBackgroundColor="@android:color/holo_green_light"
         app:cardCornerRadius="20dp"/>
