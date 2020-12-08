@@ -7,26 +7,14 @@ import de.dhbw.apps.speedquest.client.packets.Packet;
 @PacketID("internal.statechanged")
 public class PacketGameStateChanged extends Packet {
 
-    private GameState oldState;
-    private GameState newState;
-    private int newRound;
+    private GameState state;
 
-    public PacketGameStateChanged(GameState oldState, GameState newState, int newRound) {
-        this.oldState = oldState;
-        this.newState = newState;
-        this.newRound = newRound;
+    public PacketGameStateChanged(GameState state) {
+        this.state = state;
     }
 
-    public GameState getOldState() {
-        return oldState;
+    public GameState getState() {
+        return state;
     }
-
-    public GameState getNewState() {
-        return newState;
-    }
-
-    public int getNewRound() { return newRound; };
-
-    public boolean stateChanged() { return oldState != newState; }
 
 }

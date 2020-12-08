@@ -1,6 +1,8 @@
 package de.dhbw.apps.speedquest;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,10 +15,13 @@ import de.dhbw.apps.speedquest.client.infos.StartInfo;
 import de.dhbw.apps.speedquest.client.packets.PacketStartGame;
 import de.dhbw.apps.speedquest.client.packets.internal.PacketGameStateChanged;
 import de.dhbw.apps.speedquest.client.packets.internal.PacketQuit;
+import de.dhbw.apps.speedquest.viewmodel.PlayerListAdapter;
+import de.dhbw.apps.speedquest.viewmodel.PlayerListModel;
 
 public class LobbyActivity extends AppCompatActivity {
 
     private boolean disconnectOnStop = true;
+    private PlayerListModel listModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +29,11 @@ public class LobbyActivity extends AppCompatActivity {
         setContentView(R.layout.activity_lobby);
 
         SpeedQuestApplication app = (SpeedQuestApplication)getApplication();
+
+        listModel = new PlayerListModel(PlayerListAdapter.PlayerViewMode.LobbyScreen, this, app.client);
+        RecyclerView listView = findViewById(R.id.lobbyPlayerList);
+        listView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
+        listView.setAdapter(listModel.getAdapter());
 
         Button buttonStart = findViewById(R.id.buttonStart);
         buttonStart.setVisibility(app.client.getGameCache().getSelf().isHost ? View.VISIBLE : View.INVISIBLE);
@@ -40,6 +50,8 @@ public class LobbyActivity extends AppCompatActivity {
         SpeedQuestApplication app = (SpeedQuestApplication)getApplication();
         app.client.registerPacketHandler(this::onQuit, PacketQuit.class, this);
         app.client.registerPacketHandler(this::onGameStateChanged, PacketGameStateChanged.class, this);
+
+        listModel.initialize();
     }
 
     @Override
@@ -75,20 +87,17 @@ public class LobbyActivity extends AppCompatActivity {
     }
 
     public void onGameStateChanged(PacketGameStateChanged packet, SpeedQuestClient client) {
-        if (!packet.stateChanged())
-            return;
-
-        if (packet.getNewState() == GameState.IN_GAME) {
+        if (packet.getState() == GameState.IN_GAME) {
             Intent i = new Intent(this, IngameActivity.class);
             startActivity(i);
             disconnectOnStop = false;
             finish();
-        } else if (packet.getNewState() == GameState.FINISHED) {
+        } else if (packet.getState() == GameState.FINISHED) {
             Intent i = new Intent(this, FinishedActivity.class);
             startActivity(i);
             disconnectOnStop = false;
             finish();
-        } else if (packet.getNewState() == GameState.WAITING) {
+        } else if (packet.getState() == GameState.WAITING) {
             Intent i = new Intent(this, LobbyActivity.class);
             startActivity(i);
             disconnectOnStop = false;

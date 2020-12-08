@@ -8,13 +8,19 @@ import de.dhbw.apps.speedquest.client.packets.Packet;
 public class PacketTaskAssigned extends Packet {
 
     private TaskInfo assignedTask;
+    private int round;
 
-    public PacketTaskAssigned(TaskInfo info) {
+    public PacketTaskAssigned(TaskInfo info, int round) {
         assignedTask = info;
+        this.round = round;
     }
 
     public TaskInfo getAssignedTask() {
         return assignedTask;
+    }
+
+    public int getRound() {
+        return round;
     }
 
 }

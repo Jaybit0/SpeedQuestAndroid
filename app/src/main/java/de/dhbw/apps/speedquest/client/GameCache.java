@@ -2,8 +2,11 @@ package de.dhbw.apps.speedquest.client;
 
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 
 import de.dhbw.apps.speedquest.SpeedQuestApplication;
 import de.dhbw.apps.speedquest.client.infos.TaskInfo;
@@ -12,10 +15,13 @@ import de.dhbw.apps.speedquest.client.packets.PacketGameStateChange;
 import de.dhbw.apps.speedquest.client.packets.PacketInitialize;
 import de.dhbw.apps.speedquest.client.packets.PacketPlayerUpdate;
 import de.dhbw.apps.speedquest.client.packets.PacketTaskAssign;
+import de.dhbw.apps.speedquest.client.packets.PacketTaskFinish;
 import de.dhbw.apps.speedquest.client.packets.internal.PacketGameInitialized;
 import de.dhbw.apps.speedquest.client.packets.internal.PacketGameStateChanged;
+import de.dhbw.apps.speedquest.client.packets.internal.PacketPlayerUpdated;
 import de.dhbw.apps.speedquest.client.packets.internal.PacketQuit;
 import de.dhbw.apps.speedquest.client.packets.internal.PacketTaskAssigned;
+import de.dhbw.apps.speedquest.client.packets.internal.PacketTaskFinished;
 
 public class GameCache {
 
@@ -27,6 +33,7 @@ public class GameCache {
     private int round = 0;
     private String self;
     private HashMap<String, UserInfo> users = new HashMap<>();
+    private List<UserInfo> lastScores = new ArrayList<>();
     private TaskInfo currentTask = null;
 
     public GameCache(SpeedQuestApplication app) {
@@ -38,6 +45,7 @@ public class GameCache {
         app.client.registerPacketHandler(this::updatePlayers, PacketPlayerUpdate.class);
         app.client.registerPacketHandler(this::updateGameState, PacketGameStateChange.class);
         app.client.registerPacketHandler(this::assignTask, PacketTaskAssign.class);
+        app.client.registerPacketHandler(this::finishTask, PacketTaskFinish.class);
         app.client.registerPacketHandler(this::onQuit, PacketQuit.class);
     }
 
@@ -55,6 +63,10 @@ public class GameCache {
 
     public Collection<UserInfo> getUsers() {
         return users.values();
+    }
+
+    public List<UserInfo> getLastUserScores() {
+        return lastScores;
     }
 
     public int getRound() {
@@ -76,7 +88,7 @@ public class GameCache {
             self = initPacket.getSelf().name;
             initialized = true;
             client.callPacketInUITask(new PacketGameInitialized());
-            changeGameState(GameState.WAITING, 0);
+            changeGameState(GameState.WAITING);
         }
 
         Log.d("SpeedQuest", "GameCache: Initialized.");
@@ -87,6 +99,7 @@ public class GameCache {
             for (UserInfo user : playerUpdatePacket.getUpdatedPlayers()) {
                 users.put(user.name, user);
             }
+            client.callPacketInUITask(new PacketPlayerUpdated(users.values(), Arrays.asList(playerUpdatePacket.getUpdatedPlayers())));
         }
 
         Log.d("SpeedQuest", "GameCache: Players updated.");
@@ -94,22 +107,29 @@ public class GameCache {
 
     private void updateGameState(PacketGameStateChange gameStateChangePacket, SpeedQuestClient client) {
         synchronized (lock) {
-            for (UserInfo info : gameStateChangePacket.getUpdatedPlayers()) {
-                users.put(info.name, info);
-            }
-
-            round = gameStateChangePacket.getRound();
-            changeGameState(gameStateChangePacket.getNewState(), gameStateChangePacket.getRound());
+            changeGameState(gameStateChangePacket.getNewState());
         }
     }
 
     private void assignTask(PacketTaskAssign taskAssignPacket, SpeedQuestClient client) {
         currentTask = taskAssignPacket.getTask();
-        app.client.callPacketInUITask(new PacketTaskAssigned(currentTask));
+        round = taskAssignPacket.getRound();
+        app.client.callPacketInUITask(new PacketTaskAssigned(currentTask, round));
+    }
+
+    private void finishTask(PacketTaskFinish finishTaskPacket, SpeedQuestClient client) {
+        synchronized (lock) {
+            for (UserInfo info : finishTaskPacket.getRoundscores()) {
+                users.put(info.name, info);
+            }
+            lastScores.clear();
+            lastScores.addAll(Arrays.asList(finishTaskPacket.getRoundscores()));
+            client.callPacketInUITask(new PacketTaskFinished(lastScores));
+        }
     }
 
     private void onQuit(PacketQuit packet, SpeedQuestClient client) {
-        changeGameState(GameState.DISCONNECTED, 0);
+        changeGameState(GameState.DISCONNECTED);
         initialized = false;
         self = null;
         users.clear();
@@ -117,12 +137,8 @@ public class GameCache {
         round = 0;
     }
 
-    private void changeGameState(GameState newState, int round) {
-        if (state == newState && this.round == round)
-            return;
-
-        GameState oldState = state;
+    private void changeGameState(GameState newState) {
         state = newState;
-        app.client.callPacketInUITask(new PacketGameStateChanged(oldState, newState, round));
+        app.client.callPacketInUITask(new PacketGameStateChanged(state));
     }
 }

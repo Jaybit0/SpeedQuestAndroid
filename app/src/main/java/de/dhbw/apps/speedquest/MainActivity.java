@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void tryConnect(String username, String key) {
         SpeedQuestApplication app = (SpeedQuestApplication)getApplication();
-        app.client.tryConnect("project-talk.me", 4430, username, key);
+        app.client.tryConnect("wss", "project-talk.me", 4430, username, key);
     }
 
     private void handleInitPacket(PacketGameInitialized initPacket, SpeedQuestClient client) {

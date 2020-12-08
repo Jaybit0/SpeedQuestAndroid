@@ -62,16 +62,16 @@ public class SpeedQuestClient {
         return gameCache;
     }
 
-    public boolean tryConnect(@NonNull String ip, int port, @NonNull String username, @NonNull String key) {
+    public boolean tryConnect(@NonNull String protocol, @NonNull String ip, int port, @NonNull String username, @NonNull String key) {
         try {
-            connect(ip, port, username, key);
+            connect(protocol, ip, port, username, key);
             return true;
         } catch (IOException e) {
             return false;
         }
     }
 
-    public void connect(@NonNull String ip, int port, @NonNull String username, @NonNull String key) throws IOException {
+    public void connect(@NonNull String protocol, @NonNull String ip, int port, @NonNull String username, @NonNull String key) throws IOException {
         synchronized (lock) {
             if (connecting || connected)
                 throw new IOException("The client is already connecting / connected.");
@@ -80,14 +80,14 @@ public class SpeedQuestClient {
         }
 
         Uri.Builder builder = new Uri.Builder();
-        builder.scheme("wss")
+        builder.scheme(protocol)
                 .encodedAuthority(ip + ":" + port)
                 .appendQueryParameter("name", username)
                 .appendQueryParameter("gamekey", key);
         Log.d("SpeedQuest", "Connecting to: " + builder.build().toString() + "...");
 
 
-        AsyncHttpClient.getDefaultInstance().websocket(builder.build().toString(), "wss", (ex, webSocket) -> {
+        AsyncHttpClient.getDefaultInstance().websocket(builder.build().toString(), protocol, (ex, webSocket) -> {
             synchronized (lock) {
                 connecting = false;
                 connected = ex == null;

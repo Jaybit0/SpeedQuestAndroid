@@ -12,12 +12,6 @@ public class PacketGameStateChange extends Packet {
     @SerializedName("gamestate")
     private String newState;
 
-    @SerializedName("round")
-    private int round;
-
-    @SerializedName("updateplayers")
-    private UserInfo[] updatedPlayers;
-
     public GameState getNewState() {
         switch (newState) {
             case "WAITING":
@@ -29,14 +23,6 @@ public class PacketGameStateChange extends Packet {
             default:
                 return null;
         }
-    }
-
-    public int getRound() {
-        return round;
-    }
-
-    public UserInfo[] getUpdatedPlayers() {
-        return updatedPlayers;
     }
 
 }
