@@ -9,10 +9,12 @@ public class PacketGameStateChanged extends Packet {
 
     private GameState oldState;
     private GameState newState;
+    private int newRound;
 
-    public PacketGameStateChanged(GameState oldState, GameState newState) {
+    public PacketGameStateChanged(GameState oldState, GameState newState, int newRound) {
         this.oldState = oldState;
         this.newState = newState;
+        this.newRound = newRound;
     }
 
     public GameState getOldState() {
@@ -22,5 +24,9 @@ public class PacketGameStateChanged extends Packet {
     public GameState getNewState() {
         return newState;
     }
+
+    public int getNewRound() { return newRound; };
+
+    public boolean stateChanged() { return oldState != newState; }
 
 }

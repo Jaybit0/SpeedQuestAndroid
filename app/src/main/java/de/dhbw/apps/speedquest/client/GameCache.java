@@ -76,7 +76,7 @@ public class GameCache {
             self = initPacket.getSelf().name;
             initialized = true;
             client.callPacketInUITask(new PacketGameInitialized());
-            changeGameState(GameState.WAITING);
+            changeGameState(GameState.WAITING, 0);
         }
 
         Log.d("SpeedQuest", "GameCache: Initialized.");
@@ -99,7 +99,7 @@ public class GameCache {
             }
 
             round = gameStateChangePacket.getRound();
-            changeGameState(gameStateChangePacket.getNewState());
+            changeGameState(gameStateChangePacket.getNewState(), gameStateChangePacket.getRound());
         }
     }
 
@@ -109,7 +109,7 @@ public class GameCache {
     }
 
     private void onQuit(PacketQuit packet, SpeedQuestClient client) {
-        changeGameState(GameState.DISCONNECTED);
+        changeGameState(GameState.DISCONNECTED, 0);
         initialized = false;
         self = null;
         users.clear();
@@ -117,12 +117,12 @@ public class GameCache {
         round = 0;
     }
 
-    private void changeGameState(GameState newState) {
-        if (state == newState)
+    private void changeGameState(GameState newState, int round) {
+        if (state == newState && this.round == round)
             return;
 
         GameState oldState = state;
         state = newState;
-        app.client.callPacketInUITask(new PacketGameStateChanged(oldState, newState));
+        app.client.callPacketInUITask(new PacketGameStateChanged(oldState, newState, round));
     }
 }

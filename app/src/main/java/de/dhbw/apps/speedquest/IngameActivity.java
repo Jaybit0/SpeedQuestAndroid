@@ -76,10 +76,12 @@ public class IngameActivity extends AppCompatActivity {
     }
 
     private void addAvailableHandlers() {
-
     }
 
     private void onGameStateChanged(PacketGameStateChanged packet, SpeedQuestClient client) {
+        if (!packet.stateChanged())
+            return;
+
         if (packet.getNewState() == GameState.IN_GAME) {
             Intent i = new Intent(this, IngameActivity.class);
             startActivity(i);

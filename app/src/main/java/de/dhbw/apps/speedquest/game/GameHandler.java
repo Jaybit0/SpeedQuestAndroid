@@ -3,7 +3,9 @@ package de.dhbw.apps.speedquest.game;
 import java.util.UUID;
 
 import de.dhbw.apps.speedquest.IngameActivity;
+import de.dhbw.apps.speedquest.SpeedQuestApplication;
 import de.dhbw.apps.speedquest.client.infos.TaskInfo;
+import de.dhbw.apps.speedquest.client.packets.PacketTaskDone;
 
 public abstract class GameHandler {
 
@@ -29,6 +31,14 @@ public abstract class GameHandler {
 
     public final void setHandlerID(UUID handlerID) {
         this.handlerID = handlerID;
+    }
+
+    public void finish(int rating) {
+        SpeedQuestApplication app = (SpeedQuestApplication)activity.getApplication();
+        PacketTaskDone packet = new PacketTaskDone();
+        packet.rating = rating;
+        packet.taskDone = true;
+        app.client.sendAsync(packet);
     }
 
 }
