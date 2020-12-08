@@ -59,7 +59,7 @@ public class ColorTapGameHandler extends GameHandler {
 
             switch (colorName) {
                 case "orange":
-                    targetColor = 0xffa500;
+                    targetColor = 0xffffa500;
                     break;
                 case "yellow":
                     targetColor = Color.YELLOW;
