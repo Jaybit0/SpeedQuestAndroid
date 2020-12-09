@@ -139,6 +139,7 @@ public class GameCache {
     }
 
     private void changeGameState(GameState newState) {
+        lastScores.clear();
         state = newState;
         app.client.callPacketInUITask(new PacketGameStateChanged(state));
     }

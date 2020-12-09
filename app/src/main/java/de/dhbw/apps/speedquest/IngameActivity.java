@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,12 +34,15 @@ public class IngameActivity extends AppCompatActivity {
     private final GameHandler defaultHandler = new UnavailbleGameHandler(this);
     private final GameHandler scoreHandler = new ScoreScreenHandler(this);
 
+    private TextView roundTextView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ingame);
 
         miniGameContainer = findViewById(R.id.containerMiniGame);
+        roundTextView = findViewById(R.id.roundText);
 
         ImageButton buttonQuit = findViewById(R.id.buttonQuitInGame);
         buttonQuit.setOnClickListener(v -> finish());
@@ -69,6 +73,8 @@ public class IngameActivity extends AppCompatActivity {
     }
 
     private void onTaskAssigned(PacketTaskAssigned packet, SpeedQuestClient client) {
+        roundTextView.setText(String.format(getString(R.string.curr_round_text), packet.getRound()));
+
         if (packet == null || packet.getAssignedTask() == null) {
             showDefaultHandler(client);
         } else {
