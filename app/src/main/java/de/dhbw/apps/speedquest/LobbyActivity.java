@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import de.dhbw.apps.speedquest.client.GameState;
 import de.dhbw.apps.speedquest.client.SpeedQuestClient;
@@ -39,7 +40,7 @@ public class LobbyActivity extends AppCompatActivity {
         buttonStart.setVisibility(app.client.getGameCache().getSelf().isHost ? View.VISIBLE : View.INVISIBLE);
         buttonStart.setOnClickListener(v -> startGame());
 
-        Button buttonQuit = findViewById(R.id.buttonQuit);
+        ImageButton buttonQuit = findViewById(R.id.imageButtonQuit);
         buttonQuit.setOnClickListener(v -> quitGame());
     }
 

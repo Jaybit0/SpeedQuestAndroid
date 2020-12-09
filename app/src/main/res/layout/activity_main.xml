@@ -28,25 +28,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/questionMark"
         app:layout_constraintBottom_toBottomOf="@id/questionMark"
-        app:srcCompat="@drawable/ic_untitled"
+        app:srcCompat="@drawable/ic_logo_ring"
         app:tint="#FFFFFF" />
-
-
-
-    <!--<androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="200dp"
-        android:layout_marginEnd="20dp"
-        app:cardBackgroundColor="#171C2C"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="2dp"
-        app:cardUseCompatPadding="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">-->
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/loginContainer"
@@ -114,7 +97,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/editTextGameKey"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
-    <!--</androidx.cardview.widget.CardView>-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
