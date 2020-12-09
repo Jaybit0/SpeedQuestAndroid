@@ -125,6 +125,7 @@ public class GameCache {
             lastScores.clear();
             lastScores.addAll(Arrays.asList(finishTaskPacket.getRoundscores()));
             client.callPacketInUITask(new PacketTaskFinished(lastScores));
+            currentTask = null;
         }
     }
 
