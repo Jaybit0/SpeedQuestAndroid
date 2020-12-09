@@ -6,9 +6,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 
 import de.dhbw.apps.speedquest.client.GameState;
 import de.dhbw.apps.speedquest.client.SpeedQuestClient;
+import de.dhbw.apps.speedquest.client.infos.StartInfo;
+import de.dhbw.apps.speedquest.client.packets.PacketStartGame;
 import de.dhbw.apps.speedquest.client.packets.internal.PacketGameStateChanged;
 import de.dhbw.apps.speedquest.client.packets.internal.PacketQuit;
 import de.dhbw.apps.speedquest.client.packets.internal.PacketTaskAssigned;
@@ -31,6 +36,13 @@ public class FinishedActivity extends AppCompatActivity {
         RecyclerView listView = findViewById(R.id.finishPlayerList);
         listView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         listView.setAdapter(listModel.getAdapter());
+
+        ImageButton buttonQuit = findViewById(R.id.buttonQuitFinish);
+        buttonQuit.setOnClickListener(v -> finish());
+
+        Button buttonStart = findViewById(R.id.buttonRestart);
+        buttonStart.setVisibility(app.client.getGameCache().getSelf().isHost ? View.VISIBLE : View.INVISIBLE);
+        buttonStart.setOnClickListener(v -> startGame());
     }
 
     @Override
@@ -50,6 +62,17 @@ public class FinishedActivity extends AppCompatActivity {
 
         if (disconnectOnStop)
             app.client.disconnect();
+    }
+
+    public void startGame() {
+        SpeedQuestApplication app = (SpeedQuestApplication)getApplication();
+
+        if (!app.client.getGameCache().getSelf().isHost)
+            return;
+
+        PacketStartGame startPacket = new PacketStartGame(new StartInfo(3));
+
+        app.client.sendAsync(startPacket);
     }
 
     public void onGameStateChanged(PacketGameStateChanged packet, SpeedQuestClient client) {

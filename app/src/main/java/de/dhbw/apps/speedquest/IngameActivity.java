@@ -7,17 +7,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
 import de.dhbw.apps.speedquest.client.GameState;
 import de.dhbw.apps.speedquest.client.SpeedQuestClient;
-import de.dhbw.apps.speedquest.client.infos.UserInfo;
-import de.dhbw.apps.speedquest.client.packets.PacketTaskFinish;
 import de.dhbw.apps.speedquest.client.packets.internal.PacketGameStateChanged;
 import de.dhbw.apps.speedquest.client.packets.internal.PacketTaskAssigned;
 import de.dhbw.apps.speedquest.client.packets.internal.PacketTaskFinished;
@@ -42,7 +39,7 @@ public class IngameActivity extends AppCompatActivity {
 
         miniGameContainer = findViewById(R.id.containerMiniGame);
 
-        Button buttonQuit = findViewById(R.id.buttonQuitInGame);
+        ImageButton buttonQuit = findViewById(R.id.buttonQuitInGame);
         buttonQuit.setOnClickListener(v -> finish());
 
         addAvailableHandlers();
