@@ -4,10 +4,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/ic_background_wave"
+    android:background="@drawable/background_gradient"
     tools:context=".MainActivity">
 
-    <androidx.cardview.widget.CardView
+    <TextView
+        android:id="@+id/questionMark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="?"
+        android:textSize="150sp"
+        android:textColor="@android:color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/loginContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/questionMark"
+        app:layout_constraintBottom_toBottomOf="@id/questionMark"
+        app:srcCompat="@drawable/ic_untitled"
+        app:tint="#FFFFFF" />
+
+
+
+    <!--<androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -20,66 +46,75 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent">-->
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="wrap_content"
+            android:id="@+id/loginContainer"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="20dp"
+            android:paddingStart="50dp"
             android:paddingTop="20dp"
-            android:paddingEnd="20dp"
-            android:paddingBottom="20dp">
+            android:paddingEnd="50dp"
+            android:paddingBottom="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imageView"
+            app:layout_constraintBottom_toBottomOf="parent">
 
             <EditText
                 android:id="@+id/editTextUsername"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:drawablePadding="5dp"
                 android:backgroundTint="@android:color/white"
                 android:ems="10"
                 android:hint="Username"
                 android:inputType="textPersonName"
+                android:fontFamily="sans-serif-light"
                 android:text=""
                 android:textColor="@android:color/white"
                 android:textColorHint="@android:color/white"
+                android:drawableLeft="@drawable/ic_baseline_person_outline_24"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
                 android:id="@+id/editTextGameKey"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:drawablePadding="5dp"
+                android:layout_marginTop="3dp"
                 android:backgroundTint="@android:color/white"
                 android:ems="10"
                 android:hint="Game-key"
                 android:inputType="textPersonName"
+                android:fontFamily="sans-serif-light"
                 android:text=""
                 android:textColor="@android:color/white"
                 android:textColorHint="@android:color/white"
+                android:drawableLeft="@drawable/ic_outline_lock_24"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/editTextUsername" />
 
             <Button
                 android:id="@+id/buttonJoin"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="20dp"
                 android:text="Join"
+                android:fontFamily="sans-serif-light"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:background="@drawable/button_gradient"
+                android:shadowColor="#00F6FF"
+                android:elevation="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/editTextGameKey" />
+                app:layout_constraintTop_toBottomOf="@id/editTextGameKey"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+    <!--</androidx.cardview.widget.CardView>-->
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="266dp"
-        android:layout_height="235dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_logo_nobackground"
-        app:tint="#FFFFFF" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
