@@ -21,6 +21,7 @@ import de.dhbw.apps.speedquest.client.packets.internal.PacketTaskFinished;
 import de.dhbw.apps.speedquest.game.GameHandler;
 import de.dhbw.apps.speedquest.game.handlers.ColorTapGameHandler;
 import de.dhbw.apps.speedquest.game.handlers.ScoreScreenHandler;
+import de.dhbw.apps.speedquest.game.handlers.TapColorNotWordHandler;
 import de.dhbw.apps.speedquest.game.handlers.UnavailbleGameHandler;
 
 public class IngameActivity extends AppCompatActivity {
@@ -108,6 +109,7 @@ public class IngameActivity extends AppCompatActivity {
 
     private void addAvailableHandlers() {
         availableHandlers.put("colortap", new ColorTapGameHandler(this));
+        availableHandlers.put("tapcolornottext", new TapColorNotWordHandler(this));
     }
 
     public void onTaskFinished(PacketTaskFinished packet, SpeedQuestClient client) {
