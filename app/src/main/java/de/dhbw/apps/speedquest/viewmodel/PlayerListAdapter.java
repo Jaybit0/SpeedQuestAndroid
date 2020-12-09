@@ -78,7 +78,11 @@ public class PlayerListAdapter extends RecyclerView.Adapter<PlayerListAdapter.Pl
             public void fillItem(PlayerListViewHolder viewHolder, UserInfo player) {
                 viewHolder.nameText.setText(player.name);
                 viewHolder.nameText.setTextColor(Color.parseColor(player.color));
-                viewHolder.scoreText.setText(format("%d Punkte", player.score));
+                viewHolder.scoreText.setText(
+                        format(viewHolder.scoreText.getContext().getString(R.string.points_text),
+                                player.score
+                        )
+                );
             }
         },
         LobbyScreen {
@@ -87,6 +91,7 @@ public class PlayerListAdapter extends RecyclerView.Adapter<PlayerListAdapter.Pl
                 viewHolder.nameText.setText(player.name);
                 viewHolder.nameText.setTextColor(Color.parseColor(player.color));
                 viewHolder.rightImg.setImageResource(player.isHost ? android.R.drawable.ic_menu_edit : 0);
+                viewHolder.leftImg.setImageResource(player.state > 0 ? R.drawable.ic_online : R.drawable.ic_offline);
             }
         },
         IngameScreen {
@@ -94,7 +99,11 @@ public class PlayerListAdapter extends RecyclerView.Adapter<PlayerListAdapter.Pl
             public void fillItem(PlayerListViewHolder viewHolder, UserInfo player) {
                 viewHolder.nameText.setText(player.name);
                 viewHolder.nameText.setTextColor(Color.parseColor(player.color));
-                viewHolder.scoreText.setText(format("%d Punkte", player.score));
+                viewHolder.scoreText.setText(
+                        format(viewHolder.scoreText.getContext().getString(R.string.points_text),
+                                player.score
+                        )
+                );
             }
         };
 

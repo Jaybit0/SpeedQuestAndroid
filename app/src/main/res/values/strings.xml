@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">SpeedQuest</string>
     <string name="curr_round_text">Runde %d</string>
+    <string name="points_text">%d Punkte</string>
 </resources>
