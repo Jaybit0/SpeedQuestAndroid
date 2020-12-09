@@ -23,13 +23,9 @@ import de.dhbw.apps.speedquest.game.GameHandler;
 public class TapColorNotWordHandler extends GameHandler {
 
     private Random rd;
-    private Handler colorHandler;
-    private Handler textHandler;
-    private Handler positionHandler;
+    private Handler handler;
     private TextView textview;
-    private Runnable colorUpdater = this::onUpdateColor;
-    private Runnable textUpdater = this::onUpdateText;
-    private Runnable positionUpdater = this::onUpdatePosition;
+    private Runnable updater = this::onUpdate;
     private Integer targetColor;
     private Integer currentColor;
     private List<Integer> colorList = new ArrayList<>();
@@ -111,14 +107,8 @@ public class TapColorNotWordHandler extends GameHandler {
         failedClicks = 0;
         failedText.setText(failedClicks + "");
 
-        colorHandler = new Handler();
-        colorHandler.postDelayed(colorUpdater, 200);
-
-        textHandler = new Handler();
-        textHandler.postDelayed(textUpdater, 300);
-
-        positionHandler = new Handler();
-        positionHandler.postDelayed(positionUpdater, 400);
+        handler = new Handler();
+        handler.postDelayed(updater, 400);
     }
 
     @Override
@@ -128,21 +118,13 @@ public class TapColorNotWordHandler extends GameHandler {
 
     @Override
     public void onEnd() {
-        if (colorHandler != null)
-            colorHandler.removeCallbacks(colorUpdater);
-
-        if (textHandler != null)
-            textHandler.removeCallbacks(textUpdater);
-
-        if (positionHandler != null)
-            positionHandler.removeCallbacks(positionUpdater);
+        if (handler != null)
+            handler.removeCallbacks(updater);
     }
 
     private void onClick() {
         if (currentColor.equals(targetColor)) {
-            colorHandler.removeCallbacks(colorUpdater);
-            textHandler.removeCallbacks(textUpdater);
-            positionHandler.removeCallbacks(positionUpdater);
+            handler.removeCallbacks(updater);
             long duration = System.currentTimeMillis() - startMillis;
             float punishment = Math.max(((10 - failedClicks) / 10f), 0);
             int score = (int)(100f / (duration / 200f + 8) * 80 * punishment * punishment);
@@ -151,6 +133,26 @@ public class TapColorNotWordHandler extends GameHandler {
         } else {
             failedClicks++;
             failedText.setText(failedClicks + "");
+        }
+    }
+
+    private void onUpdate(){
+        Integer selector = rd.nextInt(3);
+        switch(selector){
+            case 0:
+                onUpdateColor();
+                break;
+
+            case 1:
+                onUpdateText();
+                break;
+
+            case 2:
+                onUpdatePosition();
+                break;
+
+            default:
+                break;
         }
     }
 
@@ -163,7 +165,7 @@ public class TapColorNotWordHandler extends GameHandler {
         currentColor = nextColor;
         textview.setTextColor(currentColor);
         long deltaMillis = System.currentTimeMillis() - startMillis;
-        colorHandler.postDelayed(colorUpdater, Math.max(250 + (int)(200 * (deltaMillis / 6000f)), 700));
+        handler.postDelayed(updater, Math.min(250 + (int)(200 * (deltaMillis / 6000f)), 500));
     }
 
     private void onUpdateText() {
@@ -171,9 +173,8 @@ public class TapColorNotWordHandler extends GameHandler {
 
         textview.setText(nextText);
         long deltaMillis = System.currentTimeMillis() - startMillis;
-        textHandler.postDelayed(textUpdater, Math.max(250 + (int)(200 * (deltaMillis / 6000f)), 700));
+        handler.postDelayed(updater, Math.min(250 + (int)(200 * (deltaMillis / 6000f)), 500));
     }
-
 
     private void onUpdatePosition() {
         float x = rd.nextFloat();
@@ -185,7 +186,6 @@ public class TapColorNotWordHandler extends GameHandler {
         textview.setLayoutParams(params);
 
         long deltaMillis = System.currentTimeMillis() - startMillis;
-        positionHandler.postDelayed(positionUpdater, Math.max(250 + (int)(200 * (deltaMillis / 6000f)), 1000));
+        handler.postDelayed(updater, Math.min(250 + (int)(200 * (deltaMillis / 6000f)), 500));
     }
-
 }
