@@ -35,9 +35,7 @@ public class FinishedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_finished);
 
-        SpeedQuestApplication app = (SpeedQuestApplication)getApplication();
-
-        listModel = new PlayerListModel(PlayerListAdapter.PlayerViewMode.FinishScreen, this, app.client);
+        listModel = new PlayerListModel(PlayerListAdapter.PlayerViewMode.FinishScreen, this, ((SpeedQuestApplication)getApplication()).client);
         RecyclerView listView = findViewById(R.id.finishPlayerList);
         listView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         listView.setAdapter(listModel.getAdapter());
@@ -46,8 +44,25 @@ public class FinishedActivity extends AppCompatActivity {
         buttonQuit.setOnClickListener(v -> finish());
 
         Button buttonStart = findViewById(R.id.buttonRestart);
-        buttonStart.setVisibility(app.client.getGameCache().getSelf().isHost ? View.VISIBLE : View.INVISIBLE);
         buttonStart.setOnClickListener(v -> startGame());
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        disconnectOnStop = true;
+        SpeedQuestApplication app = (SpeedQuestApplication)getApplication();
+
+        if (!app.client.isConnected()) {
+            finish();
+            return;
+        }
+
+        if (onChangeGameState(app.client.getGameCache().getGameState()))
+            return;
+
+        Button buttonStart = findViewById(R.id.buttonRestart);
+        buttonStart.setVisibility(app.client.getGameCache().getSelf().isHost ? View.VISIBLE : View.INVISIBLE);
 
         ArrayList<UserInfo> users = new ArrayList<UserInfo>(app.client.getGameCache().getUsers());
         users.sort((i1, i2) -> i2.score - i1.score);
@@ -62,13 +77,7 @@ public class FinishedActivity extends AppCompatActivity {
         secondText.setTextColor(users.size() < 2 ? Color.WHITE : Color.parseColor(users.get(1).color));
         thirdText.setText(users.size() < 3 ? "" : users.get(2).name);
         thirdText.setTextColor(users.size() < 3 ? Color.WHITE : Color.parseColor(users.get(2).color));
-    }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        disconnectOnStop = true;
-        SpeedQuestApplication app = (SpeedQuestApplication)getApplication();
         app.client.registerPacketHandler(this::onGameStateChanged, PacketGameStateChanged.class, this);
         listModel.initialize();
     }
@@ -79,7 +88,7 @@ public class FinishedActivity extends AppCompatActivity {
         SpeedQuestApplication app = (SpeedQuestApplication)getApplication();
         app.client.unregisterMappingsOfActivity(this);
 
-        if (disconnectOnStop)
+        if (disconnectOnStop && isFinishing())
             app.client.disconnect();
     }
 
@@ -95,21 +104,19 @@ public class FinishedActivity extends AppCompatActivity {
     }
 
     public void onGameStateChanged(PacketGameStateChanged packet, SpeedQuestClient client) {
-        if (packet.getState() == GameState.IN_GAME) {
-            Intent i = new Intent(this, IngameActivity.class);
-            startActivity(i);
-            disconnectOnStop = false;
-            finish();
-        } else if (packet.getState() == GameState.FINISHED) {
-            Intent i = new Intent(this, FinishedActivity.class);
-            startActivity(i);
-            disconnectOnStop = false;
-            finish();
-        } else if (packet.getState() == GameState.WAITING) {
-            Intent i = new Intent(this, LobbyActivity.class);
-            startActivity(i);
-            disconnectOnStop = false;
-            finish();
-        }
+        onChangeGameState(packet.getState());
+    }
+
+    private boolean onChangeGameState(GameState gs) {
+        boolean change = gs == GameState.IN_GAME || gs == GameState.WAITING;
+
+        if (!change)
+            return false;
+
+        Intent i = new Intent(this, gs == GameState.IN_GAME ? IngameActivity.class : LobbyActivity.class);
+        startActivity(i);
+        disconnectOnStop = false;
+        finish();
+        return true;
     }
 }

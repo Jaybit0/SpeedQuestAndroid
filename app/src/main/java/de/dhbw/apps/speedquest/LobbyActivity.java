@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -49,6 +50,15 @@ public class LobbyActivity extends AppCompatActivity {
         super.onStart();
         disconnectOnStop = true;
         SpeedQuestApplication app = (SpeedQuestApplication)getApplication();
+
+        if (!app.client.isConnected()) {
+            finish();
+            return;
+        }
+
+        if (onChangeGameState(app.client.getGameCache().getGameState()))
+            return;
+
         app.client.registerPacketHandler(this::onQuit, PacketQuit.class, this);
         app.client.registerPacketHandler(this::onGameStateChanged, PacketGameStateChanged.class, this);
 
@@ -61,7 +71,7 @@ public class LobbyActivity extends AppCompatActivity {
         SpeedQuestApplication app = (SpeedQuestApplication)getApplication();
         app.client.unregisterMappingsOfActivity(this);
 
-        if (disconnectOnStop)
+        if (disconnectOnStop && isFinishing())
             app.client.disconnect();
     }
 
@@ -88,21 +98,19 @@ public class LobbyActivity extends AppCompatActivity {
     }
 
     public void onGameStateChanged(PacketGameStateChanged packet, SpeedQuestClient client) {
-        if (packet.getState() == GameState.IN_GAME) {
-            Intent i = new Intent(this, IngameActivity.class);
-            startActivity(i);
-            disconnectOnStop = false;
-            finish();
-        } else if (packet.getState() == GameState.FINISHED) {
-            Intent i = new Intent(this, FinishedActivity.class);
-            startActivity(i);
-            disconnectOnStop = false;
-            finish();
-        } else if (packet.getState() == GameState.WAITING) {
-            Intent i = new Intent(this, LobbyActivity.class);
-            startActivity(i);
-            disconnectOnStop = false;
-            finish();
-        }
+        onChangeGameState(packet.getState());
+    }
+
+    private boolean onChangeGameState(GameState gs) {
+        boolean change = gs == GameState.FINISHED || gs == GameState.IN_GAME;
+
+        if (!change)
+            return false;
+
+        Intent i = new Intent(this, gs == GameState.FINISHED ? FinishedActivity.class : IngameActivity.class);
+        startActivity(i);
+        disconnectOnStop = false;
+        finish();
+        return true;
     }
 }

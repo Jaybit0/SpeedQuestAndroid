@@ -55,11 +55,25 @@ public class IngameActivity extends AppCompatActivity {
         super.onStart();
         disconnectOnStop = true;
         SpeedQuestApplication app = (SpeedQuestApplication)getApplication();
+
+        if (!app.client.isConnected()) {
+            finish();
+            return;
+        }
+
+        if (onChangeGameState(app.client.getGameCache().getGameState()))
+            return;
+
         app.client.registerPacketHandler(this::onTaskAssigned, PacketTaskAssigned.class, this);
         app.client.registerPacketHandler(this::onGameStateChanged, PacketGameStateChanged.class, this);
         app.client.registerPacketHandler(this::onTaskFinished, PacketTaskFinished.class, this);
 
-        showDefaultHandler(app.client);
+
+        if (app.client.getGameCache().getCurrentTask() != null) {
+            onTaskAssigned(new PacketTaskAssigned(app.client.getGameCache().getCurrentTask(), app.client.getGameCache().getRound()), app.client);
+        } else {
+            showDefaultHandler(app.client);
+        }
     }
 
     @Override
@@ -68,16 +82,15 @@ public class IngameActivity extends AppCompatActivity {
         SpeedQuestApplication app = (SpeedQuestApplication)getApplication();
         app.client.unregisterMappingsOfActivity(this);
 
-        if (disconnectOnStop)
+        if (disconnectOnStop && isFinishing())
             app.client.disconnect();
     }
 
     private void onTaskAssigned(PacketTaskAssigned packet, SpeedQuestClient client) {
-        roundTextView.setText(String.format(getString(R.string.curr_round_text), packet.getRound()));
-
         if (packet == null || packet.getAssignedTask() == null) {
             showDefaultHandler(client);
         } else {
+            roundTextView.setText(String.format(getString(R.string.curr_round_text), packet.getRound()));
             clearActiveHandlerIfExists(client);
 
             activeHandler = availableHandlers.getOrDefault(packet.getAssignedTask().getName(), defaultHandler);
@@ -123,21 +136,19 @@ public class IngameActivity extends AppCompatActivity {
     }
 
     public void onGameStateChanged(PacketGameStateChanged packet, SpeedQuestClient client) {
-        if (packet.getState() == GameState.IN_GAME) {
-            Intent i = new Intent(this, IngameActivity.class);
-            startActivity(i);
-            disconnectOnStop = false;
-            finish();
-        } else if (packet.getState() == GameState.FINISHED) {
-            Intent i = new Intent(this, FinishedActivity.class);
-            startActivity(i);
-            disconnectOnStop = false;
-            finish();
-        } else if (packet.getState() == GameState.WAITING) {
-            Intent i = new Intent(this, LobbyActivity.class);
-            startActivity(i);
-            disconnectOnStop = false;
-            finish();
-        }
+        onChangeGameState(packet.getState());
+    }
+
+    private boolean onChangeGameState(GameState gs) {
+        boolean change = gs == GameState.FINISHED || gs == GameState.WAITING;
+
+        if (!change)
+            return false;
+
+        Intent i = new Intent(this, gs == GameState.FINISHED ? FinishedActivity.class : LobbyActivity.class);
+        startActivity(i);
+        disconnectOnStop = false;
+        finish();
+        return true;
     }
 }
