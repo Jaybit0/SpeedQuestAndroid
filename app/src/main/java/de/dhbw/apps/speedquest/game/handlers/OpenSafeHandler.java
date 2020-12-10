@@ -114,11 +114,6 @@ public class OpenSafeHandler extends GameHandler {
     public void onEnd() {
         if (handler != null)
             handler.removeCallbacks(updater);
-
-        long duration = System.currentTimeMillis() - startMillis;
-        int score = (int)(100f / (duration / 200f) * 80);
-        Log.d("SpeedQuest", "Score: " + score);
-        finish(score);
     }
 
 
