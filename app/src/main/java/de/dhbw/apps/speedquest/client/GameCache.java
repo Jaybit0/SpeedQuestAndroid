@@ -1,6 +1,7 @@
 package de.dhbw.apps.speedquest.client;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,6 +19,7 @@ import de.dhbw.apps.speedquest.client.packets.PacketTaskAssign;
 import de.dhbw.apps.speedquest.client.packets.PacketTaskFinish;
 import de.dhbw.apps.speedquest.client.packets.internal.PacketGameInitialized;
 import de.dhbw.apps.speedquest.client.packets.internal.PacketGameStateChanged;
+import de.dhbw.apps.speedquest.client.packets.internal.PacketOnConnectResult;
 import de.dhbw.apps.speedquest.client.packets.internal.PacketPlayerUpdated;
 import de.dhbw.apps.speedquest.client.packets.internal.PacketQuit;
 import de.dhbw.apps.speedquest.client.packets.internal.PacketTaskAssigned;

@@ -7,12 +7,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.io.IOException;
 
 import de.dhbw.apps.speedquest.client.SpeedQuestClient;
 import de.dhbw.apps.speedquest.client.packets.PacketInitialize;
 import de.dhbw.apps.speedquest.client.packets.internal.PacketGameInitialized;
+import de.dhbw.apps.speedquest.client.packets.internal.PacketOnConnectResult;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         SpeedQuestApplication app = (SpeedQuestApplication)getApplication();
         app.client.registerPacketHandler(this::handleInitPacket, PacketGameInitialized.class, this);
+        app.client.registerPacketHandler(this::handleOnConnectResult, PacketOnConnectResult.class, this);
     }
 
     @Override
@@ -53,5 +56,10 @@ public class MainActivity extends AppCompatActivity {
 
         Intent i = new Intent(this, LobbyActivity.class);
         startActivity(i);
+    }
+
+    private void handleOnConnectResult(PacketOnConnectResult packet, SpeedQuestClient client) {
+        if (packet.ex != null)
+            Toast.makeText(this, "Could not connect. Make sure you have access to the internet.", Toast.LENGTH_SHORT).show();
     }
 }
