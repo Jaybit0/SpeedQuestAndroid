@@ -129,6 +129,7 @@ public class OpenSafeHandler extends GameHandler {
                         code_display.setText(input);
                         Log.d("SpeedQuest", "Inputlength:" + input + "Code" + code);
                         if (input.equals(code)) {
+                            finished = true;
                             led.setCardBackgroundColor(Color.GREEN);
                             Log.d("SpeedQuest", "finished");
                             long duration = System.currentTimeMillis() - startMillis;
