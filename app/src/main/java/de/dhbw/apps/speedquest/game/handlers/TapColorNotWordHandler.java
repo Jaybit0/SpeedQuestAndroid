@@ -63,7 +63,7 @@ public class TapColorNotWordHandler extends GameHandler {
     public void initialize(View inflatedView, TaskInfo task) {
         success = false;
 
-        textview = (TextView) inflatedView.findViewById(R.id.colorText);
+        textview = (TextView) inflatedView.findViewById(R.id.coloredTextClickable);
         textview.setOnClickListener(v -> onClick());
 
         textview.setTextColor(Color.RED);
@@ -97,10 +97,10 @@ public class TapColorNotWordHandler extends GameHandler {
                     targetColor = Color.RED;
             }
 
-            TextView tv = inflatedView.findViewById(R.id.textTaskColorTapColor);
+            TextView tv = inflatedView.findViewById(R.id.textTaskColor);
             tv.setText(colorName.toUpperCase());
             tv.setTextColor(targetColor);
-            failedText = inflatedView.findViewById(R.id.textTaskColorTapFailedCount);
+            failedText = inflatedView.findViewById(R.id.textMissclicks);
         } catch (Exception e) {
             Log.e("SpeedQuest", "", e);
             return;
