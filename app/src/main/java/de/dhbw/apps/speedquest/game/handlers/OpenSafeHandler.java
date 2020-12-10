@@ -129,11 +129,14 @@ public class OpenSafeHandler extends GameHandler {
                         code_display.setText(input);
                         Log.d("SpeedQuest", "Inputlength:" + input + "Code" + code);
                         if (input.equals(code)) {
+                            finished = true;
                             led.setCardBackgroundColor(Color.GREEN);
                             Log.d("SpeedQuest", "finished");
                             long duration = System.currentTimeMillis() - startMillis;
                             int score = (int) (100f / (duration / 200f) * 80);
                             Log.d("SpeedQuest", "Score: " + score);
+                            if (handler != null)
+                                handler.removeCallbacks(updater);
                             finish(score);
                         }
                     } else {
