@@ -12,5 +12,5 @@ public class SpeedQuestApplication extends Application {
     public SpeedQuestApplication() {
         client.getGameCache().register();
     }
-    
+
 }

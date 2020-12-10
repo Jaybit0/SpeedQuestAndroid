@@ -25,6 +25,7 @@ import java.util.UUID;
 
 import de.dhbw.apps.speedquest.SpeedQuestApplication;
 import de.dhbw.apps.speedquest.client.packets.Packet;
+import de.dhbw.apps.speedquest.client.packets.internal.PacketOnConnectResult;
 import de.dhbw.apps.speedquest.client.packets.internal.PacketQuit;
 
 public class SpeedQuestClient {
@@ -95,8 +96,11 @@ public class SpeedQuestClient {
 
             if (ex != null) {
                 Log.e("SpeedQuest", ex.getMessage() != null ? ex.getMessage() : "", ex);
+                callPacketInUITask(new PacketOnConnectResult(ex));
                 return;
             }
+
+            callPacketInUITask(new PacketOnConnectResult(null));
 
             Log.d("SpeedQuest", "Successfully connected to: " + builder.build().toString());
 
