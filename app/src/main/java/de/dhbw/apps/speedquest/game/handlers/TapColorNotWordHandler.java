@@ -33,6 +33,7 @@ public class TapColorNotWordHandler extends GameHandler {
     private long startMillis;
     private int failedClicks;
     private TextView failedText;
+    private boolean success;
 
     public TapColorNotWordHandler(IngameActivity activity) {
         super(activity);
@@ -60,6 +61,8 @@ public class TapColorNotWordHandler extends GameHandler {
 
     @Override
     public void initialize(View inflatedView, TaskInfo task) {
+        success = false;
+
         textview = (TextView) inflatedView.findViewById(R.id.colorText);
         textview.setOnClickListener(v -> onClick());
 
@@ -123,16 +126,19 @@ public class TapColorNotWordHandler extends GameHandler {
     }
 
     private void onClick() {
-        if (currentColor.equals(targetColor)) {
-            handler.removeCallbacks(updater);
-            long duration = System.currentTimeMillis() - startMillis;
-            float punishment = Math.max(((10 - failedClicks) / 10f), 0);
-            int score = (int)(100f / (duration / 200f + 8) * 80 * punishment * punishment);
-            Log.d("SpeedQuest", "Score: " + score);
-            finish(score);
-        } else {
-            failedClicks++;
-            failedText.setText(failedClicks + "");
+        if(success){
+
+            if (currentColor.equals(targetColor)) {
+                handler.removeCallbacks(updater);
+                long duration = System.currentTimeMillis() - startMillis;
+                float punishment = Math.max(((10 - failedClicks) / 10f), 0);
+                int score = (int)(100f / (duration / 200f + 8) * 80 * punishment * punishment);
+                Log.d("SpeedQuest", "Score: " + score);
+                finish(score);
+            } else {
+                failedClicks++;
+                failedText.setText(failedClicks + "");
+            }
         }
     }
 
