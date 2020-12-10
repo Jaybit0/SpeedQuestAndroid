@@ -36,6 +36,10 @@ public abstract class GameHandler {
         this.handlerID = handlerID;
     }
 
+    public void begin() {
+        finished = false;
+    }
+
     public void finish(int rating) {
         if (finished)
             return;

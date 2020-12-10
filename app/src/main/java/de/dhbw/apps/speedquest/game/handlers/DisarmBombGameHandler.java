@@ -33,7 +33,7 @@ public class DisarmBombGameHandler extends GameHandler {
         inflatedView.findViewById(R.id.imageBomb).setOnClickListener(v -> onClickBomb());
         timerText = inflatedView.findViewById(R.id.timerText);
 
-        int initialSeconds = task.getParam("seconds", 20);
+        int initialSeconds = (int)((double)task.getParam("seconds", 20.0));
         startMillis = System.currentTimeMillis();
         targetMillis = startMillis + initialSeconds * 1000;
         timerUpdater = this::updateText;
@@ -64,6 +64,6 @@ public class DisarmBombGameHandler extends GameHandler {
             return;
 
         long delta = System.currentTimeMillis() - targetMillis;
-        finish(delta > 0 && delta < 500 ? 100 : 0);
+        finish(delta > 0 ? (int) delta / 50 : 0);
     }
 }

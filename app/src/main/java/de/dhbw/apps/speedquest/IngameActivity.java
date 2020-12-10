@@ -24,6 +24,7 @@ import de.dhbw.apps.speedquest.game.GameHandler;
 import de.dhbw.apps.speedquest.game.handlers.CollectItemsHandler;
 import de.dhbw.apps.speedquest.game.handlers.ColorTapGameHandler;
 import de.dhbw.apps.speedquest.game.handlers.DisarmBombGameHandler;
+import de.dhbw.apps.speedquest.game.handlers.OpenSafeHandler;
 import de.dhbw.apps.speedquest.game.handlers.QuestionGameHandler;
 import de.dhbw.apps.speedquest.game.handlers.ScoreScreenHandler;
 import de.dhbw.apps.speedquest.game.handlers.TapColorNotWordHandler;
@@ -100,6 +101,7 @@ public class IngameActivity extends AppCompatActivity {
 
             activeHandler = availableHandlers.getOrDefault(packet.getAssignedTask().getName(), defaultHandler);
             activeHandler.setHandlerID(UUID.randomUUID());
+            activeHandler.begin();
             View v = getLayoutInflater().inflate(activeHandler.getGameResource(), miniGameContainer);
             try {
                 activeHandler.initialize(v, packet.getAssignedTask());
@@ -132,9 +134,10 @@ public class IngameActivity extends AppCompatActivity {
     }
 
     private void addAvailableHandlers() {
+        availableHandlers.put("opensafe", new OpenSafeHandler(this));
         availableHandlers.put("collectitems", new CollectItemsHandler(this));
         availableHandlers.put("colortap", new ColorTapGameHandler(this));
-        availableHandlers.put("tapcolornottext", new TapColorNotWordHandler(this));
+        //availableHandlers.put("tapcolornottext", new TapColorNotWordHandler(this));
         availableHandlers.put("whacmole", new WhacMoleGameHandler(this));
         availableHandlers.put("question", new QuestionGameHandler(this));
         availableHandlers.put("disarmbomb", new DisarmBombGameHandler(this));

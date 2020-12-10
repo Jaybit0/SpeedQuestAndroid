@@ -95,6 +95,11 @@ public class FinishedActivity extends AppCompatActivity {
     public void startGame() {
         SpeedQuestApplication app = (SpeedQuestApplication)getApplication();
 
+        if (app.client.getGameCache().getGameState() == GameState.DISCONNECTED) {
+            finish();
+            return;
+        }
+
         if (!app.client.getGameCache().getSelf().isHost)
             return;
 
