@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_gradient"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
@@ -17,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textTaskColorTapColor"
+        android:id="@+id/textTaskColor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="RED"
@@ -43,7 +44,7 @@
         />
 
     <TextView
-        android:id="@+id/textTaskColorTapFailedCount"
+        android:id="@+id/textMissclicks"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="0"
@@ -57,11 +58,10 @@
         />
 
     <TextView
-        android:id="@+id/colorText"
+        android:id="@+id/coloredTextClickable"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="50dp"
-        android:text="TextView"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
