@@ -16,12 +16,14 @@ import java.util.UUID;
 
 import de.dhbw.apps.speedquest.client.GameState;
 import de.dhbw.apps.speedquest.client.SpeedQuestClient;
+import de.dhbw.apps.speedquest.client.infos.TaskInfo;
 import de.dhbw.apps.speedquest.client.packets.internal.PacketGameStateChanged;
 import de.dhbw.apps.speedquest.client.packets.internal.PacketTaskAssigned;
 import de.dhbw.apps.speedquest.client.packets.internal.PacketTaskFinished;
 import de.dhbw.apps.speedquest.game.GameHandler;
 import de.dhbw.apps.speedquest.game.handlers.CollectItemsHandler;
 import de.dhbw.apps.speedquest.game.handlers.ColorTapGameHandler;
+import de.dhbw.apps.speedquest.game.handlers.DisarmBombGameHandler;
 import de.dhbw.apps.speedquest.game.handlers.QuestionGameHandler;
 import de.dhbw.apps.speedquest.game.handlers.ScoreScreenHandler;
 import de.dhbw.apps.speedquest.game.handlers.TapColorNotWordHandler;
@@ -135,7 +137,7 @@ public class IngameActivity extends AppCompatActivity {
         availableHandlers.put("tapcolornottext", new TapColorNotWordHandler(this));
         availableHandlers.put("whacmole", new WhacMoleGameHandler(this));
         availableHandlers.put("question", new QuestionGameHandler(this));
-
+        availableHandlers.put("disarmbomb", new DisarmBombGameHandler(this));
     }
 
     public void onTaskFinished(PacketTaskFinished packet, SpeedQuestClient client) {
