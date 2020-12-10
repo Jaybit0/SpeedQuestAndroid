@@ -53,6 +53,9 @@ public class DisarmBombGameHandler extends GameHandler {
     }
 
     private void updateText() {
+        if (isFinished())
+            return;
+
         long delta = targetMillis - System.currentTimeMillis();
         timerText.setText(String.format("%.1f", delta / 1000f));
         timerText.setAlpha(Math.max((3000 - System.currentTimeMillis() + startMillis) / 3000f, 0));
@@ -63,7 +66,8 @@ public class DisarmBombGameHandler extends GameHandler {
         if (isFinished())
             return;
 
-        long delta = System.currentTimeMillis() - targetMillis;
+        long delta = targetMillis - System.currentTimeMillis();
+        timerText.setAlpha(1);
         finish(delta > 0 ? (int) delta / 50 : 0);
     }
 }
