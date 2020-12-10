@@ -1,6 +1,9 @@
 package de.dhbw.apps.speedquest.game.handlers;
 
 import android.view.View;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import de.dhbw.apps.speedquest.IngameActivity;
 import de.dhbw.apps.speedquest.R;
@@ -21,6 +24,11 @@ public class UnavailbleGameHandler extends GameHandler {
 
     @Override
     public void initialize(View inflatedView, TaskInfo info) {
+        if(info != null){
+            TextView tv = inflatedView.findViewById(R.id.textUnknownGame);
+            tv.setText(String.format("Unknown game: %s", info.getName()));
+            tv.setOnClickListener(v -> {finish(10);});
+        }
     }
 
     @Override
