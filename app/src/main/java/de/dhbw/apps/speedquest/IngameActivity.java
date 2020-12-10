@@ -23,6 +23,7 @@ import de.dhbw.apps.speedquest.game.GameHandler;
 import de.dhbw.apps.speedquest.game.handlers.CollectItemsHandler;
 import de.dhbw.apps.speedquest.game.handlers.ColorTapGameHandler;
 import de.dhbw.apps.speedquest.game.handlers.OpenSafeHandler;
+import de.dhbw.apps.speedquest.game.handlers.QuestionGameHandler;
 import de.dhbw.apps.speedquest.game.handlers.ScoreScreenHandler;
 import de.dhbw.apps.speedquest.game.handlers.TapColorNotWordHandler;
 import de.dhbw.apps.speedquest.game.handlers.UnavailbleGameHandler;
@@ -135,6 +136,8 @@ public class IngameActivity extends AppCompatActivity {
         availableHandlers.put("colortap", new ColorTapGameHandler(this));
         availableHandlers.put("tapcolornottext", new TapColorNotWordHandler(this));
         availableHandlers.put("whacmole", new WhacMoleGameHandler(this));
+        availableHandlers.put("question", new QuestionGameHandler(this));
+
     }
 
     public void onTaskFinished(PacketTaskFinished packet, SpeedQuestClient client) {
