@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_gradient"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:textAlignment="gravity">
 
     <TextView
         android:id="@+id/textTaskColorTap"
@@ -21,48 +22,45 @@
         android:id="@+id/textTaskColor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="RED"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:text="RED"
         android:textColor="@android:color/holo_red_light"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@id/textTaskColorTap"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textTaskColorTapFailed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
         android:text="Missed: "
         android:textSize="20sp"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="10dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textTaskColorTap"
-        />
+        app:layout_constraintTop_toBottomOf="@id/textTaskColorTap" />
 
     <TextView
         android:id="@+id/textMissclicks"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="0"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        android:layout_marginTop="5dp"
         android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:text="0"
         android:textColor="@android:color/holo_red_light"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@id/textTaskColorTapFailed"
-        app:layout_constraintTop_toBottomOf="@id/textTaskColorTap"
-        />
+        app:layout_constraintTop_toBottomOf="@id/textTaskColorTap" />
 
     <TextView
         android:id="@+id/coloredTextClickable"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="50dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:padding="30dp"
+        android:textAlignment="center"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -70,4 +68,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.564" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
