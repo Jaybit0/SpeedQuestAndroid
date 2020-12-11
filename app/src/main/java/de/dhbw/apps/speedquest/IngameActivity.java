@@ -134,7 +134,6 @@ public class IngameActivity extends AppCompatActivity {
     }
 
     private void addAvailableHandlers() {
-        /*
         availableHandlers.put("opensafe", new OpenSafeHandler(this));
         availableHandlers.put("collectitems", new CollectItemsHandler(this));
         availableHandlers.put("colortap", new ColorTapGameHandler(this));
@@ -142,16 +141,6 @@ public class IngameActivity extends AppCompatActivity {
         availableHandlers.put("whacmole", new WhacMoleGameHandler(this));
         availableHandlers.put("question", new QuestionGameHandler(this));
         availableHandlers.put("disarmbomb", new DisarmBombGameHandler(this));
-
-         */
-
-        availableHandlers.put("opensafe", new OpenSafeHandler(this));
-        availableHandlers.put("collectitems", new OpenSafeHandler(this));
-        availableHandlers.put("colortap", new OpenSafeHandler(this));
-        availableHandlers.put("tapcolornottext", new OpenSafeHandler(this));
-        availableHandlers.put("whacmole", new OpenSafeHandler(this));
-        availableHandlers.put("question", new OpenSafeHandler(this));
-        availableHandlers.put("disarmbomb", new OpenSafeHandler(this));
     }
 
     public void onTaskFinished(PacketTaskFinished packet, SpeedQuestClient client) {
