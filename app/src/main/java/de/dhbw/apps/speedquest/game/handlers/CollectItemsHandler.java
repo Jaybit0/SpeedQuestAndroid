@@ -157,7 +157,7 @@ public class CollectItemsHandler extends GameHandler {
         }
 
         long deltaMillis = System.currentTimeMillis() - startMillis;
-        mineHandler.postDelayed(mineUpdater, Math.min(250 + (int)(200 * (deltaMillis / 6000f)), 1000));
+        mineHandler.postDelayed(mineUpdater, Math.max(250 + (int)(200 * (deltaMillis / 6000f)), 600));
     }
 
     private void onUpdateBanana(){
@@ -189,6 +189,6 @@ public class CollectItemsHandler extends GameHandler {
         }
 
         long deltaMillis = System.currentTimeMillis() - startMillis;
-        bananaHandler.postDelayed(bananaUpdater, Math.min(250 + (int)(200 * (deltaMillis / 6000f)), 1000));
+        bananaHandler.postDelayed(bananaUpdater, Math.max(250 + (int)(200 * (deltaMillis / 6000f)), 600));
     }
 }
