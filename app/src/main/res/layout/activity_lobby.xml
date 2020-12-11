@@ -7,6 +7,48 @@
     android:background="@drawable/background_gradient"
     tools:context=".LobbyActivity">
 
+    <EditText
+        android:id="@+id/editTextRounds"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@android:color/white"
+        android:drawableLeft="@drawable/ic_loop"
+        android:drawablePadding="5dp"
+        android:drawableTint="#FFFFFF"
+        android:ems="10"
+        android:fontFamily="sans-serif-light"
+        android:hint="Rounds"
+        android:inputType="number"
+        android:text=""
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        app:layout_constraintBottom_toTopOf="@+id/ediTextLobbyKey"
+        app:layout_constraintEnd_toEndOf="@+id/buttonStart"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/buttonStart" />
+
+    <EditText
+        android:id="@+id/ediTextLobbyKey"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="12dp"
+        android:backgroundTint="@android:color/white"
+        android:drawableLeft="@drawable/ic_outline_lock_24"
+        android:drawablePadding="5dp"
+        android:ems="10"
+        android:fontFamily="sans-serif-light"
+        android:hint="Game-key"
+        android:enabled="false"
+        android:text=""
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        app:layout_constraintBottom_toTopOf="@+id/buttonStart"
+        app:layout_constraintEnd_toEndOf="@+id/buttonStart"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/buttonStart"
+        app:layout_constraintTop_toBottomOf="@+id/editTextUsername" />
+
     <ImageButton
         android:id="@+id/imageButtonQuit"
         android:layout_width="40dp"
@@ -24,11 +66,11 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/lobbyPlayerList"
         android:layout_width="match_parent"
-        android:layout_height="0px"
+        android:layout_height="0dp"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/editTextRounds"
         app:layout_constraintTop_toBottomOf="@id/imageButtonQuit"
-        app:layout_constraintBottom_toTopOf="@id/buttonStart"
         tools:listitem="@layout/item_player" />
 
     <Button
@@ -48,4 +90,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

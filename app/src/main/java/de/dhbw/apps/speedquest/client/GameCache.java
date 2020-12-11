@@ -37,6 +37,7 @@ public class GameCache {
     private HashMap<String, UserInfo> users = new HashMap<>();
     private List<UserInfo> lastScores = new ArrayList<>();
     private TaskInfo currentTask = null;
+    private String gameKey;
 
     public GameCache(SpeedQuestApplication app) {
         this.app = app;
@@ -63,6 +64,8 @@ public class GameCache {
         return users.get(self);
     }
 
+    public String getGameKey() { return gameKey; }
+
     public Collection<UserInfo> getUsers() {
         return users.values();
     }
@@ -88,6 +91,7 @@ public class GameCache {
             }
 
             self = initPacket.getSelf().name;
+            gameKey = initPacket.getGamekey();
             initialized = true;
             client.callPacketInUITask(new PacketGameInitialized());
             changeGameState(GameState.WAITING);
