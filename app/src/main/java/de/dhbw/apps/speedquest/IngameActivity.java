@@ -135,9 +135,9 @@ public class IngameActivity extends AppCompatActivity {
 
     private void addAvailableHandlers() {
         availableHandlers.put("opensafe", new OpenSafeHandler(this));
-        //availableHandlers.put("collectitems", new CollectItemsHandler(this));
+        availableHandlers.put("collectitems", new CollectItemsHandler(this));
         availableHandlers.put("colortap", new ColorTapGameHandler(this));
-        //availableHandlers.put("tapcolornottext", new TapColorNotWordHandler(this));
+        availableHandlers.put("tapcolornottext", new TapColorNotWordHandler(this));
         availableHandlers.put("whacmole", new WhacMoleGameHandler(this));
         availableHandlers.put("question", new QuestionGameHandler(this));
         availableHandlers.put("disarmbomb", new DisarmBombGameHandler(this));

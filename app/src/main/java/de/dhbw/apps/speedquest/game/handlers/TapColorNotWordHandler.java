@@ -111,7 +111,7 @@ public class TapColorNotWordHandler extends GameHandler {
         failedText.setText(failedClicks + "");
 
         handler = new Handler();
-        handler.postDelayed(updater, 400);
+        handler.postDelayed(updater, 500);
     }
 
     @Override
@@ -126,14 +126,14 @@ public class TapColorNotWordHandler extends GameHandler {
     }
 
     private void onClick() {
-        if(success){
-
+        if(!success){
             if (currentColor.equals(targetColor)) {
                 handler.removeCallbacks(updater);
                 long duration = System.currentTimeMillis() - startMillis;
                 float punishment = Math.max(((10 - failedClicks) / 10f), 0);
                 int score = (int)(100f / (duration / 200f + 8) * 80 * punishment * punishment);
                 Log.d("SpeedQuest", "Score: " + score);
+                success = true;
                 finish(score);
             } else {
                 failedClicks++;
