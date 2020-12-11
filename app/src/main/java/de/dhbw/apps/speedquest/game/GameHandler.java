@@ -12,6 +12,7 @@ import de.dhbw.apps.speedquest.client.packets.PacketTaskDone;
 public abstract class GameHandler {
 
     private UUID handlerID;
+    private boolean finished = false;
 
     protected final IngameActivity activity;
 
@@ -35,7 +36,15 @@ public abstract class GameHandler {
         this.handlerID = handlerID;
     }
 
+    public void begin() {
+        finished = false;
+    }
+
     public void finish(int rating) {
+        if (finished)
+            return;
+
+        finished = true;
         SpeedQuestApplication app = (SpeedQuestApplication)activity.getApplication();
         PacketTaskDone packet = new PacketTaskDone();
         packet.rating = rating;
@@ -43,4 +52,7 @@ public abstract class GameHandler {
         app.client.sendAsync(packet);
     }
 
+    public boolean isFinished() {
+        return finished;
+    }
 }

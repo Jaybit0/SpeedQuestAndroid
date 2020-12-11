@@ -63,7 +63,7 @@ public class TapColorNotWordHandler extends GameHandler {
     public void initialize(View inflatedView, TaskInfo task) {
         success = false;
 
-        textview = (TextView) inflatedView.findViewById(R.id.colorText);
+        textview = (TextView) inflatedView.findViewById(R.id.coloredTextClickable);
         textview.setOnClickListener(v -> onClick());
 
         textview.setTextColor(Color.RED);
@@ -97,10 +97,10 @@ public class TapColorNotWordHandler extends GameHandler {
                     targetColor = Color.RED;
             }
 
-            TextView tv = inflatedView.findViewById(R.id.textTaskColorTapColor);
+            TextView tv = inflatedView.findViewById(R.id.textTaskColor);
             tv.setText(colorName.toUpperCase());
             tv.setTextColor(targetColor);
-            failedText = inflatedView.findViewById(R.id.textTaskColorTapFailedCount);
+            failedText = inflatedView.findViewById(R.id.textMissclicks);
         } catch (Exception e) {
             Log.e("SpeedQuest", "", e);
             return;
@@ -111,7 +111,7 @@ public class TapColorNotWordHandler extends GameHandler {
         failedText.setText(failedClicks + "");
 
         handler = new Handler();
-        handler.postDelayed(updater, 400);
+        handler.postDelayed(updater, 500);
     }
 
     @Override
@@ -126,14 +126,14 @@ public class TapColorNotWordHandler extends GameHandler {
     }
 
     private void onClick() {
-        if(success){
-
+        if(!success){
             if (currentColor.equals(targetColor)) {
                 handler.removeCallbacks(updater);
                 long duration = System.currentTimeMillis() - startMillis;
                 float punishment = Math.max(((10 - failedClicks) / 10f), 0);
                 int score = (int)(100f / (duration / 200f + 8) * 80 * punishment * punishment);
                 Log.d("SpeedQuest", "Score: " + score);
+                success = true;
                 finish(score);
             } else {
                 failedClicks++;

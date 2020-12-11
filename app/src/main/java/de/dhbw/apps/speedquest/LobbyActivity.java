@@ -5,11 +5,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
+
+import java.util.Random;
 
 import de.dhbw.apps.speedquest.client.GameState;
 import de.dhbw.apps.speedquest.client.SpeedQuestClient;
@@ -24,6 +31,10 @@ public class LobbyActivity extends AppCompatActivity {
 
     private boolean disconnectOnStop = true;
     private PlayerListModel listModel;
+    private int rounds;
+    private EditText gameKey;
+    private EditText roundCount;
+    private String key;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +54,25 @@ public class LobbyActivity extends AppCompatActivity {
 
         ImageButton buttonQuit = findViewById(R.id.imageButtonQuit);
         buttonQuit.setOnClickListener(v -> quitGame());
+
+        rounds=3;
+        roundCount = (EditText) findViewById(R.id.editTextRounds);
+        roundCount.setText("3");
+        roundCount.addTextChangedListener(new TextWatcher() {
+
+            public void afterTextChanged(Editable s) {
+                changeRounds(s.toString());
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+        });
+
+        gameKey = (EditText) findViewById(R.id.ediTextLobbyKey);
+        key = app.client.getGameCache().getGameKey();
+        gameKey.setText(key);
     }
 
     @Override
@@ -81,7 +111,7 @@ public class LobbyActivity extends AppCompatActivity {
         if (!app.client.getGameCache().getSelf().isHost)
             return;
 
-        PacketStartGame startPacket = new PacketStartGame(new StartInfo(3));
+        PacketStartGame startPacket = new PacketStartGame(new StartInfo(rounds));
 
         app.client.sendAsync(startPacket);
     }
@@ -112,5 +142,20 @@ public class LobbyActivity extends AppCompatActivity {
         disconnectOnStop = false;
         finish();
         return true;
+    }
+
+    private void changeRounds(String newRounds){
+        try {
+            rounds = Integer.parseInt(newRounds);
+            if(rounds < 1 || rounds > 999){
+                rounds = 3;
+                roundCount.setText("3");
+            }
+        } catch (Exception e) {
+            Log.e("SpeedQuest", "", e);
+            rounds = 3;
+            roundCount.setText("3");
+            return;
+        }
     }
 }

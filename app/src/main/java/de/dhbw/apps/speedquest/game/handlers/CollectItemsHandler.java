@@ -1,5 +1,6 @@
 package de.dhbw.apps.speedquest.game.handlers;
 
+import android.graphics.Color;
 import android.media.Image;
 import android.os.Handler;
 import android.util.Log;
@@ -91,22 +92,30 @@ public class CollectItemsHandler extends GameHandler {
             mineHandler.removeCallbacks(mineUpdater);
 
         long duration = System.currentTimeMillis() - startMillis;
-        int score = (int)(100f / (duration / 200f) * 80);
+        int score = (int)(100f - collected / (duration / 200f) * 80);
         Log.d("SpeedQuest", "Score: " + score);
         finish(score);
     }
 
     private void onClickBanana(){
+        collected++;
         if(collected < 10){
-            collected++;
             collectedText.setText(Math.max(collected,0) + "");
             banana.setClickable(false);
             banana.setVisibility(View.INVISIBLE);
         }else{
+            collectedText.setText(Math.max(collected,0) + "");
+            collectedText.setTextColor(Color.GREEN);
             bananaHandler.removeCallbacks(bananaUpdater);
             mineHandler.removeCallbacks(mineUpdater);
+
+            mine.setClickable(false);
+            mine.setVisibility(View.INVISIBLE);
+            banana.setClickable(false);
+            banana.setVisibility(View.INVISIBLE);
+
             long duration = System.currentTimeMillis() - startMillis;
-            int score = (int)(100f / (duration / 200f) * 80);
+            int score = (int)(100f - collected / (duration / 200f) * 80);
             Log.d("SpeedQuest", "Score: " + score);
             finish(score);
         }
@@ -127,11 +136,11 @@ public class CollectItemsHandler extends GameHandler {
                 mine.setVisibility(View.INVISIBLE);
             }else{
                 float x = rd.nextFloat();
-                float y = Math.max(0.1f, rd.nextFloat());
+                float y = Math.max(0.2f, rd.nextFloat());
 
                 ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) mine.getLayoutParams();
-                params.verticalBias = x;
-                params.horizontalBias = y;
+                params.verticalBias = y;
+                params.horizontalBias = x;
                 mine.setLayoutParams(params);
             }
         }else{
@@ -139,8 +148,8 @@ public class CollectItemsHandler extends GameHandler {
             float y = Math.max(0.2f, rd.nextFloat());
 
             ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) mine.getLayoutParams();
-            params.verticalBias = x;
-            params.horizontalBias = y;
+            params.verticalBias = y;
+            params.horizontalBias = x;
             mine.setLayoutParams(params);
 
             mine.setClickable(true);
@@ -148,7 +157,7 @@ public class CollectItemsHandler extends GameHandler {
         }
 
         long deltaMillis = System.currentTimeMillis() - startMillis;
-        mineHandler.postDelayed(mineUpdater, Math.min(250 + (int)(200 * (deltaMillis / 6000f)), 1000));
+        mineHandler.postDelayed(mineUpdater, Math.max(250 + (int)(200 * (deltaMillis / 6000f)), 600));
     }
 
     private void onUpdateBanana(){
@@ -159,11 +168,11 @@ public class CollectItemsHandler extends GameHandler {
                 banana.setVisibility(View.INVISIBLE);
             }else{
                 float x = rd.nextFloat();
-                float y = Math.max(0.1f, rd.nextFloat());
+                float y = Math.max(0.2f, rd.nextFloat());
 
                 ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) banana.getLayoutParams();
-                params.verticalBias = x;
-                params.horizontalBias = y;
+                params.verticalBias = y;
+                params.horizontalBias = x;
                 banana.setLayoutParams(params);
             }
         }else{
@@ -171,8 +180,8 @@ public class CollectItemsHandler extends GameHandler {
             float y = Math.max(0.2f, rd.nextFloat());
 
             ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) banana.getLayoutParams();
-            params.verticalBias = x;
-            params.horizontalBias = y;
+            params.verticalBias = y;
+            params.horizontalBias = x;
             banana.setLayoutParams(params);
 
             banana.setClickable(true);
@@ -180,6 +189,6 @@ public class CollectItemsHandler extends GameHandler {
         }
 
         long deltaMillis = System.currentTimeMillis() - startMillis;
-        bananaHandler.postDelayed(bananaUpdater, Math.min(250 + (int)(200 * (deltaMillis / 6000f)), 1000));
+        bananaHandler.postDelayed(bananaUpdater, Math.max(250 + (int)(200 * (deltaMillis / 6000f)), 600));
     }
 }
