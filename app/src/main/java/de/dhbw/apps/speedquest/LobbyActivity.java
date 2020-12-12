@@ -112,7 +112,7 @@ public class LobbyActivity extends AppCompatActivity {
 
         if(rounds < 1 || rounds > 99) {
             rounds = 3;
-            roundCount.setText("");
+            roundCount.setText("3");
             Toast.makeText(getApplicationContext(),"Invalid round count (0-99)",Toast.LENGTH_SHORT).show();
             return;
         }
