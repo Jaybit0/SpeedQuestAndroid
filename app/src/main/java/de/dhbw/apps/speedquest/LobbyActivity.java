@@ -152,7 +152,6 @@ public class LobbyActivity extends AppCompatActivity {
                 roundCount.setText("3");
             }
         } catch (Exception e) {
-            Log.e("SpeedQuest", "", e);
             rounds = 3;
             roundCount.setText("3");
             return;

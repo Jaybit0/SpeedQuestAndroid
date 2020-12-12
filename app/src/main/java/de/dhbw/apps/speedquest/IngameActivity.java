@@ -23,6 +23,7 @@ import de.dhbw.apps.speedquest.client.packets.internal.PacketTaskFinished;
 import de.dhbw.apps.speedquest.game.GameHandler;
 import de.dhbw.apps.speedquest.game.handlers.CollectItemsHandler;
 import de.dhbw.apps.speedquest.game.handlers.ColorTapGameHandler;
+import de.dhbw.apps.speedquest.game.handlers.FastTypingHandler;
 import de.dhbw.apps.speedquest.game.handlers.FindWordGameHandler;
 import de.dhbw.apps.speedquest.game.handlers.DisarmBombGameHandler;
 import de.dhbw.apps.speedquest.game.handlers.OpenSafeHandler;
@@ -143,6 +144,7 @@ public class IngameActivity extends AppCompatActivity {
         availableHandlers.put("question", new QuestionGameHandler(this));
         availableHandlers.put("findword", new FindWordGameHandler(this));
         availableHandlers.put("disarmbomb", new DisarmBombGameHandler(this));
+        availableHandlers.put("fasttyping", new FastTypingHandler(this));
     }
 
     public void onTaskFinished(PacketTaskFinished packet, SpeedQuestClient client) {
