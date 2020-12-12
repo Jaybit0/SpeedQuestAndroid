@@ -69,7 +69,7 @@ public class WhacMoleGameHandler extends GameHandler {
 
         int index = rd.nextInt(LENGTH);
         updateGameField(index);
-        handler.postDelayed(updater, 1500 - currRound * 100);
+        handler.postDelayed(updater, 1200 - currRound * 100);
     }
 
     private void onClick(View v) {
