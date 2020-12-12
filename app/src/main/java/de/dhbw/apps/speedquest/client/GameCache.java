@@ -1,7 +1,6 @@
 package de.dhbw.apps.speedquest.client;
 
 import android.util.Log;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,7 +18,6 @@ import de.dhbw.apps.speedquest.client.packets.PacketTaskAssign;
 import de.dhbw.apps.speedquest.client.packets.PacketTaskFinish;
 import de.dhbw.apps.speedquest.client.packets.internal.PacketGameInitialized;
 import de.dhbw.apps.speedquest.client.packets.internal.PacketGameStateChanged;
-import de.dhbw.apps.speedquest.client.packets.internal.PacketOnConnectResult;
 import de.dhbw.apps.speedquest.client.packets.internal.PacketPlayerUpdated;
 import de.dhbw.apps.speedquest.client.packets.internal.PacketQuit;
 import de.dhbw.apps.speedquest.client.packets.internal.PacketTaskAssigned;
@@ -33,6 +31,7 @@ public class GameCache {
     private boolean initialized = false;
     private GameState state = GameState.DISCONNECTED;
     private int round = 0;
+    private int roundCount = 3;
     private String self;
     private HashMap<String, UserInfo> users = new HashMap<>();
     private List<UserInfo> lastScores = new ArrayList<>();
@@ -82,6 +81,10 @@ public class GameCache {
         return currentTask;
     }
 
+    public int getRoundCount() {
+        return roundCount;
+    }
+
     private void init(PacketInitialize initPacket, SpeedQuestClient client) {
         synchronized (lock) {
             users.clear();
@@ -112,6 +115,7 @@ public class GameCache {
     }
 
     private void updateGameState(PacketGameStateChange gameStateChangePacket, SpeedQuestClient client) {
+        roundCount = gameStateChangePacket.getRoundCount();
         synchronized (lock) {
             changeGameState(gameStateChangePacket.getNewState());
         }
