@@ -136,7 +136,6 @@ public class IngameActivity extends AppCompatActivity {
     }
 
     private void addAvailableHandlers() {
-        /*
         availableHandlers.put("opensafe", new OpenSafeHandler(this));
         availableHandlers.put("collectitems", new CollectItemsHandler(this));
         availableHandlers.put("colortap", new ColorTapGameHandler(this));
@@ -146,18 +145,6 @@ public class IngameActivity extends AppCompatActivity {
         availableHandlers.put("findword", new FindWordGameHandler(this));
         availableHandlers.put("disarmbomb", new DisarmBombGameHandler(this));
         availableHandlers.put("fasttyping", new FastTypingHandler(this));
-
-         */
-
-        availableHandlers.put("opensafe", new CollectItemsHandler(this));
-        availableHandlers.put("collectitems", new CollectItemsHandler(this));
-        availableHandlers.put("colortap", new CollectItemsHandler(this));
-        availableHandlers.put("tapcolornottext", new CollectItemsHandler(this));
-        availableHandlers.put("whacmole", new CollectItemsHandler(this));
-        availableHandlers.put("question", new CollectItemsHandler(this));
-        availableHandlers.put("findword", new CollectItemsHandler(this));
-        availableHandlers.put("disarmbomb", new CollectItemsHandler(this));
-        availableHandlers.put("fasttyping", new CollectItemsHandler(this));
     }
 
     public void onTaskFinished(PacketTaskFinished packet, SpeedQuestClient client) {
