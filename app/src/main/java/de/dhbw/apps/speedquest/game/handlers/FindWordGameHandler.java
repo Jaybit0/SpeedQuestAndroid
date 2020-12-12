@@ -67,7 +67,6 @@ public class FindWordGameHandler extends GameHandler {
     }
 
     private void endTask(int rating){
-        finish(rating);
         if(index == 1)
             text1View.setBackgroundColor(Color.GREEN);
         else
@@ -75,5 +74,6 @@ public class FindWordGameHandler extends GameHandler {
 
         text1View.setOnClickListener(null);
         text2View.setOnClickListener(null);
+        finish(rating);
     }
 }
