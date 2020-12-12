@@ -59,18 +59,15 @@ public class FindWordGameHandler extends GameHandler {
     }
 
     private void text1Clicked(View v){
-        if(index == 1)
-            finish(100);
-        endTask();
+        endTask(index == 1 ? 100 : 0);
     }
 
     private void text2Clicked(View v){
-        if(index == 2)
-            finish(100);
-        endTask();
+        endTask(index == 2 ? 100 : 0);
     }
 
-    private void endTask(){
+    private void endTask(int rating){
+        finish(rating);
         if(index == 1)
             text1View.setBackgroundColor(Color.GREEN);
         else
