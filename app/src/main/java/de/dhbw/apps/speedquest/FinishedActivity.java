@@ -104,7 +104,7 @@ public class FinishedActivity extends AppCompatActivity {
         if (!app.client.getGameCache().getSelf().isHost)
             return;
 
-        PacketStartGame startPacket = new PacketStartGame(new StartInfo(3));
+        PacketStartGame startPacket = new PacketStartGame(new StartInfo(app.client.getGameCache().getRoundCount()));
 
         app.client.sendAsync(startPacket);
     }
