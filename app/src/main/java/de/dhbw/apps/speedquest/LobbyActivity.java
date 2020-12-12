@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Random;
 
@@ -57,6 +58,7 @@ public class LobbyActivity extends AppCompatActivity {
 
         rounds=3;
         roundCount = (EditText) findViewById(R.id.editTextRounds);
+        roundCount.setVisibility(app.client.getGameCache().getSelf().isHost ? View.VISIBLE : View.INVISIBLE);
         roundCount.setText("3");
         roundCount.addTextChangedListener(new TextWatcher() {
 
@@ -108,6 +110,13 @@ public class LobbyActivity extends AppCompatActivity {
     public void startGame() {
         SpeedQuestApplication app = (SpeedQuestApplication)getApplication();
 
+        if(rounds < 1 || rounds > 99) {
+            rounds = 3;
+            roundCount.setText("");
+            Toast.makeText(getApplicationContext(),"Invalid round count (0-99)",Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         if (!app.client.getGameCache().getSelf().isHost)
             return;
 
@@ -147,13 +156,8 @@ public class LobbyActivity extends AppCompatActivity {
     private void changeRounds(String newRounds){
         try {
             rounds = Integer.parseInt(newRounds);
-            if(rounds < 1 || rounds > 999){
-                rounds = 3;
-                roundCount.setText("3");
-            }
+
         } catch (Exception e) {
-            rounds = 3;
-            roundCount.setText("3");
             return;
         }
     }
