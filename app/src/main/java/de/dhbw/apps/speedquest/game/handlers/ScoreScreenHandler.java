@@ -35,7 +35,7 @@ public class ScoreScreenHandler extends GameHandler {
         SpeedQuestApplication app = (SpeedQuestApplication) activity.getApplication();
         GameCache cache = app.client.getGameCache();
 
-        Collection<UserInfo> users = cache.getLastUserScores().isEmpty() ?
+        Collection<? extends UserInfo> users = cache.getLastUserScores().isEmpty() ?
                 cache.getUsers() :
                 cache.getLastUserScores();
         RecyclerView listView = inflatedView.findViewById(R.id.playerList);

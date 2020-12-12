@@ -9,18 +9,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.UUID;
 
 import de.dhbw.apps.speedquest.R;
-import de.dhbw.apps.speedquest.client.SpeedQuestClient;
 import de.dhbw.apps.speedquest.client.infos.UserInfo;
-import de.dhbw.apps.speedquest.client.packets.PacketPlayerUpdate;
+import de.dhbw.apps.speedquest.client.infos.UserIngameInfo;
 
 import static java.lang.String.*;
 
@@ -34,7 +30,7 @@ public class PlayerListAdapter extends RecyclerView.Adapter<PlayerListAdapter.Pl
         currPlayers = new ArrayList<>();
     }
 
-    public void updateList(Collection<UserInfo> users){
+    public void updateList(Collection<? extends UserInfo> users){
         currPlayers.clear();
         currPlayers.addAll(users);
         notifyDataSetChanged();
@@ -62,6 +58,7 @@ public class PlayerListAdapter extends RecyclerView.Adapter<PlayerListAdapter.Pl
         ImageView rightImg;
         TextView nameText;
         TextView scoreText;
+        TextView newscoreText;
 
         public PlayerListViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -69,6 +66,7 @@ public class PlayerListAdapter extends RecyclerView.Adapter<PlayerListAdapter.Pl
             rightImg = itemView.findViewById(R.id.rightImg);
             nameText = itemView.findViewById(R.id.nameText);
             scoreText = itemView.findViewById(R.id.scoreText);
+            newscoreText = itemView.findViewById(R.id.newscoreText);
         }
     }
 
@@ -104,6 +102,14 @@ public class PlayerListAdapter extends RecyclerView.Adapter<PlayerListAdapter.Pl
                                 player.score
                         )
                 );
+                if(player instanceof UserIngameInfo) {
+                    UserIngameInfo ingame = (UserIngameInfo) player;
+                    viewHolder.newscoreText.setText(
+                            format("+%s", ingame.roundscore)
+                    );
+                }else{
+                    viewHolder.newscoreText.setText("");
+                }
             }
         };
 

@@ -11,6 +11,7 @@ import java.util.List;
 import de.dhbw.apps.speedquest.SpeedQuestApplication;
 import de.dhbw.apps.speedquest.client.infos.TaskInfo;
 import de.dhbw.apps.speedquest.client.infos.UserInfo;
+import de.dhbw.apps.speedquest.client.infos.UserIngameInfo;
 import de.dhbw.apps.speedquest.client.packets.PacketGameStateChange;
 import de.dhbw.apps.speedquest.client.packets.PacketInitialize;
 import de.dhbw.apps.speedquest.client.packets.PacketPlayerUpdate;
@@ -34,7 +35,7 @@ public class GameCache {
     private int roundCount = 3;
     private String self;
     private HashMap<String, UserInfo> users = new HashMap<>();
-    private List<UserInfo> lastScores = new ArrayList<>();
+    private List<UserIngameInfo> lastScores = new ArrayList<>();
     private TaskInfo currentTask = null;
     private String gameKey;
 
@@ -69,7 +70,7 @@ public class GameCache {
         return users.values();
     }
 
-    public List<UserInfo> getLastUserScores() {
+    public List<UserIngameInfo> getLastUserScores() {
         return lastScores;
     }
 

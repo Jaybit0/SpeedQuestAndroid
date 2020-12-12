@@ -4,18 +4,19 @@ import java.util.Collection;
 
 import de.dhbw.apps.speedquest.client.PacketID;
 import de.dhbw.apps.speedquest.client.infos.UserInfo;
+import de.dhbw.apps.speedquest.client.infos.UserIngameInfo;
 import de.dhbw.apps.speedquest.client.packets.Packet;
 
 @PacketID("internal.taskfinished")
 public class PacketTaskFinished extends Packet {
 
-    private Collection<UserInfo> updatedPlayers;
+    private Collection<UserIngameInfo> updatedPlayers;
 
-    public PacketTaskFinished(Collection<UserInfo> updatedPlayers) {
+    public PacketTaskFinished(Collection<UserIngameInfo> updatedPlayers) {
         this.updatedPlayers = updatedPlayers;
     }
 
-    public Collection<UserInfo> getUpdatedPlayers() {
+    public Collection<UserIngameInfo> getUpdatedPlayers() {
         return updatedPlayers;
     }
 
