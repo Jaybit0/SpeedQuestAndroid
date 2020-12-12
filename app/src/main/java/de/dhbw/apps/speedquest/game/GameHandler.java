@@ -45,6 +45,10 @@ public abstract class GameHandler {
             return;
 
         finished = true;
+        sendScore(rating);
+    }
+
+    protected void sendScore(int rating){
         SpeedQuestApplication app = (SpeedQuestApplication)activity.getApplication();
         PacketTaskDone packet = new PacketTaskDone();
         packet.rating = rating;

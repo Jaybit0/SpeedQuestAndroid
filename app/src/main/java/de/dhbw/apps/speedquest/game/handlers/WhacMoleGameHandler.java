@@ -69,7 +69,7 @@ public class WhacMoleGameHandler extends GameHandler {
 
         int index = rd.nextInt(LENGTH);
         updateGameField(index);
-        handler.postDelayed(updater, 1000 - currRound * 100);
+        handler.postDelayed(updater, 1500 - currRound * 100);
     }
 
     private void onClick(View v) {
@@ -79,7 +79,7 @@ public class WhacMoleGameHandler extends GameHandler {
         if(buttons[currBtnIndex].equals(v)){
             handler.removeCallbacksAndMessages(null);
             rating += 10;
-            finish(rating);
+            sendScore(rating);
             currRound++;
             timeEnds();
         }
