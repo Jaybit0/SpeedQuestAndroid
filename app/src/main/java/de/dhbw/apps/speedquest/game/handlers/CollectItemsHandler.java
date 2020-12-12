@@ -180,15 +180,13 @@ public class CollectItemsHandler extends GameHandler {
         mineHandler.postDelayed(mineUpdater, speed + 100 + rd.nextInt(2000));
     }
 
-
     private void onClickBanana(ImageView view){
         collected++;
         collectedText.setText(Math.max(collected,0) + "");
         view.setClickable(false);
         view.setVisibility(View.INVISIBLE);
-        int score = collected;
-        Log.d("SpeedQuest", "Collected: " + score);
-        finish(score);
+        Log.d("SpeedQuest", "Collected: " + collected);
+        finish(collected);
     }
 
     private void onClickMine(){
@@ -196,5 +194,6 @@ public class CollectItemsHandler extends GameHandler {
         collectedText.setText(Math.max(collected,0) + "");
         mine.setClickable(false);
         mine.setVisibility(View.INVISIBLE);
+        finish(collected);
     }
 }
