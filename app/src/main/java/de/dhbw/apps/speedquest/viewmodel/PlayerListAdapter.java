@@ -1,6 +1,5 @@
 package de.dhbw.apps.speedquest.viewmodel;
 
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,7 +32,12 @@ public class PlayerListAdapter extends RecyclerView.Adapter<PlayerListAdapter.Pl
     public void updateList(Collection<? extends UserInfo> users){
         currPlayers.clear();
         currPlayers.addAll(users);
+        currPlayers.sort(this::compare);
         notifyDataSetChanged();
+    }
+
+    private int compare(UserInfo a, UserInfo b){
+        return b.score - a.score;
     }
 
     @NonNull

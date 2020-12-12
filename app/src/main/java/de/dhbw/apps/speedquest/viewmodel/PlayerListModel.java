@@ -1,13 +1,7 @@
 package de.dhbw.apps.speedquest.viewmodel;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.UUID;
-
 import de.dhbw.apps.speedquest.client.SpeedQuestClient;
-import de.dhbw.apps.speedquest.client.infos.UserInfo;
-import de.dhbw.apps.speedquest.client.packets.PacketPlayerUpdate;
 import de.dhbw.apps.speedquest.client.packets.internal.PacketPlayerUpdated;
 
 public class PlayerListModel {
