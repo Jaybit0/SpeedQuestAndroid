@@ -3,6 +3,7 @@ package de.dhbw.apps.speedquest;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -22,12 +23,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Button b = findViewById(R.id.buttonJoin);
         EditText username = findViewById(R.id.editTextUsername);
         EditText gameKey = findViewById(R.id.editTextGameKey);
         b.setOnClickListener(v -> {
             tryConnect(username.getText().toString(), gameKey.getText().toString());
         });
+
+        Intent intent = getIntent();
+        Uri data = intent.getData();
+        if(data != null && data.getQueryParameter("key").length() == 4)
+            gameKey.setText(data.getQueryParameter("key"));
     }
 
     @Override

@@ -27,6 +27,20 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+            <intent-filter android:label="Game Invite">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="https"
+                    android:host="project-talk.me"
+                    android:port="4430"
+                    android:pathPrefix="/gamelink" />
+                <data android:scheme="https"
+                    android:host="project-talk.me"
+                    />
+            </intent-filter>
+
         </activity>
     </application>
 

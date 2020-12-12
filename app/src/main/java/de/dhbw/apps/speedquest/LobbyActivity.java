@@ -56,6 +56,9 @@ public class LobbyActivity extends AppCompatActivity {
         ImageButton buttonQuit = findViewById(R.id.imageButtonQuit);
         buttonQuit.setOnClickListener(v -> quitGame());
 
+        ImageButton shareButton = findViewById(R.id.sharebutton);
+        shareButton.setOnClickListener(this::shareGame);
+
         rounds=3;
         roundCount = (EditText) findViewById(R.id.editTextRounds);
         roundCount.setVisibility(app.client.getGameCache().getSelf().isHost ? View.VISIBLE : View.INVISIBLE);
@@ -160,5 +163,17 @@ public class LobbyActivity extends AppCompatActivity {
         } catch (Exception e) {
             return;
         }
+    }
+
+    private void shareGame(View v){
+        SpeedQuestApplication app = (SpeedQuestApplication) getApplication();
+        String link = "https://project-talk.me:4430/gamelink?key="
+                + app.client.getGameCache().getGameKey();
+
+        Intent i = new Intent(Intent.ACTION_SEND);
+        i.setType("text/plain");
+        i.putExtra(Intent.EXTRA_SUBJECT, "Share Gamelink");
+        i.putExtra(Intent.EXTRA_TEXT, link);
+        startActivity(Intent.createChooser(i, "Share link:"));
     }
 }
