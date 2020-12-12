@@ -61,7 +61,7 @@ public class GameCache {
     }
 
     public UserInfo getSelf() {
-        return users.get(self);
+        return users.getOrDefault(self, UserInfo.defaultUserSelf);
     }
 
     public String getGameKey() { return gameKey; }
