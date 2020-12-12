@@ -37,6 +37,8 @@ public class WhacMoleGameHandler extends GameHandler {
 
     @Override
     public void initialize(View inflatedView, TaskInfo task) {
+        currRound = 0;
+        rating = 0;
         double seedDouble = task.getParam("seed", new Double(new Random().nextInt()));
         rd = new Random((int)seedDouble);
         handler = new Handler();
@@ -58,6 +60,7 @@ public class WhacMoleGameHandler extends GameHandler {
 
     @Override
     public void onEnd() {
+        handler.removeCallbacksAndMessages(null);
 
     }
 
