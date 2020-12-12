@@ -95,6 +95,6 @@ public class DisarmBombGameHandler extends GameHandler {
             return;
 
         timerText.setAlpha(1);
-        finish(delta > 0 ? (int) delta / 50 : 0);
+        finish(delta > 0 ? (int) Math.max((5000 - delta) / 50, 0) : 0);
     }
 }
