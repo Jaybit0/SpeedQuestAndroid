@@ -111,6 +111,7 @@ public class FastTypingHandler extends GameHandler {
                 case 3:
                     if (input.equals(word3)) {
                         led3.setCardBackgroundColor(Color.GREEN);
+                        textInput.setFocusable(false);
                         long duration = System.currentTimeMillis() - startMillis;
                         int score = (int) (100f / (duration / 200f) * 80);
                         Log.d("SpeedQuest", "Score: " + score);
