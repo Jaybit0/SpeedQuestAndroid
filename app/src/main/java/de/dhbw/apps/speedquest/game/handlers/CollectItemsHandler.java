@@ -137,7 +137,7 @@ public class CollectItemsHandler extends GameHandler {
     }
 
     private void restartBanana1(){
-        Integer speed = 500 + rd.nextInt(1500);
+        Integer speed = 1000 + rd.nextInt(1500);
         banana1.setVisibility(View.VISIBLE);
         banana1.setClickable(true);
         move(banana1, speed);
@@ -148,7 +148,7 @@ public class CollectItemsHandler extends GameHandler {
     }
 
     private void restartBanana2(){
-        Integer speed = 500 + rd.nextInt(1500);
+        Integer speed = 1000 + rd.nextInt(1500);
         banana2.setVisibility(View.VISIBLE);
         banana2.setClickable(true);
         ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) banana2.getLayoutParams();
@@ -159,7 +159,7 @@ public class CollectItemsHandler extends GameHandler {
     }
 
     private void restartBanana3(){
-        Integer speed = 500 + rd.nextInt(1500);
+        Integer speed = 1000 + rd.nextInt(1500);
         banana3.setVisibility(View.VISIBLE);
         banana3.setClickable(true);
         ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) banana3.getLayoutParams();
@@ -170,7 +170,7 @@ public class CollectItemsHandler extends GameHandler {
     }
 
     private void restartMine(){
-        Integer speed = 500 + rd.nextInt(1500);
+        Integer speed = 1000 + rd.nextInt(1500);
         mine.setVisibility(View.VISIBLE);
         mine.setClickable(true);
         ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) mine.getLayoutParams();
