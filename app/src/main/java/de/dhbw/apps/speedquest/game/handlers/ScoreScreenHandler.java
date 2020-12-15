@@ -6,13 +6,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.Collection;
-import java.util.List;
-
 import de.dhbw.apps.speedquest.IngameActivity;
 import de.dhbw.apps.speedquest.R;
 import de.dhbw.apps.speedquest.SpeedQuestApplication;
 import de.dhbw.apps.speedquest.client.GameCache;
-import de.dhbw.apps.speedquest.client.SpeedQuestClient;
 import de.dhbw.apps.speedquest.client.infos.TaskInfo;
 import de.dhbw.apps.speedquest.client.infos.UserInfo;
 import de.dhbw.apps.speedquest.game.GameHandler;

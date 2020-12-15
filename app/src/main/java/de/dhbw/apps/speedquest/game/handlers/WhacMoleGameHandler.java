@@ -14,17 +14,17 @@ public class WhacMoleGameHandler extends GameHandler {
 
     final int LENGTH = 9;
 
-    int currRound = 0;
-    int rating = 0;
-    Random rd;
-    Handler handler;
-    int currBtnIndex = -1;
-    ImageButton[] buttons = new ImageButton[LENGTH];
+    private int currRound = 0;
+    private int rating = 0;
+    private Random rd;
+    private Handler handler;
+    private int currBtnIndex = -1;
+    private ImageButton[] buttons = new ImageButton[LENGTH];
     private Runnable updater = this::timeEnds;
     private Runnable updateNextRound = this::nextRound;
 
-    int badIcon = -1;
-    int goodIcon = -1;
+    private int badIcon = -1;
+    private int goodIcon = -1;
 
     public WhacMoleGameHandler(IngameActivity activity) {
         super(activity);

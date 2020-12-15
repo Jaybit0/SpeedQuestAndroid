@@ -80,7 +80,7 @@ public class IngameActivity extends AppCompatActivity {
         if (app.client.getGameCache().getCurrentTask() != null) {
             onTaskAssigned(new PacketTaskAssigned(app.client.getGameCache().getCurrentTask(), app.client.getGameCache().getRound()), app.client);
         } else {
-            showDefaultHandler(app.client);
+            showScoreHandler(app.client);
         }
     }
 
@@ -96,31 +96,35 @@ public class IngameActivity extends AppCompatActivity {
 
     private void onTaskAssigned(PacketTaskAssigned packet, SpeedQuestClient client) {
         if (packet == null || packet.getAssignedTask() == null) {
-            showDefaultHandler(client);
+            showScoreHandler(client);
         } else {
             roundTextView.setText(String.format(getString(R.string.curr_round_text), packet.getRound()));
-            clearActiveHandlerIfExists(client);
 
-            activeHandler = availableHandlers.getOrDefault(packet.getAssignedTask().getName(), defaultHandler);
-            activeHandler.setHandlerID(UUID.randomUUID());
-            activeHandler.begin();
-            View v = getLayoutInflater().inflate(activeHandler.getGameResource(), miniGameContainer);
-            try {
-                activeHandler.initialize(v, packet.getAssignedTask());
-                activeHandler.registerPacketHandlers();
-            } catch (Exception e) {
-                Log.e("SpeedQuest", "", e);
-            }
+            GameHandler handler = availableHandlers.getOrDefault(
+                    packet.getAssignedTask().getName(),
+                    defaultHandler
+            );
+            inflateHandler(handler, client, packet.getAssignedTask());
         }
     }
 
-    private void showDefaultHandler(SpeedQuestClient client) {
+    private void showScoreHandler(SpeedQuestClient client) {
+        inflateHandler(scoreHandler, client, null);
+    }
+
+    private void inflateHandler(GameHandler handler, SpeedQuestClient client, TaskInfo task){
         clearActiveHandlerIfExists(client);
 
-        activeHandler = scoreHandler;
+        activeHandler = handler;
         activeHandler.setHandlerID(UUID.randomUUID());
+        activeHandler.begin();
         View v = getLayoutInflater().inflate(activeHandler.getGameResource(), miniGameContainer);
-        activeHandler.initialize(v, null);
+        try {
+            handler.initialize(v, task);
+            handler.registerPacketHandlers();
+        } catch (Exception e) {
+            Log.e("SpeedQuest", "", e);
+        }
     }
 
     private void clearActiveHandlerIfExists(SpeedQuestClient client){
@@ -148,7 +152,7 @@ public class IngameActivity extends AppCompatActivity {
     }
 
     public void onTaskFinished(PacketTaskFinished packet, SpeedQuestClient client) {
-        showDefaultHandler(client);
+        showScoreHandler(client);
     }
 
     public void onGameStateChanged(PacketGameStateChanged packet, SpeedQuestClient client) {

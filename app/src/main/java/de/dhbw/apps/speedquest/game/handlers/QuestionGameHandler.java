@@ -1,7 +1,6 @@
 package de.dhbw.apps.speedquest.game.handlers;
 
 import android.graphics.Color;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -31,7 +30,6 @@ public class QuestionGameHandler extends GameHandler {
     @Override
     public void initialize(View inflatedView, TaskInfo task) {
         String question = task.getParam("question", "Miss quest");
-
         TextView questionText = inflatedView.findViewById(R.id.questiontext);
         questionText.setText(question);
 
@@ -45,7 +43,6 @@ public class QuestionGameHandler extends GameHandler {
             Button b = getButtonByNumber(i, activity);
             b.setText(answer);
             b.setOnClickListener(i == numberCorrectAnswer ? this::rightClicked : this::wrongClicked);
-            Log.d("Bla", answer + "  " + b.toString());
         }
     }
 
