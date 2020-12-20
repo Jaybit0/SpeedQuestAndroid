@@ -37,4 +37,8 @@
     <string name="fasttype_word_4">Tangerine</string>
     <string name="fasttype_word_1">Guerrilla</string>
     <string name="fasttype_word_5">Competitor</string>
+    <string name="image_desc_bombtimer">Bomben Countdown</string>
+    <string name="image_desc_bomb">Bombe</string>
+    <string name="image_desc_bomb_explode">Explosion</string>
+    <string name="image_desc_bomb_smoke">Rauch</string>
 </resources>

@@ -44,15 +44,13 @@
         android:id="@+id/textTaskColorTapFailedCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="0"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        android:layout_marginTop="5dp"
         android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
         android:textColor="@android:color/holo_red_light"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@id/textTaskColorTapFailed"
-        app:layout_constraintTop_toBottomOf="@id/textTaskColorTap"
-        />
+        app:layout_constraintTop_toBottomOf="@id/textTaskColorTap" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewColorTap"

@@ -95,23 +95,27 @@ public class FastTypingHandler extends GameHandler {
     }
 
     private String getWord(){
-        Integer selection = rd.nextInt(7);
+        Integer selection = rd.nextInt(6);
+        //return "Hallo";
+
         switch (selection){
             case 0:
-                return Resources.getSystem().getString(R.string.fasttype_word_0);
+                return activity.getResources().getString(R.string.fasttype_word_0);
             case 1:
-                return Resources.getSystem().getString(R.string.fasttype_word_1);
+                return activity.getResources().getString(R.string.fasttype_word_1);
             case 2:
-                return Resources.getSystem().getString(R.string.fasttype_word_2);
+                return activity.getResources().getString(R.string.fasttype_word_2);
             case 3:
-                return Resources.getSystem().getString(R.string.fasttype_word_3);
+                return activity.getResources().getString(R.string.fasttype_word_3);
             case 4:
-                return Resources.getSystem().getString(R.string.fasttype_word_4);
+                return activity.getResources().getString(R.string.fasttype_word_4);
             case 5:
-                return Resources.getSystem().getString(R.string.fasttype_word_5);
+                return activity.getResources().getString(R.string.fasttype_word_5);
             default:
                 return "Hund";
         }
+
+
     }
 
     private void checkText(String input){
