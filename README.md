@@ -63,6 +63,21 @@ client.registerPacketHandler(this::exampleHandler, PacketExample.class, MyActivi
 
 The activity and id are optional parameters. If the activity is specified, the callback will be performed in the UI-Thread of the activity. Furthermore, all packet-handlers of a certain activity can be unregistered at once. This is important, if the activity is stopped or destroyed to prevent duplicate listeners. Packet-handlers can be grouped via an ID. This is important if you have temporary handlers like minigames, that should be unregistered after they finished.
 
+### Unregistering packet handlers
+
+Packet-handlers can be unregistered via activity or id.
+
+```java
+client.unregisterMappingsOfActivity(MyActivity.this);
+client.unregisterMappingsOfID(handlerGroupID);
+```
+
+Also, certain packet handlers can be removed.
+
+```java
+client.unregisterPacketMappings(PacketExample.class);
+```
+
 ## Dependencies
 
 [AndroidAsync:2.2.1](https://github.com/koush/AndroidAsync)
