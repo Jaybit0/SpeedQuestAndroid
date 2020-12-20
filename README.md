@@ -10,4 +10,4 @@ SpeedQuest uses a simple Client-Server architecture. The server assigns tasks an
 
 ### Server Architecture
 
-![](Images/SpeedQuestServer.png)
+![](images/SpeedQuestServer.png)
