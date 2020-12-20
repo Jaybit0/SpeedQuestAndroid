@@ -32,7 +32,22 @@ SpeedQuestClient client = ((SpeedQuestApplication)getApplication()).client;
 
 ### Registering new packets
 
-The registration of new packets enables a fast development of new real-time games and other features. To register a new packet, a new java class is required. Make sure, that the specified class is serializable via [Gson:2.8.6](https://github.com/google/gson). Every packet-class needs to extend the abstract class `Packet`
+The registration of new packets enables a fast development of new real-time games and other features. To register a new packet, a new java class is required. Make sure, that the specified class is serializable via [Gson:2.8.6](https://github.com/google/gson). Every packet-class needs to extend the abstract class `Packet`. Every packet is identified by an unique name. The name needs to be specified with a custom annotation `PacketID`. To be able to send the packet, the protected String `packetID` needs to be set in the constructor.
+
+```java
+// To be able to identify the incoming packet
+@PacketID("example")
+public class PacketExample extends Packet {
+
+    @SerializedName("var1")
+    private String var1;
+
+    public PacketExample() {
+        // To be able to send the packet correctly
+        super.packetID = "example";
+    }
+}
+```
 
 ## Dependencies
 
