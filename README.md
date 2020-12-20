@@ -20,7 +20,11 @@ The SpeedQuest server is a NodeJS-server that uses WebSocket. The repository can
 
 ## Communication
 
-The app communicates via WebSocket and Json-Packets.
+The app communicates via WebSocket and Json-Packets. Packets can dynamically be registered without modifying the actual client.
+
+### Registering packets in the client
+
+
 
 ## Dependencies
 
