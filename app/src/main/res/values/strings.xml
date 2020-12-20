@@ -44,4 +44,25 @@
     <string name="image_desc_bomb">Bomb</string>
     <string name="image_desc_bomb_explode">Explosion</string>
     <string name="image_desc_bomb_smoke">Smoke</string>
+
+    <string name="quiz_question_1">Which fact is correct about ALOHA network access procedures?</string>
+    <string name="quiz_answer_1_1">Sender checks the line before sending</string>
+    <string name="quiz_answer_1_2">It was invented in Hawai</string>
+    <string name="quiz_answer_1_3">Fixed slots for sending</string>
+    <string name="quiz_answer_1_4">Messages can overlap</string>
+
+    <string name="quiz_question_2">What happens with time division multiplexing?</string>
+    <string name="quiz_answer_2_1">Everyone has a time slot</string>
+    <string name="quiz_answer_2_2">Everyone can always send</string>
+    <string name="quiz_answer_2_3">Everyone broadcasts on their own frequency</string>
+    <string name="quiz_answer_2_4">Overlaps are not a problem</string>
+
+    <string name="quiz_question_3">What is the pulse code modulation for?</string>
+    <string name="quiz_answer_3_1">Determine line codes</string>
+    <string name="quiz_answer_3_2">Color notation for LAN cables</string>
+    <string name="quiz_answer_3_3">Transmit analog signals digitally</string>
+    <string name="quiz_answer_3_4">Send impulse responses</string>
+
+
+
 </resources>

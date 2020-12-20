@@ -1,10 +1,13 @@
 package de.dhbw.apps.speedquest.game.handlers;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+
+import java.util.function.Supplier;
 
 import de.dhbw.apps.speedquest.IngameActivity;
 import de.dhbw.apps.speedquest.R;
@@ -28,7 +31,7 @@ public class QuestionGameHandler extends GameHandler {
 
     @Override
     public void initialize(View inflatedView, TaskInfo task) {
-        String question = task.getParam("question", "Miss quest");
+        String question = getQuestion(task);
         TextView questionText = inflatedView.findViewById(R.id.questiontext);
         questionText.setText(question);
 
@@ -36,9 +39,7 @@ public class QuestionGameHandler extends GameHandler {
         numberCorrectAnswer = (int)correct;
 
         for(int i = 1; i <= ANSWERCOUNT; i++){
-            String s = String.valueOf(i);
-            String answer = task.getParam("answer" + s, s);
-
+            String answer = getAnswer(i, task);
             Button b = getButtonByNumber(i);
             b.setText(answer);
             b.setOnClickListener(i == numberCorrectAnswer ? this::rightClicked : this::wrongClicked);
@@ -53,6 +54,46 @@ public class QuestionGameHandler extends GameHandler {
     @Override
     public void onEnd() {
 
+    }
+
+    private String getAnswer(int answerNumber, TaskInfo task){
+        return getLocalizedText(task, "quiz_answer_%d_" + answerNumber,
+                () -> getAnswerFromTask(answerNumber, task));
+    }
+
+    private String getQuestion(TaskInfo task){
+        return getLocalizedText(task, "quiz_question_%d",
+                () -> getQuestionFromTask(task));
+    }
+
+    private String getAnswerFromTask(int answerNumber, TaskInfo task){
+        String answerId = "answer" + answerNumber;
+        return task.getParam(answerId, answerId);
+    }
+
+    private String getQuestionFromTask(TaskInfo task){
+        return task.getParam("question", "question");
+    }
+
+    @SuppressLint("DefaultLocale")
+    private String getLocalizedText(TaskInfo task, String format, Supplier<String> fallback){
+        if(task.hasParam("localizenumber")) {
+            int localizenumber = (int) (double) task.getParam("localizenumber", 1.0);
+            int resId = getStringResourceId(String.format(format, localizenumber));
+            if(resId > 0)
+                return activity.getResources().getString(resId);
+            else
+                return fallback.get();
+        }else
+            return fallback.get();
+    }
+
+    private int getStringResourceId(String name){
+        return activity.getResources().getIdentifier(
+                name,
+                "string",
+                activity.getPackageName()
+        );
     }
 
     private void wrongClicked(View v){

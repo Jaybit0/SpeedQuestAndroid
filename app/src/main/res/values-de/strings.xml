@@ -41,4 +41,22 @@
     <string name="image_desc_bomb">Bombe</string>
     <string name="image_desc_bomb_explode">Explosion</string>
     <string name="image_desc_bomb_smoke">Rauch</string>
+
+    <string name="quiz_question_1">Welcher Fakt über ALOHA Netzzugriffverfahren richtig?</string>
+    <string name="quiz_answer_1_1">Sender prüft die Leitung vor dem Senden</string>
+    <string name="quiz_answer_1_2">Es wurde auf Hawai erfunden</string>
+    <string name="quiz_answer_1_3">Feste Slots fürs senden</string>
+    <string name="quiz_answer_1_4">Nachrichten können sich überschneiden</string>
+
+    <string name="quiz_question_2">Was geschieht beim Zeitmultiplexing?</string>
+    <string name="quiz_answer_2_1">Jeder hat ein Zeitfenster</string>
+    <string name="quiz_answer_2_2">Jeder darf immer senden</string>
+    <string name="quiz_answer_2_3">Jeder sendet auf einer eignen Frequenz</string>
+    <string name="quiz_answer_2_4">Überschneidungen sind kein Problem</string>
+
+    <string name="quiz_question_3">Wofür ist die Puls-Code-Modulation?</string>
+    <string name="quiz_answer_3_1">Leitungscodes bestimmen</string>
+    <string name="quiz_answer_3_2">Farbnotation für LAN-Kabel</string>
+    <string name="quiz_answer_3_3">Analoge Signale Digital übertragen</string>
+    <string name="quiz_answer_3_4">Impulsantworten senden</string>
 </resources>

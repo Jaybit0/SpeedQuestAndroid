@@ -34,6 +34,10 @@ public class TaskInfo {
         return rating;
     }
 
+    public boolean hasParam(String param) {
+        return params.containsKey(param);
+    }
+
     public Object getParam(String param) {
         return params.get(param);
     }
