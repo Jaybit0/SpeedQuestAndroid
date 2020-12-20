@@ -52,7 +52,7 @@ public class PacketExample extends Packet {
 The packet is now ready to be registered. This will tell the SpeedQuestClient how to deserialize a json with the id `example`.
 
 ```java
-app.client.registerPacket(PacketExample.class);
+client.registerPacket(PacketExample.class);
 ```
 
 
