@@ -25,4 +25,5 @@ The app communicates via WebSocket and Json-Packets.
 ## External Dependencies
 
 [AndroidAsync:2.2.1](https://github.com/koush/AndroidAsync)
+
 [Gson:2.8.6](https://github.com/google/gson)
