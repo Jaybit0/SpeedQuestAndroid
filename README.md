@@ -10,4 +10,6 @@ SpeedQuest uses a simple Client-Server architecture. The server assigns tasks an
 
 ### Server Architecture
 
+The SpeedQuest server is a NodeJS-server. The repository can be found [here](https://github.com/Jaybit0/SpeedQuest).
+
 ![](images/SpeedQuestServer.png)
