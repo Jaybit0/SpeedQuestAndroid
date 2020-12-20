@@ -20,11 +20,15 @@ The SpeedQuest server is a NodeJS-server that uses WebSocket. The repository can
 
 ## Communication
 
-The app communicates via WebSocket and Json-Packets. Packets can dynamically be registered without modifying the actual client.
+The main network handling is done with the SpeedQuestClient. Therefore the app communicates via WebSocket and Json-Packets. Packets can dynamically be registered without modifying the actual client.
 
-### Registering packets in the client
+### Accessing the SpeedQuestClient
 
+The SpeedQuestclient can be accessed from any activity.
 
+### Registering new packets
+
+The registration of new packets enables a fast development of new real-time games and other features. To register a new packet, a new java class is required. Make sure, that the specified class 
 
 ## Dependencies
 
