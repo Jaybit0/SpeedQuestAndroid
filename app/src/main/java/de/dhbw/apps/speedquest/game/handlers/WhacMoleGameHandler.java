@@ -112,7 +112,7 @@ public class WhacMoleGameHandler extends GameHandler {
 
     private ImageButton getButtonByNumber(int number, View v){
         int btnId = activity.getResources().getIdentifier(
-                "whaleButton1" + number,
+                "whaleButton" + number,
                 "id",
                 activity.getPackageName()
         );
