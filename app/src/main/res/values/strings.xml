@@ -2,7 +2,7 @@
     <string name="app_name">SpeedQuest</string>
     <string name="points_text">%d Points</string>
     <string name="findword_task">In which text is the word %s?</string>
-    <string name="curr_round_text">Rounds %d</string>
+    <string name="curr_round_text">Round %d</string>
     <string name="collect_desc">Bananas collected</string>
     <string name="collect_image_desc_banana">Clickable Banana</string>
     <string name="collect_image_desc_mine">Clickable Mine</string>
@@ -16,4 +16,13 @@
     <string name="lobby_rounds">Rounds</string>
     <string name="lobby_key">Game Key</string>
     <string name="text_start" translatable="false">Start</string>
+    <string name="speedquest_symbol" translatable="false">?</string>
+    <string name="username_hint">Username</string>
+    <string name="gamekey_hint">Game-key</string>
+    <string name="join">Join</string>
+    <string name="quit">Quit</string>
+    <string name="restart">Restart</string>
+    <string name="colortap_desc">Tap the screen when it is:</string>
+    <string name="colortap_missed">Missed:</string>
+    <string name="disarmbomb_desc">Disarm the bomb when the timer hits zero.</string>
 </resources>

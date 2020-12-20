@@ -16,9 +16,7 @@
         app:cardCornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="@+id/textTaskColorTap"
         app:layout_constraintStart_toEndOf="@+id/textTaskColorTap"
-        app:layout_constraintTop_toTopOf="@+id/textTaskColorTap">
-
-    </androidx.cardview.widget.CardView>
+        app:layout_constraintTop_toTopOf="@+id/textTaskColorTap" />
 
     <TextView
         android:id="@+id/textTaskColorTap"

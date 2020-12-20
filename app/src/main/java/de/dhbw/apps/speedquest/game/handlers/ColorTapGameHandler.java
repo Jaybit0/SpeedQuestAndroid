@@ -80,9 +80,8 @@ public class ColorTapGameHandler extends GameHandler {
                     targetColor = Color.RED;
             }
 
-            TextView tv = inflatedView.findViewById(R.id.textTaskColorTapColor);
-            tv.setText(colorName.toUpperCase());
-            tv.setTextColor(targetColor);
+            CardView cv = inflatedView.findViewById(R.id.led_card);
+            cv.setCardBackgroundColor(targetColor);
             failedText = inflatedView.findViewById(R.id.textTaskColorTapFailedCount);
         } catch (Exception e) {
             Log.e("SpeedQuest", "", e);
@@ -99,7 +98,6 @@ public class ColorTapGameHandler extends GameHandler {
 
     @Override
     public void registerPacketHandlers() {
-
     }
 
     @Override

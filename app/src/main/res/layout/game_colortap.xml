@@ -9,7 +9,7 @@
         android:id="@+id/textTaskColorTap"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tap the screen when it is:"
+        android:text="@string/colortap_desc"
         android:textSize="20sp"
         android:layout_marginTop="10dp"
         android:layout_marginStart="10dp"
@@ -17,25 +17,22 @@
         app:layout_constraintTop_toTopOf="parent"
          />
 
-    <TextView
-        android:id="@+id/textTaskColorTapColor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="RED"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="10dp"
-        android:textColor="@android:color/holo_red_light"
-        app:layout_constraintStart_toEndOf="@id/textTaskColorTap"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+    <androidx.cardview.widget.CardView
+        android:id="@+id/led_card"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="8dp"
+        app:cardBackgroundColor="#A9A9A9"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textTaskColorTap"
+        app:layout_constraintStart_toEndOf="@+id/textTaskColorTap"
+        app:layout_constraintTop_toTopOf="@+id/textTaskColorTap" />
 
     <TextView
         android:id="@+id/textTaskColorTapFailed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Missed: "
+        android:text="@string/colortap_missed"
         android:textSize="20sp"
         android:layout_marginTop="5dp"
         android:layout_marginStart="10dp"

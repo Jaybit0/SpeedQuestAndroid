@@ -62,7 +62,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:background="@null"
-        android:contentDescription="quit"
+        android:contentDescription="@string/quit"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_baseline_exit_to_app_24"
         app:layout_constraintStart_toStartOf="parent"

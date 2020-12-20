@@ -12,8 +12,16 @@
     <string name="fasttype_default_text">Schreibe das Wort</string>
     <string name="safe_image_note">Notizzettel</string>
     <string name="safe_image_Numpad">Eingabe Hintergrund</string>
-    <string name="tapword_tapcolorwhen">Tappe wenn die Farbe</string>
+    <string name="tapword_tapcolorwhen">Klicke bei der Farbe:</string>
     <string name="tapword_missed">Fehler:</string>
     <string name="lobby_rounds">Runden</string>
     <string name="lobby_key">Spielschlüssel</string>
+    <string name="username_hint">Benutzername</string>
+    <string name="gamekey_hint">Spiel-Schlüssel</string>
+    <string name="join">Beitreten</string>
+    <string name="quit">Verlassen</string>
+    <string name="restart">Neustart</string>
+    <string name="colortap_desc">Klicke bei der Farbe:</string>
+    <string name="colortap_missed">Verfehlt:</string>
+    <string name="disarmbomb_desc">Entschärfe die Bombe kurz bevor sie explodiert.</string>
 </resources>
