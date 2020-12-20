@@ -26,6 +26,10 @@ The main network handling is done with the SpeedQuestClient. Therefore the app c
 
 The SpeedQuestclient can be accessed from any activity.
 
+```java
+SpeedQuestClient client = ((SpeedQuestApplication)getApplication()).client;
+```
+
 ### Registering new packets
 
 The registration of new packets enables a fast development of new real-time games and other features. To register a new packet, a new java class is required. Make sure, that the specified class 
