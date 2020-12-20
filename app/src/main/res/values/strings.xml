@@ -25,4 +25,12 @@
     <string name="colortap_desc">Tap the screen when it is:</string>
     <string name="colortap_missed">Missed:</string>
     <string name="disarmbomb_desc">Disarm the bomb when the timer hits zero.</string>
+    <string name="string_unknowngame">Unknown Game</string>
+    <string name="image_desc_player">PlayerIcon</string>
+    <string name="image_desc_logo">Gamelogo</string>
+    <string name="image_desc_share">Share Button</string>
+    <string name="image_desc_podium" translatable="false">Podium</string>
+    <string name="text_first">First</string>
+    <string name="text_second">Second</string>
+    <string name="text_third">Third</string>
 </resources>

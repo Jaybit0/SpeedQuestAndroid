@@ -24,4 +24,11 @@
     <string name="colortap_desc">Klicke bei der Farbe:</string>
     <string name="colortap_missed">Verfehlt:</string>
     <string name="disarmbomb_desc">Entschärfe die Bombe kurz bevor sie explodiert.</string>
+    <string name="string_unknowngame">Unbekanntes Spiel</string>
+    <string name="image_desc_player">Spieleravatar</string>
+    <string name="image_desc_logo">Spiellogo</string>
+    <string name="image_desc_share">Teilknopf</string>
+    <string name="text_first">Erster</string>
+    <string name="text_second">Zweiter</string>
+    <string name="text_third">Dritter</string>
 </resources>
