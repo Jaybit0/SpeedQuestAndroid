@@ -12,6 +12,7 @@ public class PacketStartGame extends Packet {
     private StartInfo settings;
 
     public PacketStartGame() {
+        packetID = "startgame";
     }
 
     public PacketStartGame(StartInfo settings) {

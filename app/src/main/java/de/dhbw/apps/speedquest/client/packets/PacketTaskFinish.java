@@ -10,12 +10,12 @@ import de.dhbw.apps.speedquest.client.infos.UserIngameInfo;
 @PacketID("taskfinish")
 public class PacketTaskFinish extends Packet {
 
+    @SerializedName("roundscores")
+    private UserIngameInfo[] roundscores;
+
     PacketTaskFinish(){
         packetID = "taskfinish";
     }
-
-    @SerializedName("roundscores")
-    private UserIngameInfo[] roundscores;
 
     public UserIngameInfo[] getRoundscores() {
         return roundscores;

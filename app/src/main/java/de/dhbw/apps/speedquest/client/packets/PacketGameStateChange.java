@@ -15,6 +15,10 @@ public class PacketGameStateChange extends Packet {
     @SerializedName("roundcount")
     private int roundCount;
 
+    public PacketGameStateChange() {
+        packetID = "gamestate";
+    }
+
     public GameState getNewState() {
         switch (newState) {
             case "WAITING":

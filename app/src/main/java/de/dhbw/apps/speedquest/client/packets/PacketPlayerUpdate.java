@@ -13,6 +13,10 @@ public class PacketPlayerUpdate extends Packet {
     @SerializedName("updateplayers")
     private UserInfo[] updatedPlayers;
 
+    public PacketPlayerUpdate() {
+        packetID = "playerupdate";
+    }
+
     public UserInfo[] getUpdatedPlayers() {
         return updatedPlayers;
     }

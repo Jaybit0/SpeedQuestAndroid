@@ -17,6 +17,10 @@ public class PacketInitialize extends Packet {
     @SerializedName("playerlist")
     private UserInfo[] players;
 
+    public PacketInitialize() {
+        packetID = "initial";
+    }
+
     public String getGamekey() {
         return gamekey;
     }

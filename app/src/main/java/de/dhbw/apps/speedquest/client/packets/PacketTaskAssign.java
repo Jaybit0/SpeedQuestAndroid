@@ -14,6 +14,10 @@ public class PacketTaskAssign extends Packet {
     @SerializedName("task")
     private TaskInfo task;
 
+    public PacketTaskAssign() {
+        packetID = "taskassign";
+    }
+
     public int getRound() {
         return round;
     }
