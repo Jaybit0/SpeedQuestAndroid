@@ -10,10 +10,18 @@ SpeedQuest uses a simple Client-Server architecture. The server assigns tasks an
 
 ### Server Architecture
 
-The SpeedQuest server is a NodeJS-server. The repository can be found [here](https://github.com/Jaybit0/SpeedQuest).
+The SpeedQuest server is a NodeJS-server that uses WebSocket. The repository can be found [here](https://github.com/Jaybit0/SpeedQuest).
 
 ![](images/SpeedQuestServer.png)
 
 ### App Architecture
 
 ![](images/SpeedQuestClient.png)
+
+## Communication
+
+The app communicates via WebSocket and Json-Packets.
+
+## Dependencies
+
+[AndroidAsync:2.2.1](https://github.com/koush/AndroidAsync)
