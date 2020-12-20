@@ -43,7 +43,7 @@ public class WhacMoleGameHandler extends GameHandler {
         rd = new Random((int)seedDouble);
         handler = new Handler();
 
-        for(int i = 0; i < LENGTH; i++){
+        for(int i = 1; i <= LENGTH; i++){
             ImageButton btn = getButtonByNumber(i, inflatedView);
             buttons[i] = btn;
             btn.setOnClickListener(this::onClick);
