@@ -106,6 +106,8 @@ public class TapColorNotWordHandler extends GameHandler {
             return;
         }
 
+        onUpdateColor();
+
         startMillis = System.currentTimeMillis();
         failedClicks = 0;
         failedText.setText(failedClicks + "");
