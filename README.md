@@ -32,7 +32,7 @@ SpeedQuestClient client = ((SpeedQuestApplication)getApplication()).client;
 
 ### Registering new packets
 
-The registration of new packets enables a fast development of new real-time games and other features. To register a new packet, a new java class is required. Make sure, that the specified class 
+The registration of new packets enables a fast development of new real-time games and other features. To register a new packet, a new java class is required. Make sure, that the specified class is serializable via [Gson:2.8.6](https://github.com/google/gson). Every packet-class needs to extend the abstract class `Packet`
 
 ## Dependencies
 
