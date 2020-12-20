@@ -1,20 +1,15 @@
 package de.dhbw.apps.speedquest.game.handlers;
 
-import android.content.res.Resources;
 import android.graphics.Color;
-import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import de.dhbw.apps.speedquest.IngameActivity;
@@ -53,7 +48,7 @@ public class FastTypingHandler extends GameHandler {
         led3 = inflatedView.findViewById(R.id.led3);
 
         try {
-            double seedDouble = task.getParam("seed", new Double(new Random().nextInt()));
+            double seedDouble = task.getParam("seed", (double) new Random().nextInt());
             rd = new Random((int)seedDouble);
         } catch (Exception e) {
             Log.e("SpeedQuest", "", e);
@@ -95,8 +90,7 @@ public class FastTypingHandler extends GameHandler {
     }
 
     private String getWord(){
-        Integer selection = rd.nextInt(6);
-        //return "Hallo";
+        int selection = rd.nextInt(6);
 
         switch (selection){
             case 0:
@@ -114,8 +108,6 @@ public class FastTypingHandler extends GameHandler {
             default:
                 return "Hund";
         }
-
-
     }
 
     private void checkText(String input){

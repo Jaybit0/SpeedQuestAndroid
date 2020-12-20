@@ -57,7 +57,7 @@ public class PlayerListAdapter extends RecyclerView.Adapter<PlayerListAdapter.Pl
         return currPlayers.size();
     }
 
-    class PlayerListViewHolder extends RecyclerView.ViewHolder{
+    static class PlayerListViewHolder extends RecyclerView.ViewHolder{
         ImageView leftImg;
         ImageView rightImg;
         TextView nameText;

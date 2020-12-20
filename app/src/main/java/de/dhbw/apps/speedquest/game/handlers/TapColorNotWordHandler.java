@@ -9,8 +9,6 @@ import android.widget.TextView;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -33,7 +31,6 @@ public class TapColorNotWordHandler extends GameHandler {
     private long startMillis;
     private int failedClicks;
     private TextView failedText;
-    private CardView led;
     private boolean success;
 
     public TapColorNotWordHandler(IngameActivity activity) {
@@ -72,7 +69,7 @@ public class TapColorNotWordHandler extends GameHandler {
         currentColor = Color.RED;
 
         try {
-            double seedDouble = task.getParam("seed", new Double(new Random().nextInt()));
+            double seedDouble = task.getParam("seed", (double) new Random().nextInt());
             rd = new Random((int)seedDouble);
             String colorName = task.getParam("color", "red");
 
@@ -99,7 +96,7 @@ public class TapColorNotWordHandler extends GameHandler {
                     targetColor = Color.RED;
             }
 
-            led = inflatedView.findViewById(R.id.led_card);
+            CardView led = inflatedView.findViewById(R.id.led_card);
             led.setCardBackgroundColor(targetColor);
             failedText = inflatedView.findViewById(R.id.textMissclicks);
         } catch (Exception e) {
@@ -145,7 +142,7 @@ public class TapColorNotWordHandler extends GameHandler {
     }
 
     private void onUpdate(){
-        Integer selector = rd.nextInt(4);
+        int selector = rd.nextInt(4);
         switch(selector){
             case 0:
             case 1:
@@ -168,7 +165,7 @@ public class TapColorNotWordHandler extends GameHandler {
     private void onUpdateColor() {
         Integer nextColor = currentColor;
 
-        while (currentColor == nextColor)
+        while (currentColor.equals(nextColor))
             nextColor = colorList.get(rd.nextInt(colorList.size()));
 
         currentColor = nextColor;

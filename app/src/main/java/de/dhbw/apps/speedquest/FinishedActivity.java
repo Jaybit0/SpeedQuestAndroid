@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -21,8 +20,6 @@ import de.dhbw.apps.speedquest.client.infos.StartInfo;
 import de.dhbw.apps.speedquest.client.infos.UserInfo;
 import de.dhbw.apps.speedquest.client.packets.PacketStartGame;
 import de.dhbw.apps.speedquest.client.packets.internal.PacketGameStateChanged;
-import de.dhbw.apps.speedquest.client.packets.internal.PacketQuit;
-import de.dhbw.apps.speedquest.client.packets.internal.PacketTaskAssigned;
 import de.dhbw.apps.speedquest.viewmodel.PlayerListAdapter;
 import de.dhbw.apps.speedquest.viewmodel.PlayerListModel;
 
@@ -65,7 +62,7 @@ public class FinishedActivity extends AppCompatActivity {
         Button buttonStart = findViewById(R.id.buttonRestart);
         buttonStart.setVisibility(app.client.getGameCache().getSelf().isHost ? View.VISIBLE : View.INVISIBLE);
 
-        ArrayList<UserInfo> users = new ArrayList<UserInfo>(app.client.getGameCache().getUsers());
+        ArrayList<UserInfo> users = new ArrayList<>(app.client.getGameCache().getUsers());
         users.sort((i1, i2) -> i2.score - i1.score);
 
         TextView firstText = findViewById(R.id.textFirst);

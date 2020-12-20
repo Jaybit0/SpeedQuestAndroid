@@ -7,9 +7,6 @@ public class StartInfo {
     @SerializedName("roundcount")
     private int rounds;
 
-    public StartInfo() {
-    }
-
     public StartInfo(int rounds) {
         this.rounds = rounds;
     }

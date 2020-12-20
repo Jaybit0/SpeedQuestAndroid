@@ -5,6 +5,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.Locale;
+
 import de.dhbw.apps.speedquest.IngameActivity;
 import de.dhbw.apps.speedquest.R;
 import de.dhbw.apps.speedquest.client.infos.TaskInfo;
@@ -79,7 +81,7 @@ public class DisarmBombGameHandler extends GameHandler {
             return;
         }
 
-        timerText.setText(String.format("%.1f", delta / 1000f));
+        timerText.setText(String.format(Locale.getDefault(), "%.1f", delta / 1000f));
         timerText.setAlpha(Math.max((3000 - System.currentTimeMillis() + startMillis) / 3000f, 0));
         handler.postDelayed(timerUpdater, 100);
     }

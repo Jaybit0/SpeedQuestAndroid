@@ -39,7 +39,7 @@ public class WhacMoleGameHandler extends GameHandler {
     @Override
     public void initialize(View inflatedView, TaskInfo task) {
         rating = 0;
-        double seedDouble = task.getParam("seed", new Double(new Random().nextInt()));
+        double seedDouble = task.getParam("seed", (double) new Random().nextInt());
         rd = new Random((int)seedDouble);
         handler = new Handler();
 

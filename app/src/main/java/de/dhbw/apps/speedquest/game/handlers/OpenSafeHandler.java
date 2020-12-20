@@ -2,7 +2,6 @@ package de.dhbw.apps.speedquest.game.handlers;
 
 import android.graphics.Color;
 import android.os.Handler;
-import android.provider.CalendarContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -10,8 +9,6 @@ import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import de.dhbw.apps.speedquest.IngameActivity;
@@ -21,23 +18,10 @@ import de.dhbw.apps.speedquest.game.GameHandler;
 
 public class OpenSafeHandler extends GameHandler {
 
-    private Random rd;
     private Handler handler;
     private Runnable updater = this::resetLED;
-    private Button number0;
-    private Button number1;
-    private Button number2;
-    private Button number3;
-    private Button number4;
-    private Button number5;
-    private Button number6;
-    private Button number7;
-    private Button number8;
-    private Button number9;
     private TextView code_display;
     private CardView led;
-    private List<Integer> colorList = new ArrayList<>();
-    private List<String> textList = new ArrayList<>();
     private long startMillis;
     private String code;
     private String input;
@@ -54,34 +38,34 @@ public class OpenSafeHandler extends GameHandler {
 
     @Override
     public void initialize(View inflatedView, TaskInfo task) {
-        number0 = inflatedView.findViewById(R.id.button_0);
+        Button number0 = inflatedView.findViewById(R.id.button_0);
         number0.setOnClickListener(v -> onClick('0'));
 
-        number1 = inflatedView.findViewById(R.id.button_1);
+        Button number1 = inflatedView.findViewById(R.id.button_1);
         number1.setOnClickListener(v -> onClick('1'));
 
-        number2 = inflatedView.findViewById(R.id.button_2);
+        Button number2 = inflatedView.findViewById(R.id.button_2);
         number2.setOnClickListener(v -> onClick('2'));
 
-        number3 = inflatedView.findViewById(R.id.button_3);
+        Button number3 = inflatedView.findViewById(R.id.button_3);
         number3.setOnClickListener(v -> onClick('3'));
 
-        number4 = inflatedView.findViewById(R.id.button_4);
+        Button number4 = inflatedView.findViewById(R.id.button_4);
         number4.setOnClickListener(v -> onClick('4'));
 
-        number5 = inflatedView.findViewById(R.id.button_5);
+        Button number5 = inflatedView.findViewById(R.id.button_5);
         number5.setOnClickListener(v -> onClick('5'));
 
-        number6 = inflatedView.findViewById(R.id.button_6);
+        Button number6 = inflatedView.findViewById(R.id.button_6);
         number6.setOnClickListener(v -> onClick('6'));
 
-        number7 = inflatedView.findViewById(R.id.button_7);
+        Button number7 = inflatedView.findViewById(R.id.button_7);
         number7.setOnClickListener(v -> onClick('7'));
 
-        number8 = inflatedView.findViewById(R.id.button_8);
+        Button number8 = inflatedView.findViewById(R.id.button_8);
         number8.setOnClickListener(v -> onClick('8'));
 
-        number9 = inflatedView.findViewById(R.id.button_9);
+        Button number9 = inflatedView.findViewById(R.id.button_9);
         number9.setOnClickListener(v -> onClick('9'));
 
         code_display = inflatedView.findViewById(R.id.codeView);
@@ -91,8 +75,9 @@ public class OpenSafeHandler extends GameHandler {
 
         led = inflatedView.findViewById(R.id.led_view);
 
+        Random rd;
         try {
-            double seedDouble = task.getParam("seed", new Double(new Random().nextInt()));
+            double seedDouble = task.getParam("seed", (double) new Random().nextInt());
             rd = new Random((int)seedDouble);
         } catch (Exception e) {
             Log.e("SpeedQuest", "", e);
@@ -146,7 +131,7 @@ public class OpenSafeHandler extends GameHandler {
                         handler.postDelayed(updater, 500);
                     }
             } catch (Exception e) {
-                return;
+                Log.d("SpeedQuest", "", e);
             }
         }
     }

@@ -1,20 +1,14 @@
 package de.dhbw.apps.speedquest.game.handlers;
 
-import android.animation.Animator;
 import android.animation.ValueAnimator;
-import android.graphics.Color;
-import android.media.Image;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import de.dhbw.apps.speedquest.IngameActivity;
@@ -74,7 +68,7 @@ public class CollectItemsHandler extends GameHandler {
         collectedText = inflatedView.findViewById(R.id.amountCollected);
 
         try {
-            double seedDouble = task.getParam("seed", new Double(new Random().nextInt()));
+            double seedDouble = task.getParam("seed", (double) new Random().nextInt());
             rd = new Random((int)seedDouble);
         } catch (Exception e) {
             Log.e("SpeedQuest", "", e);
@@ -90,7 +84,7 @@ public class CollectItemsHandler extends GameHandler {
         mine = inflatedView.findViewById(R.id.mine);
 
         banana1Handler = new Handler();
-        banana1Handler.postDelayed(banana1Updater, 0 + rd.nextInt(1000));
+        banana1Handler.postDelayed(banana1Updater, rd.nextInt(1000));
 
         banana2Handler = new Handler();
         banana2Handler.postDelayed(banana2Updater, 500 + rd.nextInt(1500));
@@ -124,8 +118,7 @@ public class CollectItemsHandler extends GameHandler {
 
     public void move(final ImageView view, int speed){
         ValueAnimator va = ValueAnimator.ofFloat(0.05f, 0.95f);
-        int mDuration = speed;
-        va.setDuration(mDuration);
+        va.setDuration(speed);
         va.addUpdateListener(animation -> {
             ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) view.getLayoutParams();
             params.verticalBias = (float)animation.getAnimatedValue();
@@ -135,7 +128,7 @@ public class CollectItemsHandler extends GameHandler {
     }
 
     private void restartBanana1(){
-        Integer speed = 1000 + rd.nextInt(1500);
+        int speed = 1000 + rd.nextInt(1500);
         banana1.setVisibility(View.VISIBLE);
         banana1.setClickable(true);
         move(banana1, speed);
@@ -146,7 +139,7 @@ public class CollectItemsHandler extends GameHandler {
     }
 
     private void restartBanana2(){
-        Integer speed = 1000 + rd.nextInt(1500);
+        int speed = 1000 + rd.nextInt(1500);
         banana2.setVisibility(View.VISIBLE);
         banana2.setClickable(true);
         ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) banana2.getLayoutParams();
@@ -157,7 +150,7 @@ public class CollectItemsHandler extends GameHandler {
     }
 
     private void restartBanana3(){
-        Integer speed = 1000 + rd.nextInt(1500);
+        int speed = 1000 + rd.nextInt(1500);
         banana3.setVisibility(View.VISIBLE);
         banana3.setClickable(true);
         ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) banana3.getLayoutParams();
@@ -168,7 +161,7 @@ public class CollectItemsHandler extends GameHandler {
     }
 
     private void restartMine(){
-        Integer speed = 1000 + rd.nextInt(1500);
+        int speed = 1000 + rd.nextInt(1500);
         mine.setVisibility(View.VISIBLE);
         mine.setClickable(true);
         ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) mine.getLayoutParams();

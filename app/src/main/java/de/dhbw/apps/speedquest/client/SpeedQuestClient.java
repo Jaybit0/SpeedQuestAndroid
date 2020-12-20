@@ -32,7 +32,6 @@ public class SpeedQuestClient {
 
     private final Object lock = new Object();
 
-    private SpeedQuestApplication app;
     private boolean connecting = false;
     private boolean connected = false;
     private Map<String, Class<? extends Packet>> packetMapping = new HashMap<>();
@@ -41,7 +40,6 @@ public class SpeedQuestClient {
     private WebSocket currentSocket = null;
 
     public SpeedQuestClient(SpeedQuestApplication app) {
-        this.app = app;
 
         init();
         gameCache = new GameCache(app);
@@ -195,7 +193,7 @@ public class SpeedQuestClient {
                 packetHandlers.put(packetType, handlerContexts);
             }
 
-            handlerContexts.add(new PacketHandlerContext<T>(id == null ? UUID.randomUUID() : id, packetHandler, activity));
+            handlerContexts.add(new PacketHandlerContext<>(id == null ? UUID.randomUUID() : id, packetHandler, activity));
         }
     }
 

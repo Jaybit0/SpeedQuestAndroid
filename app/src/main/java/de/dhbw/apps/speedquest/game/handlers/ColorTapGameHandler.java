@@ -4,7 +4,6 @@ import android.graphics.Color;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
@@ -53,7 +52,7 @@ public class ColorTapGameHandler extends GameHandler {
         cv.setOnClickListener(v -> onClick());
 
         try {
-            double seedDouble = task.getParam("seed", new Double(new Random().nextInt()));
+            double seedDouble = task.getParam("seed", (double) new Random().nextInt());
             rd = new Random((int)seedDouble);
             String colorName = task.getParam("color", "red");
 
