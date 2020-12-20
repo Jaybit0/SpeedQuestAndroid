@@ -80,7 +80,11 @@ client.unregisterPacketMappings(PacketExample.class);
 
 ### GameCache
 
-The SpeedQuestClient contains a GameCache. Important information like the player-list, active tasks and game-states are stored here. This ensures availability of the information independent of the underlying context.
+The SpeedQuestClient contains a game-cache. Important information like the player-list, active tasks and game-states are stored here. This ensures availability of the information independent of the underlying context.
+
+```java
+client.getGameCache();
+```
 
 ## Dependencies
 
