@@ -78,6 +78,10 @@ Also, certain packet handlers can be removed.
 client.unregisterPacketMappings(PacketExample.class);
 ```
 
+### GameCache
+
+The SpeedQuestClient contains a GameCache. Important information like the player-list, active tasks and game-states are stored here. This ensures availability of the information independent of the underlying context.
+
 ## Dependencies
 
 [AndroidAsync:2.2.1](https://github.com/koush/AndroidAsync)
