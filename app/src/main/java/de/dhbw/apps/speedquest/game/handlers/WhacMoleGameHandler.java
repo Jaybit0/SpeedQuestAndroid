@@ -3,6 +3,7 @@ package de.dhbw.apps.speedquest.game.handlers;
 import android.os.Handler;
 import android.view.View;
 import android.widget.ImageButton;
+
 import java.util.Random;
 
 import de.dhbw.apps.speedquest.IngameActivity;
@@ -37,16 +38,14 @@ public class WhacMoleGameHandler extends GameHandler {
 
     @Override
     public void initialize(View inflatedView, TaskInfo task) {
-        currRound = 0;
         rating = 0;
         double seedDouble = task.getParam("seed", new Double(new Random().nextInt()));
         rd = new Random((int)seedDouble);
         handler = new Handler();
 
         for(int i = 0; i < LENGTH; i++){
-            ImageButton btn = inflatedView.findViewById(R.id.whaleButton1 + i);
+            ImageButton btn = getButtonByNumber(i, inflatedView);
             buttons[i] = btn;
-            updateImage(i, true);
             btn.setOnClickListener(this::onClick);
         }
         updateGameField(-1);
@@ -60,8 +59,8 @@ public class WhacMoleGameHandler extends GameHandler {
 
     @Override
     public void onEnd() {
-        handler.removeCallbacksAndMessages(null);
-
+        if(handler != null)
+            handler.removeCallbacksAndMessages(null);
     }
 
     private void nextRound(){
@@ -93,14 +92,13 @@ public class WhacMoleGameHandler extends GameHandler {
         for(int i = 0; i < LENGTH; i++){
             updateImage(i, newIndex != i);
         }
-
     }
 
     private void updateImage(int index, boolean good){
         int iconIndex = good ? goodIcon : badIcon;
         int color = rd.nextInt(3);
         iconIndex += color * 3;
-        int id = activity.getResources().getIdentifier("ic_whac_" + String.valueOf(iconIndex), "drawable", activity.getPackageName());
+        int id = activity.getResources().getIdentifier("ic_whac_" + iconIndex, "drawable", activity.getPackageName());
         buttons[index].setImageResource(id);
     }
 
@@ -110,5 +108,14 @@ public class WhacMoleGameHandler extends GameHandler {
         updateImage(index, true);
 
         handler.postDelayed(updateNextRound, rd.nextInt(750) + 250);
+    }
+
+    private ImageButton getButtonByNumber(int number, View v){
+        int btnId = activity.getResources().getIdentifier(
+                "whaleButton1" + number,
+                "id",
+                activity.getPackageName()
+        );
+        return v.findViewById(btnId);
     }
 }

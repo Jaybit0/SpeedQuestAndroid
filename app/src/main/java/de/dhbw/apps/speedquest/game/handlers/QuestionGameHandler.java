@@ -5,7 +5,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
 
 import de.dhbw.apps.speedquest.IngameActivity;
 import de.dhbw.apps.speedquest.R;
@@ -40,7 +39,7 @@ public class QuestionGameHandler extends GameHandler {
             String s = String.valueOf(i);
             String answer = task.getParam("answer" + s, s);
 
-            Button b = getButtonByNumber(i, activity);
+            Button b = getButtonByNumber(i);
             b.setText(answer);
             b.setOnClickListener(i == numberCorrectAnswer ? this::rightClicked : this::wrongClicked);
         }
@@ -67,7 +66,7 @@ public class QuestionGameHandler extends GameHandler {
 
     private void showResult(int result){
         for(int i = 1; i <= ANSWERCOUNT; i++){
-            Button b = getButtonByNumber(i, activity);
+            Button b = getButtonByNumber(i);
             b.setEnabled(false);
 
             if(i == numberCorrectAnswer)
@@ -76,9 +75,9 @@ public class QuestionGameHandler extends GameHandler {
         finish(result);
     }
 
-    private Button getButtonByNumber(int number, AppCompatActivity activity){
+    private Button getButtonByNumber(int number){
         int btnId = activity.getResources().getIdentifier(
-                "answerbutton" + String.valueOf(number),
+                "answerbutton" + number,
                 "id",
                 activity.getPackageName()
         );
