@@ -37,7 +37,6 @@ public class CollectItemsHandler extends GameHandler {
     private Runnable banana2Updater = this::restartBanana2;
     private Runnable banana3Updater = this::restartBanana3;
     private Runnable mineUpdater = this::restartMine;
-    private long startMillis;
     private TextView collectedText;
     private int collected;
 
@@ -52,27 +51,27 @@ public class CollectItemsHandler extends GameHandler {
 
     @Override
     public void initialize(View inflatedView, TaskInfo task) {
-        banana1 = (ImageView) inflatedView.findViewById(R.id.banana1);
+        banana1 = inflatedView.findViewById(R.id.banana1);
         banana1.setOnClickListener(v -> onClickBanana(banana1));
         banana1.setVisibility(View.VISIBLE);
         banana1.setClickable(true);
 
-        banana2 = (ImageView) inflatedView.findViewById(R.id.banana2);
+        banana2 = inflatedView.findViewById(R.id.banana2);
         banana2.setOnClickListener(v -> onClickBanana(banana2));
         banana2.setVisibility(View.VISIBLE);
         banana2.setClickable(true);
 
-        banana3 = (ImageView) inflatedView.findViewById(R.id.banana3);
+        banana3 = inflatedView.findViewById(R.id.banana3);
         banana3.setOnClickListener(v -> onClickBanana(banana3));
         banana3.setVisibility(View.VISIBLE);
         banana3.setClickable(true);
 
-        mine = (ImageView) inflatedView.findViewById(R.id.mine);
+        mine = inflatedView.findViewById(R.id.mine);
         mine.setOnClickListener(v -> onClickMine());
         mine.setVisibility(View.VISIBLE);
         mine.setClickable(true);
 
-        collectedText = (TextView) inflatedView.findViewById(R.id.amountCollected);
+        collectedText = inflatedView.findViewById(R.id.amountCollected);
 
         try {
             double seedDouble = task.getParam("seed", new Double(new Random().nextInt()));
@@ -82,14 +81,13 @@ public class CollectItemsHandler extends GameHandler {
             return;
         }
 
-        startMillis = System.currentTimeMillis();
         collected = 0;
         collectedText.setText(Math.max(collected,0) + "");
 
-        banana1 = (ImageView) inflatedView.findViewById(R.id.banana1);
-        banana2 = (ImageView) inflatedView.findViewById(R.id.banana2);
-        banana3 = (ImageView) inflatedView.findViewById(R.id.banana3);
-        mine = (ImageView) inflatedView.findViewById(R.id.mine);
+        banana1 = inflatedView.findViewById(R.id.banana1);
+        banana2 = inflatedView.findViewById(R.id.banana2);
+        banana3 = inflatedView.findViewById(R.id.banana3);
+        mine = inflatedView.findViewById(R.id.mine);
 
         banana1Handler = new Handler();
         banana1Handler.postDelayed(banana1Updater, 0 + rd.nextInt(1000));
@@ -186,7 +184,7 @@ public class CollectItemsHandler extends GameHandler {
         view.setClickable(false);
         view.setVisibility(View.INVISIBLE);
         Log.d("SpeedQuest", "Collected: " + collected);
-        finish(collected);
+        sendScore(Math.max(100,collected * 5));
     }
 
     private void onClickMine(){
@@ -194,6 +192,6 @@ public class CollectItemsHandler extends GameHandler {
         collectedText.setText(Math.max(collected,0) + "");
         mine.setClickable(false);
         mine.setVisibility(View.INVISIBLE);
-        finish(collected);
+        sendScore(Math.max(100,collected * 5));
     }
 }
