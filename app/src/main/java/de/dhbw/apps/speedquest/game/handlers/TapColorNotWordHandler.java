@@ -33,6 +33,7 @@ public class TapColorNotWordHandler extends GameHandler {
     private long startMillis;
     private int failedClicks;
     private TextView failedText;
+    private CardView led;
     private boolean success;
 
     public TapColorNotWordHandler(IngameActivity activity) {
@@ -97,9 +98,8 @@ public class TapColorNotWordHandler extends GameHandler {
                     targetColor = Color.RED;
             }
 
-            TextView tv = inflatedView.findViewById(R.id.textTaskColor);
-            tv.setText(colorName.toUpperCase());
-            tv.setTextColor(targetColor);
+            led = (CardView) inflatedView.findViewById(R.id.led_card);
+            led.setCardBackgroundColor(targetColor);
             failedText = inflatedView.findViewById(R.id.textMissclicks);
         } catch (Exception e) {
             Log.e("SpeedQuest", "", e);

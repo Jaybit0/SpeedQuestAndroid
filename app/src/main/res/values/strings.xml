@@ -1,6 +1,19 @@
 <resources>
     <string name="app_name">SpeedQuest</string>
-    <string name="curr_round_text">Runde %d</string>
-    <string name="points_text">%d Punkte</string>
-    <string name="findword_task">In welchem der beiden unteren Texten ist das Wort %s?</string>
+    <string name="points_text">%d Points</string>
+    <string name="findword_task">In which text is the word %s?</string>
+    <string name="curr_round_text">Rounds %d</string>
+    <string name="collect_desc">Bananas collected</string>
+    <string name="collect_image_desc_banana">Clickable Banana</string>
+    <string name="collect_image_desc_mine">Clickable Mine</string>
+    <string name="collect_image_desc_wall">Brick Wall</string>
+    <string name="fasttype_image_desc">Gameshow Screen</string>
+    <string name="fasttype_default_text">Type the Word</string>
+    <string name="safe_image_Numpad">Numpad Background</string>
+    <string name="safe_image_note">Post it Note</string>
+    <string name="tapword_tapcolorwhen">Tap when the color is</string>
+    <string name="tapword_missed">Missed:</string>
+    <string name="lobby_rounds">Rounds</string>
+    <string name="lobby_key">Game Key</string>
+    <string name="text_start" translatable="false">Start</string>
 </resources>

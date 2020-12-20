@@ -12,14 +12,14 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:backgroundTint="@android:color/white"
-        android:drawableLeft="@drawable/ic_loop"
+        android:drawableStart="@drawable/ic_loop"
         android:drawablePadding="5dp"
         android:drawableTint="#FFFFFF"
         android:ems="10"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:fontFamily="sans-serif-light"
-        android:hint="Rounds"
+        android:hint="@string/lobby_rounds"
         android:inputType="number"
         android:text=""
         android:textColor="@android:color/white"
@@ -27,7 +27,8 @@
         app:layout_constraintBottom_toTopOf="@+id/ediTextLobbyKey"
         app:layout_constraintEnd_toEndOf="@+id/buttonStart"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/buttonStart" />
+        app:layout_constraintStart_toStartOf="@+id/buttonStart"
+        android:importantForAutofill="no" />
 
     <EditText
         android:id="@+id/ediTextLobbyKey"
@@ -36,22 +37,23 @@
         android:layout_marginTop="3dp"
         android:layout_marginBottom="12dp"
         android:backgroundTint="@android:color/white"
-        android:drawableLeft="@drawable/ic_outline_lock_24"
+        android:drawableStart="@drawable/ic_outline_lock_24"
         android:drawablePadding="5dp"
         android:ems="10"
         android:enabled="false"
         android:focusable="false"
         android:focusableInTouchMode="false"
         android:fontFamily="sans-serif-light"
-        android:hint="Game-key"
+        android:hint="@string/lobby_key"
+        android:importantForAutofill="no"
+        android:inputType="none"
         android:text=""
         android:textColor="@android:color/white"
         android:textColorHint="@android:color/white"
         app:layout_constraintBottom_toTopOf="@+id/buttonStart"
         app:layout_constraintEnd_toEndOf="@+id/buttonStart"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/buttonStart"
-        app:layout_constraintTop_toBottomOf="@+id/editTextUsername" />
+        app:layout_constraintStart_toStartOf="@+id/buttonStart" />
 
     <ImageButton
         android:id="@+id/imageButtonQuit"
@@ -87,7 +89,7 @@
         android:elevation="10dp"
         android:fontFamily="sans-serif-light"
         android:shadowColor="#00F6FF"
-        android:text="Start"
+        android:text="@string/text_start"
         android:textColor="@android:color/white"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"

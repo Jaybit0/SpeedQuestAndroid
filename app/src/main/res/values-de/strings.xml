@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SpeedQuest</string>
+    <string name="curr_round_text">Runde %d</string>
+    <string name="points_text">%d Punkte</string>
+    <string name="findword_task">In welchem der beiden unteren Texten ist das Wort %s?</string>
+    <string name="collect_image_desc_banana">Klickbare Banane</string>
+    <string name="collect_image_desc_mine">Klickbare Mine</string>
+    <string name="collect_desc">Bananen gesammelt</string>
+    <string name="collect_image_desc_wall">Ziegelmauer</string>
+    <string name="fasttype_image_desc">Spielschau Bildschirm</string>
+    <string name="fasttype_default_text">Schreibe das Wort</string>
+    <string name="safe_image_note">Notizzettel</string>
+    <string name="safe_image_Numpad">Eingabe Hintergrund</string>
+    <string name="tapword_tapcolorwhen">Tappe wenn die Farbe</string>
+    <string name="tapword_missed">Fehler:</string>
+    <string name="lobby_rounds">Runden</string>
+    <string name="lobby_key">Spielschlüssel</string>
+</resources>

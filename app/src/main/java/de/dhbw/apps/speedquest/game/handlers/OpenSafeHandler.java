@@ -118,16 +118,16 @@ public class OpenSafeHandler extends GameHandler {
 
 
     private void onClick(char number){
-        Log.d("SpeedQuest", "SafeNumber: " + number);
         int length = input.length();
 
         if(!finished) {
             try {
                 if (length <= code.length()) {
+
                     if (code.charAt(length) == number) {
                         input = input + number;
                         code_display.setText(input);
-                        Log.d("SpeedQuest", "Inputlength:" + input + "Code" + code);
+
                         if (input.equals(code)) {
                             finished = true;
                             led.setCardBackgroundColor(Color.GREEN);

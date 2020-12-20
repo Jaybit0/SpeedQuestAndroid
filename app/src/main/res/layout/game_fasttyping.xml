@@ -14,7 +14,6 @@
         android:layout_marginStart="16dp"
         app:cardBackgroundColor="#FF0000"
         app:cardCornerRadius="20dp"
-        app:layout_constraintBottom_toBottomOf="@+id/cardview"
         app:layout_constraintStart_toEndOf="@+id/led2"
         app:layout_constraintTop_toBottomOf="@+id/imageView5">
 
@@ -29,20 +28,23 @@
         android:backgroundTint="@android:color/white"
         android:ems="10"
         android:fontFamily="sans-serif-light"
-        android:hint="Type the Word"
+        android:hint="@string/fasttype_default_text"
+        android:inputType="text"
         android:text=""
         android:textColor="@android:color/white"
         android:textColorHint="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/led3" />
+        app:layout_constraintTop_toBottomOf="@+id/led3"
+        android:importantForAutofill="no" />
 
     <ImageView
         android:id="@+id/imageView5"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
+        android:contentDescription="@string/fasttype_image_desc"
         android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -53,7 +55,6 @@
         android:id="@+id/showWord"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Type the word"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView5"
@@ -68,7 +69,6 @@
         android:layout_marginStart="16dp"
         app:cardBackgroundColor="#FF0000"
         app:cardCornerRadius="20dp"
-        app:layout_constraintBottom_toBottomOf="@+id/cardview"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView5">
 
@@ -81,7 +81,6 @@
         android:layout_marginStart="16dp"
         app:cardBackgroundColor="#FF0000"
         app:cardCornerRadius="20dp"
-        app:layout_constraintBottom_toBottomOf="@+id/cardview"
         app:layout_constraintStart_toEndOf="@+id/led1"
         app:layout_constraintTop_toBottomOf="@+id/imageView5">
 
