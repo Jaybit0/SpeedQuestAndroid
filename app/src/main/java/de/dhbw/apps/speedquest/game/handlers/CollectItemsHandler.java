@@ -177,7 +177,7 @@ public class CollectItemsHandler extends GameHandler {
         view.setClickable(false);
         view.setVisibility(View.INVISIBLE);
         Log.d("SpeedQuest", "Collected: " + collected);
-        sendScore(Math.max(100,collected * 5));
+        sendScore(Math.min(100,collected * 5));
     }
 
     private void onClickMine(){
@@ -185,6 +185,6 @@ public class CollectItemsHandler extends GameHandler {
         collectedText.setText(Math.max(collected,0) + "");
         mine.setClickable(false);
         mine.setVisibility(View.INVISIBLE);
-        sendScore(Math.max(100,collected * 5));
+        sendScore(Math.min(100,collected * 5));
     }
 }
