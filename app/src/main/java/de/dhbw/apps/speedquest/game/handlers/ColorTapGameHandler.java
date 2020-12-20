@@ -83,6 +83,7 @@ public class ColorTapGameHandler extends GameHandler {
             CardView cv = inflatedView.findViewById(R.id.led_card);
             cv.setCardBackgroundColor(targetColor);
             failedText = inflatedView.findViewById(R.id.textTaskColorTapFailedCount);
+            failedText.setText("0");
         } catch (Exception e) {
             Log.e("SpeedQuest", "", e);
             return;

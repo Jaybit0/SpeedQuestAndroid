@@ -39,4 +39,9 @@
     <string name="fasttype_word_4">Mandarine</string>
     <string name="fasttype_word_5">Konkurrenz</string>
     <string name="fasttype_word_1">Guerilla</string>
+    <string name="image_desc_whacamole" translatable="false">WhacAMole</string>
+    <string name="image_desc_bombtimer">Bomb Countdown</string>
+    <string name="image_desc_bomb">Bomb</string>
+    <string name="image_desc_bomb_explode">Explosion</string>
+    <string name="image_desc_bomb_smoke">Smoke</string>
 </resources>

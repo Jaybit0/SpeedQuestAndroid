@@ -25,9 +25,10 @@
                     android:id="@+id/whaleButton1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    tools:src="@drawable/ic_whac_0"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="@string/image_desc_whacamole"
                     android:scaleType="fitCenter"
-                    android:background="@android:color/transparent"/>
+                    tools:src="@drawable/ic_whac_0" />
             </LinearLayout>
 
             <LinearLayout
@@ -40,9 +41,10 @@
                     android:id="@+id/whaleButton2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    tools:src="@drawable/ic_whac_0"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="@string/image_desc_whacamole"
                     android:scaleType="fitCenter"
-                    android:background="@android:color/transparent"/>
+                    tools:src="@drawable/ic_whac_0" />
             </LinearLayout>
 
             <LinearLayout
@@ -55,9 +57,10 @@
                     android:id="@+id/whaleButton3"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    tools:src="@drawable/ic_whac_0"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="@string/image_desc_whacamole"
                     android:scaleType="fitCenter"
-                    android:background="@android:color/transparent"/>
+                    tools:src="@drawable/ic_whac_0" />
             </LinearLayout>
         </TableRow>
 
@@ -76,9 +79,10 @@
                     android:id="@+id/whaleButton4"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    tools:src="@drawable/ic_whac_0"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="@string/image_desc_whacamole"
                     android:scaleType="fitCenter"
-                    android:background="@android:color/transparent"/>
+                    tools:src="@drawable/ic_whac_0" />
             </LinearLayout>
 
             <LinearLayout
@@ -91,9 +95,10 @@
                     android:id="@+id/whaleButton5"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    tools:src="@drawable/ic_whac_0"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="@string/image_desc_whacamole"
                     android:scaleType="fitCenter"
-                    android:background="@android:color/transparent"/>
+                    tools:src="@drawable/ic_whac_0" />
             </LinearLayout>
 
             <LinearLayout
@@ -106,9 +111,10 @@
                     android:id="@+id/whaleButton6"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    tools:src="@drawable/ic_whac_0"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="@string/image_desc_whacamole"
                     android:scaleType="fitCenter"
-                    android:background="@android:color/transparent"/>
+                    tools:src="@drawable/ic_whac_0" />
             </LinearLayout>
         </TableRow>
 
@@ -127,9 +133,10 @@
                     android:id="@+id/whaleButton7"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    tools:src="@drawable/ic_whac_0"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="@string/image_desc_whacamole"
                     android:scaleType="fitCenter"
-                    android:background="@android:color/transparent"/>
+                    tools:src="@drawable/ic_whac_0" />
             </LinearLayout>
 
             <LinearLayout
@@ -142,9 +149,10 @@
                     android:id="@+id/whaleButton8"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    tools:src="@drawable/ic_whac_0"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="@string/image_desc_whacamole"
                     android:scaleType="fitCenter"
-                    android:background="@android:color/transparent"/>
+                    tools:src="@drawable/ic_whac_0" />
             </LinearLayout>
 
             <LinearLayout
@@ -157,9 +165,10 @@
                     android:id="@+id/whaleButton9"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    tools:src="@drawable/ic_whac_0"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="@string/image_desc_whacamole"
                     android:scaleType="fitCenter"
-                    android:background="@android:color/transparent" />
+                    tools:src="@drawable/ic_whac_0" />
             </LinearLayout>
         </TableRow>
     </TableLayout>
