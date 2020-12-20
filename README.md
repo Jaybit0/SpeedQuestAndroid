@@ -82,6 +82,10 @@ client.unregisterPacketMappings(PacketExample.class);
 
 The SpeedQuestClient contains a GameCache. Important information like the player-list, active tasks and game-states are stored here. This ensures availability of the information independent of the underlying context.
 
+## Game-Handling
+
+
+
 ## Dependencies
 
 [AndroidAsync:2.2.1](https://github.com/koush/AndroidAsync)
