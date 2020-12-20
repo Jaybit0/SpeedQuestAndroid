@@ -106,12 +106,12 @@ public class MyExampleGameHandler extends GameHandler {
 
     public MyExampleGameHandler(IngameActivity activity) {
         super(activity);
-		// Do not initialize stuff here. Use initialize(...)
+	// Do not initialize stuff here. Use initialize(...)
     }
 
     @Override
     public int getGameResource() {
-		// The custom game-ui (for example a ConstraintLayout)
+	// The custom game-ui (for example a ConstraintLayout)
         return R.layout.game_my_example;
     }
 
@@ -129,15 +129,15 @@ public class MyExampleGameHandler extends GameHandler {
 
     @Override
     public void onEnd() {
-		// Will be called when the server ends the game (not when called finish(...))
+	// Will be called when the server ends the game (not when called finish(...))
         // TODO: Unregister listeners (like schedulers)
         // PacketHandlers will be automatically unregistered (if HandlerID was provided)
     }
     
     private void handleMyExample(PacketMyExample packet, SpeedQuestClient client) {
         // TODO: Handle custom packet
-		sendScore(100); // Sends a score-update to the server (asynchronously)
-		finish(100); // Sends the final score to the server (can only be called once)
+	sendScore(100); // Sends a score-update to the server (asynchronously)
+	finish(100); // Sends the final score to the server (can only be called once)
     }
 }
 ``` 
@@ -145,10 +145,10 @@ public class MyExampleGameHandler extends GameHandler {
 To register the game, it must be added to the `IngameActivity` in the method `addAvailableHandlers()`.
 
 ```java
-	private void addAvailableHandlers() {
-		// other game registrations...
-		availableHandlers.put("myexample", new MyExampleGameHandler(this));
-	}
+    private void addAvailableHandlers() {
+	// other game registrations...
+	availableHandlers.put("myexample", new MyExampleGameHandler(this));
+    }
 ```
 
 That is everything you need to do to successfully register a new game. The only thing that needs to be done is to register the custom game at the server.
