@@ -55,7 +55,13 @@ The packet is now ready to be registered. This will tell the SpeedQuestClient ho
 client.registerPacket(PacketExample.class);
 ```
 
-Now, the SpeedQuestClient is able to deserialize the new packet. To evaluate the incoming example-packets, a `PacketHandler` is needed.
+Now, the SpeedQuestClient is able to deserialize the new packet. To evaluate the incoming example-packets, a `PacketHandler` is needed. `PacketHandlers` can be registered simultaneously with the packets.
+
+```java
+client.registerPacketHandler(this::exampleHandler, PacketExample.class, MyActivity.this, myUUID);
+```
+
+The activity and id are optional parameters. If the activity is specified, the callback will be performed in the UI-Thread of the activity. Furthermore, all packet-handlers of a certain activity can be unregistered at once. This is important, if the activity is stopped or destroyed to prevent duplicate listeners. Packet-handlers can be grouped via an ID. This is important, if you have temporary handlers like minigames, that should be unregistered after they finished.
 
 ## Dependencies
 
