@@ -143,17 +143,18 @@ public class TapColorNotWordHandler extends GameHandler {
     }
 
     private void onUpdate(){
-        Integer selector = rd.nextInt(3);
+        Integer selector = rd.nextInt(4);
         switch(selector){
             case 0:
+            case 1:
                 onUpdateColor();
                 break;
 
-            case 1:
+            case 2:
                 onUpdateText();
                 break;
 
-            case 2:
+            case 3:
                 onUpdatePosition();
                 break;
 
