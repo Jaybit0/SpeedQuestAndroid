@@ -56,7 +56,6 @@ public class DisarmBombGameHandler extends GameHandler {
 
     @Override
     public void registerPacketHandlers() {
-
     }
 
     @Override

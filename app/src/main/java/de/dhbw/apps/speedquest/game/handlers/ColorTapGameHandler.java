@@ -91,6 +91,8 @@ public class ColorTapGameHandler extends GameHandler {
         startMillis = System.currentTimeMillis();
         failedClicks = 0;
         failedText.setText(failedClicks + "");
+        currentColor = colorList.get(rd.nextInt(colorList.size()));
+        cv.setCardBackgroundColor(currentColor);
 
         handler = new Handler();
         handler.postDelayed(updater, 250);
@@ -111,7 +113,7 @@ public class ColorTapGameHandler extends GameHandler {
             handler.removeCallbacks(updater);
             long duration = System.currentTimeMillis() - startMillis;
             float punishment = Math.max(((10 - failedClicks) / 10f), 0);
-            int score = (int)(100f / (duration / 200f + 8) * 80 * punishment * punishment);
+            int score = (int)(100f / (duration / 200f + 8) * 8 * punishment * punishment);
             Log.d("SpeedQuest", "Score: " + score);
             finish(score);
         } else {
@@ -123,7 +125,7 @@ public class ColorTapGameHandler extends GameHandler {
     private void onUpdateColor() {
         Integer nextColor = currentColor;
 
-        while (currentColor == nextColor)
+        while (currentColor.equals(nextColor))
             nextColor = colorList.get(rd.nextInt(colorList.size()));
 
         currentColor = nextColor;

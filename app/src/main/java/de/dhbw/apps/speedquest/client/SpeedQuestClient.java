@@ -117,7 +117,6 @@ public class SpeedQuestClient {
                 JsonElement element = JsonParser.parseString(s);
 
                 if (!element.isJsonObject())
-                    // TODO: Wrong packet format
                     return;
 
                 JsonObject jObj = element.getAsJsonObject();
@@ -125,7 +124,6 @@ public class SpeedQuestClient {
                 JsonElement packet = jObj.get("packet");
 
                 if (packet == null || !packet.isJsonPrimitive())
-                    // TODO: Wrong packet format
                     return;
 
                 String packetID = packet.getAsString();
@@ -133,7 +131,6 @@ public class SpeedQuestClient {
                 Class<? extends Packet> mapping = packetMapping.get(packetID);
 
                 if (mapping == null)
-                    // TODO: No mapping
                     return;
 
                 final Packet mappedPacket = new Gson().fromJson(jObj, mapping);
