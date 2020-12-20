@@ -9,3 +9,5 @@ SpeedQuest is a collection of mini-games. It is an online competition between pl
 SpeedQuest uses a simple Client-Server architecture. The server assigns tasks and keeps track of each player's score. It enables the client to broadcast custom packets, send information and receive real-time updates. Minigames get rated client-side, whereas the server processes those ratings and translates them into a specific score.
 
 ### Server Architecture
+
+![](Images/SpeedQuestServer.png)
