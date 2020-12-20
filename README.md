@@ -22,7 +22,7 @@ The SpeedQuest server is a NodeJS-server that uses WebSocket. The repository can
 
 The app communicates via WebSocket and Json-Packets.
 
-## External Dependencies
+## Dependencies
 
 [AndroidAsync:2.2.1](https://github.com/koush/AndroidAsync)
 
