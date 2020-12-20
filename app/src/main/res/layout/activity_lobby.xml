@@ -101,6 +101,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@null"
+        android:contentDescription="@string/image_desc_share"
         app:layout_constraintBottom_toBottomOf="@+id/ediTextLobbyKey"
         app:layout_constraintStart_toEndOf="@+id/ediTextLobbyKey"
         app:layout_constraintTop_toTopOf="@+id/ediTextLobbyKey"

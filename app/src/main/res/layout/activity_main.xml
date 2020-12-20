@@ -24,10 +24,11 @@
         android:id="@+id/imageView"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:contentDescription="@string/image_desc_logo"
+        app:layout_constraintBottom_toBottomOf="@id/questionMark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/questionMark"
-        app:layout_constraintBottom_toBottomOf="@id/questionMark"
         app:srcCompat="@drawable/ic_logo_ring"
         app:tint="#FFFFFF" />
 
@@ -60,7 +61,8 @@
                 android:drawableStart="@drawable/ic_baseline_person_outline_24"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:importantForAutofill="no" />
 
             <EditText
                 android:id="@+id/editTextGameKey"
@@ -79,7 +81,8 @@
                 android:drawableStart="@drawable/ic_outline_lock_24"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextUsername" />
+                app:layout_constraintTop_toBottomOf="@+id/editTextUsername"
+                android:importantForAutofill="no" />
 
             <Button
                 android:id="@+id/buttonJoin"
