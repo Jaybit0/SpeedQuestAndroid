@@ -14,74 +14,76 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
 
-
     <ImageView
         android:id="@+id/imageTimer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_neutrino_timer"
         android:layout_marginStart="50dp"
         android:layout_marginEnd="50dp"
         android:adjustViewBounds="true"
+        android:contentDescription="@string/image_desc_bombtimer"
         android:scaleType="fitCenter"
-        app:layout_constraintStart_toStartOf="parent"
+        android:src="@drawable/ic_neutrino_timer"
+        app:layout_constraintBottom_toTopOf="@id/imageBomb"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/imageBomb"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/imageBomb"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_neutrino_bomb"
-        android:scaleType="fitCenter"
-        android:adjustViewBounds="true"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/image_desc_bomb"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_neutrino_bomb"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/timerText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="10.00"
-        android:textSize="80sp"
         android:fontFamily="@font/seven_segment"
         android:shadowColor="@android:color/holo_red_light"
         android:shadowDx="0.0"
         android:shadowDy="0.0"
         android:shadowRadius="20"
-        app:layout_constraintVertical_bias="0.55"
         android:textColor="@android:color/holo_red_light"
-        app:layout_constraintStart_toStartOf="@id/imageTimer"
+        android:textSize="80sp"
+        app:layout_constraintBottom_toBottomOf="@id/imageTimer"
         app:layout_constraintEnd_toEndOf="@id/imageTimer"
+        app:layout_constraintStart_toStartOf="@id/imageTimer"
         app:layout_constraintTop_toTopOf="@id/imageTimer"
-        app:layout_constraintBottom_toBottomOf="@id/imageTimer"/>
+        app:layout_constraintVertical_bias="0.55" />
 
     <ImageView
         android:id="@+id/imageBoomSmoke"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:src="@drawable/ic_boom_smoke"
+        android:contentDescription="@string/image_desc_bomb_smoke"
         android:scaleType="centerCrop"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/ic_boom_smoke"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="@id/imageTimer"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/imageTimer" />
 
     <ImageView
         android:id="@+id/imageBoom"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:src="@drawable/ic_boom"
-        android:scaleType="centerCrop"
         android:layout_marginTop="70dp"
         android:layout_marginBottom="70dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:contentDescription="@string/image_desc_bomb_explode"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_boom"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="@id/imageTimer"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/imageTimer" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
