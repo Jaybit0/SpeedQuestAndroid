@@ -5,7 +5,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -14,10 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.Random;
 
 import de.dhbw.apps.speedquest.client.GameState;
 import de.dhbw.apps.speedquest.client.SpeedQuestClient;
@@ -33,9 +29,7 @@ public class LobbyActivity extends AppCompatActivity {
     private boolean disconnectOnStop = true;
     private PlayerListModel listModel;
     private int rounds;
-    private EditText gameKey;
     private EditText roundCount;
-    private String key;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,8 +69,8 @@ public class LobbyActivity extends AppCompatActivity {
             }
         });
 
-        gameKey = (EditText) findViewById(R.id.ediTextLobbyKey);
-        key = app.client.getGameCache().getGameKey();
+        EditText gameKey = (EditText) findViewById(R.id.ediTextLobbyKey);
+        String key = app.client.getGameCache().getGameKey();
         gameKey.setText(key);
     }
 
@@ -159,9 +153,8 @@ public class LobbyActivity extends AppCompatActivity {
     private void changeRounds(String newRounds){
         try {
             rounds = Integer.parseInt(newRounds);
-
         } catch (Exception e) {
-            return;
+            Log.d("SpeedQuest", "Could not parse new rounds.");
         }
     }
 

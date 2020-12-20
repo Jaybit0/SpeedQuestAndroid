@@ -10,10 +10,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.io.IOException;
+import java.util.Objects;
 
 import de.dhbw.apps.speedquest.client.SpeedQuestClient;
-import de.dhbw.apps.speedquest.client.packets.PacketInitialize;
 import de.dhbw.apps.speedquest.client.packets.internal.PacketGameInitialized;
 import de.dhbw.apps.speedquest.client.packets.internal.PacketOnConnectResult;
 
@@ -27,13 +26,11 @@ public class MainActivity extends AppCompatActivity {
         Button b = findViewById(R.id.buttonJoin);
         EditText username = findViewById(R.id.editTextUsername);
         EditText gameKey = findViewById(R.id.editTextGameKey);
-        b.setOnClickListener(v -> {
-            tryConnect(username.getText().toString(), gameKey.getText().toString());
-        });
+        b.setOnClickListener(v -> tryConnect(username.getText().toString(), gameKey.getText().toString()));
 
         Intent intent = getIntent();
         Uri data = intent.getData();
-        if(data != null && data.getQueryParameter("key").length() == 4)
+        if(data != null && Objects.requireNonNull(data.getQueryParameter("key")).length() == 4)
             gameKey.setText(data.getQueryParameter("key"));
     }
 
