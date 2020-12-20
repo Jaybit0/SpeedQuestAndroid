@@ -49,13 +49,13 @@ public class PacketExample extends Packet {
 }
 ```
 
-The packet is now ready to be registered. This will tell the SpeedQuestClient how to deserialize a json with the id `example`.
+The packet is now ready to be registered. This will tell the SpeedQuestClient how to deserialize an incoming json with the id `example`.
 
 ```java
 client.registerPacket(PacketExample.class);
 ```
 
-
+Now, the SpeedQuestClient is able to deserialize the new packet. To evaluate the incoming example-packets, a `PacketHandler` is needed.
 
 ## Dependencies
 
