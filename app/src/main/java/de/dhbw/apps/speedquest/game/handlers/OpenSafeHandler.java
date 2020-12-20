@@ -54,42 +54,42 @@ public class OpenSafeHandler extends GameHandler {
 
     @Override
     public void initialize(View inflatedView, TaskInfo task) {
-        number0 = (Button) inflatedView.findViewById(R.id.button_0);
+        number0 = inflatedView.findViewById(R.id.button_0);
         number0.setOnClickListener(v -> onClick('0'));
 
-        number1 = (Button) inflatedView.findViewById(R.id.button_1);
+        number1 = inflatedView.findViewById(R.id.button_1);
         number1.setOnClickListener(v -> onClick('1'));
 
-        number2 = (Button) inflatedView.findViewById(R.id.button_2);
+        number2 = inflatedView.findViewById(R.id.button_2);
         number2.setOnClickListener(v -> onClick('2'));
 
-        number3 = (Button) inflatedView.findViewById(R.id.button_3);
+        number3 = inflatedView.findViewById(R.id.button_3);
         number3.setOnClickListener(v -> onClick('3'));
 
-        number4 = (Button) inflatedView.findViewById(R.id.button_4);
+        number4 = inflatedView.findViewById(R.id.button_4);
         number4.setOnClickListener(v -> onClick('4'));
 
-        number5 = (Button) inflatedView.findViewById(R.id.button_5);
+        number5 = inflatedView.findViewById(R.id.button_5);
         number5.setOnClickListener(v -> onClick('5'));
 
-        number6 = (Button) inflatedView.findViewById(R.id.button_6);
+        number6 = inflatedView.findViewById(R.id.button_6);
         number6.setOnClickListener(v -> onClick('6'));
 
-        number7 = (Button) inflatedView.findViewById(R.id.button_7);
+        number7 = inflatedView.findViewById(R.id.button_7);
         number7.setOnClickListener(v -> onClick('7'));
 
-        number8 = (Button) inflatedView.findViewById(R.id.button_8);
+        number8 = inflatedView.findViewById(R.id.button_8);
         number8.setOnClickListener(v -> onClick('8'));
 
-        number9 = (Button) inflatedView.findViewById(R.id.button_9);
+        number9 = inflatedView.findViewById(R.id.button_9);
         number9.setOnClickListener(v -> onClick('9'));
 
-        code_display = (TextView) inflatedView.findViewById(R.id.codeView);
-        code_display.setText("");
+        code_display = inflatedView.findViewById(R.id.codeView);
+
         input = "";
         finished=false;
 
-        led = ((CardView)inflatedView.findViewById(R.id.led_view));
+        led = inflatedView.findViewById(R.id.led_view);
 
         try {
             double seedDouble = task.getParam("seed", new Double(new Random().nextInt()));
@@ -122,8 +122,6 @@ public class OpenSafeHandler extends GameHandler {
 
         if(!finished) {
             try {
-                if (length <= code.length()) {
-
                     if (code.charAt(length) == number) {
                         input = input + number;
                         code_display.setText(input);
@@ -133,7 +131,7 @@ public class OpenSafeHandler extends GameHandler {
                             led.setCardBackgroundColor(Color.GREEN);
                             Log.d("SpeedQuest", "finished");
                             long duration = System.currentTimeMillis() - startMillis;
-                            int score = (int) (100f / (duration / 200f) * 80);
+                            int score = (int) (100f / (duration / 200f + 8) * 8);
                             Log.d("SpeedQuest", "Score: " + score);
                             if (handler != null)
                                 handler.removeCallbacks(updater);
@@ -147,11 +145,7 @@ public class OpenSafeHandler extends GameHandler {
                         handler = new Handler();
                         handler.postDelayed(updater, 500);
                     }
-                } else {
-                    Log.d("SpeedQuest", "InvalidInputLength: " + input);
-                }
             } catch (Exception e) {
-                Log.e("SpeedQuest", "", e);
                 return;
             }
         }

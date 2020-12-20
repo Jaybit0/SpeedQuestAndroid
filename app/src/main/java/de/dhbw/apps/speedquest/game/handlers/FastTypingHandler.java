@@ -1,5 +1,6 @@
 package de.dhbw.apps.speedquest.game.handlers;
 
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Handler;
 import android.text.Editable;
@@ -23,6 +24,7 @@ import de.dhbw.apps.speedquest.game.GameHandler;
 
 public class FastTypingHandler extends GameHandler {
 
+    private Random rd;
     private TextView correctWord;
     private CardView led1;
     private CardView led2;
@@ -46,24 +48,27 @@ public class FastTypingHandler extends GameHandler {
 
     @Override
     public void initialize(View inflatedView, TaskInfo task) {
-        led1 = ((CardView)inflatedView.findViewById(R.id.led2));
-        led2 = ((CardView)inflatedView.findViewById(R.id.led1));
-        led3 = ((CardView)inflatedView.findViewById(R.id.led3));
+        led1 = inflatedView.findViewById(R.id.led2);
+        led2 = inflatedView.findViewById(R.id.led1);
+        led3 = inflatedView.findViewById(R.id.led3);
 
         try {
-            word1 = task.getParam("word1", "Hut");
-            word2 = task.getParam("word2", "Katze");
-            word3 = task.getParam("word3", "Maus");
+            double seedDouble = task.getParam("seed", new Double(new Random().nextInt()));
+            rd = new Random((int)seedDouble);
         } catch (Exception e) {
             Log.e("SpeedQuest", "", e);
             return;
         }
 
-        correctWord = (TextView) inflatedView.findViewById(R.id.showWord);
+        word1 = getWord();
+        word2 = getWord();
+        word3 = getWord();
+
+        correctWord = inflatedView.findViewById(R.id.showWord);
         correctWord.setText(word1);
         round = 1;
 
-        textInput = (EditText) inflatedView.findViewById(R.id.typedText);
+        textInput = inflatedView.findViewById(R.id.typedText);
         textInput.setText("");
         textInput.addTextChangedListener(new TextWatcher() {
 
@@ -87,6 +92,26 @@ public class FastTypingHandler extends GameHandler {
 
     @Override
     public void onEnd() {
+    }
+
+    private String getWord(){
+        Integer selection = rd.nextInt(7);
+        switch (selection){
+            case 0:
+                return Resources.getSystem().getString(R.string.fasttype_word_0);
+            case 1:
+                return Resources.getSystem().getString(R.string.fasttype_word_1);
+            case 2:
+                return Resources.getSystem().getString(R.string.fasttype_word_2);
+            case 3:
+                return Resources.getSystem().getString(R.string.fasttype_word_3);
+            case 4:
+                return Resources.getSystem().getString(R.string.fasttype_word_4);
+            case 5:
+                return Resources.getSystem().getString(R.string.fasttype_word_5);
+            default:
+                return "Hund";
+        }
     }
 
     private void checkText(String input){
@@ -113,7 +138,7 @@ public class FastTypingHandler extends GameHandler {
                         led3.setCardBackgroundColor(Color.GREEN);
                         textInput.setFocusable(false);
                         long duration = System.currentTimeMillis() - startMillis;
-                        int score = (int) (100f / (duration / 200f) * 80);
+                        int score = (int) (100f / (duration / 200f +8) * 8);
                         Log.d("SpeedQuest", "Score: " + score);
                         finished = true;
                         finish(score);

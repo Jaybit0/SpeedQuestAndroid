@@ -33,4 +33,10 @@
     <string name="text_first">First</string>
     <string name="text_second">Second</string>
     <string name="text_third">Third</string>
+    <string name="fasttype_word_0">Akquisition</string>
+    <string name="fasttype_word_2">Delegierter</string>
+    <string name="fasttype_word_3">Empathie</string>
+    <string name="fasttype_word_4">Mandarine</string>
+    <string name="fasttype_word_5">Konkurrenz</string>
+    <string name="fasttype_word_1">Guerilla</string>
 </resources>

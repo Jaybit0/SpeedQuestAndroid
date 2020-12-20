@@ -31,4 +31,10 @@
     <string name="text_first">Erster</string>
     <string name="text_second">Zweiter</string>
     <string name="text_third">Dritter</string>
+    <string name="fasttype_word_0">Acquisition</string>
+    <string name="fasttype_word_2">Delegate</string>
+    <string name="fasttype_word_3">Empathy</string>
+    <string name="fasttype_word_4">Tangerine</string>
+    <string name="fasttype_word_1">Guerrilla</string>
+    <string name="fasttype_word_5">Competitor</string>
 </resources>
